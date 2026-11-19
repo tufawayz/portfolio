@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valentino Tufarelli, portfolio</title>
+<meta name="description" content="Valentino Tufarelli lavora nel team Digital &amp; Technology di Pfizer Italia. Qui due moduli e-learning costruiti in Articulate Storyline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{background:#0E0E24}
+body{margin:0;color:#fff;font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.0625rem;line-height:1.55;overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid #FFC83D;outline-offset:3px}
+
+/* ---------- scena 3D ---------- */
+#scene{position:fixed;inset:0;overflow:hidden;perspective:1000px;background:#0E0E24;z-index:0}
+#world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+.obj{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:opacity}
+.in{position:absolute;transform-style:preserve-3d}
+@keyframes spin{from{transform:rotateX(var(--rx,20deg)) rotateY(0deg)}to{transform:rotateX(var(--rx,20deg)) rotateY(360deg)}}
+@keyframes tumble{from{transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg)}to{transform:rotateX(360deg) rotateY(720deg) rotateZ(360deg)}}
+@keyframes bob{from{transform:translateY(-14px)}to{transform:translateY(14px)}}
+@keyframes sway{from{transform:rotateY(var(--ry0)) rotateX(5deg) translateY(-8px)}to{transform:rotateY(var(--ry1)) rotateX(-2deg) translateY(8px)}}
+.ball{border-radius:50%;background:radial-gradient(circle at 32% 28%,color-mix(in srgb,var(--c) 55%,#fff) 0,var(--c) 46%,color-mix(in srgb,var(--c) 62%,#000) 100%);animation:bob var(--d,5s) ease-in-out infinite alternate}
+.ball.clay{background:radial-gradient(circle at 34% 30%,color-mix(in srgb,var(--c) 60%,#fff) 0,var(--c) 55%,color-mix(in srgb,var(--c) 82%,#1F3A5F) 100%)}
+.flat{animation:spin var(--d,14s) linear infinite}
+.flat.quarter{background:var(--c);border-radius:100% 0 0 0}
+.flat.semi{background:var(--c);border-radius:999px 999px 0 0}
+.flat.ring{border:solid var(--c);border-radius:50%}
+.flat.stripes{background:repeating-linear-gradient(var(--c) 0 16%,transparent 16% 33.3%)}
+.still{animation:none;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.cube{animation:tumble var(--d,22s) linear infinite}
+.cube i{position:absolute;inset:0;display:block;background:var(--c)}
+.cube i:nth-child(1){transform:translateZ(var(--h))}
+.cube i:nth-child(2){transform:rotateY(180deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 60%,#000)}
+.cube i:nth-child(3){transform:rotateY(90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 80%,#000)}
+.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 72%,#000)}
+.cube i:nth-child(5){transform:rotateX(90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 80%,#fff)}
+.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 50%,#000)}
+.pill{border-radius:999px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 60%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 80%,#1F3A5F));animation:bob var(--d,6s) ease-in-out infinite alternate}
+.donut{border-radius:50%;background:radial-gradient(circle,transparent 36%,color-mix(in srgb,var(--c) 78%,#1F3A5F) 37%,var(--c) 52%,color-mix(in srgb,var(--c) 60%,#fff) 60%,var(--c) 68%,transparent 69%);animation:spin var(--d,18s) linear infinite}
+.blob{border-radius:46% 54% 58% 42% / 44% 46% 54% 56%;background:var(--c);animation:bob 7s ease-in-out infinite alternate}
+
+/* nome estruso */
+.name{left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;text-align:center;font-family:"Archivo Black","DM Sans",sans-serif;font-size:150px;line-height:.9;letter-spacing:-.02em;color:#fff;text-transform:uppercase;
+  text-shadow:1px 1px 0 #FF5A4E,2px 2px 0 #FF5A4E,3px 3px 0 #FF5A4E,4px 4px 0 #FF5A4E,5px 5px 0 #FF5A4E,6px 6px 0 #FF5A4E,7px 7px 0 #FF5A4E,8px 8px 0 #FF5A4E,9px 9px 0 #FF5A4E,10px 10px 0 #FF5A4E,11px 11px 0 #FF5A4E,12px 12px 0 #FF5A4E,13px 13px 0 #3D5AFE,14px 14px 0 #3D5AFE,15px 15px 0 #3D5AFE,16px 16px 0 #3D5AFE,17px 17px 0 #3D5AFE,18px 18px 0 #3D5AFE}
+.name span{display:block}
+.name span + span{color:#FFC83D}
+
+/* schermi dei moduli: lastre 3D con spessore */
+.screen{width:560px;height:350px;left:-280px;top:-175px;animation:sway 6s ease-in-out infinite alternate}
+.screen .face{position:absolute;inset:0;transform:translateZ(16px);border:0;padding:0;display:flex;align-items:stretch;text-align:left;overflow:hidden}
+.screen .back{position:absolute;inset:0;transform:rotateY(180deg) translateZ(16px);background:var(--edge)}
+.screen .lr,.screen .tb{position:absolute;background:var(--edge)}
+.screen .lr{width:32px;height:100%;top:0;left:calc(50% - 16px)}
+.screen .tb{height:32px;width:100%;left:0;top:calc(50% - 16px)}
+.screen .l{transform:rotateY(-90deg) translateZ(280px)}
+.screen .r{transform:rotateY(90deg) translateZ(280px);filter:brightness(.8)}
+.screen .t{transform:rotateX(90deg) translateZ(175px);filter:brightness(1.15)}
+.screen .b{transform:rotateX(-90deg) translateZ(175px);filter:brightness(.7)}
+.screen .txt{flex:1;display:flex;flex-direction:column;justify-content:center;padding:34px}
+.screen .nm{display:block;line-height:1.02;margin-bottom:8px}
+.screen .sb{display:block;margin-bottom:22px;font-size:16px}
+.screen .go{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:16px;padding:11px 20px;border-radius:999px}
+.screen .go::before{content:"";border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
+.screen svg{height:100%;width:auto;flex:none;display:block}
+.s1{--edge:#3D5AFE;--ry0:-24deg;--ry1:-12deg}
+.s1 .face{background:#EDEFF5;color:#1B1B3A}
+.s1 .nm{font-family:"Archivo Black",sans-serif;font-size:44px}
+.s1 .go{background:#1B1B3A;color:#FFC83D}
+.s2{--edge:#2A9D8F;--ry0:24deg;--ry1:12deg}
+.s2 .face,.s2 .back,.s2 .lr,.s2 .tb{border-radius:0}
+.s2 .face{background:#fff;color:#1F3A5F;font-family:"Poppins",sans-serif}
+.s2 .nm{font-weight:600;font-size:36px}
+.s2 .go{background:#1F3A5F;color:#fff}
+.s2 svg{padding:16px 16px 16px 0}
+
+/* ---------- testi sopra la scena ---------- */
+.journey{position:relative;z-index:1;height:300vh;pointer-events:none}
+.panel{position:fixed;z-index:2;opacity:0;pointer-events:none;will-change:opacity,transform}
+.panel.on{pointer-events:auto}
+.p0{left:0;right:0;bottom:7vh;text-align:center;padding:0 1.5rem}
+.p0 .role{font-size:clamp(1.05rem,2vw,1.35rem);max-width:38rem;margin:0 auto 1.2rem}
+.p0 .role strong{display:block;font-size:1.25em;margin-bottom:.2rem;color:#FFC83D}
+.p0 .scroll{display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;font-weight:700;color:#FFC83D}
+.p0 .scroll::after{content:"";width:14px;height:14px;border-right:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg);animation:bob 1s ease-in-out infinite alternate}
+.p1,.p2{top:50%;width:min(31rem,40vw);padding:1.8rem 2rem;border-radius:4px}
+.p1{left:5vw;margin-top:-17rem;background:rgba(27,27,58,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.p2{right:5vw;margin-top:-17rem;background:rgba(255,255,255,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#1F3A5F;font-family:"Poppins","DM Sans",sans-serif;border-radius:28px}
+.num{margin:0 0 .5rem;font-weight:700}
+.p1 .num{color:#FFC83D}.p2 .num{color:#2A9D8F}
+.panel h2{margin:0 0 .8rem;line-height:1.02}
+.p1 h2{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:clamp(2.2rem,4.6vw,3.6rem)}
+.p2 h2{font-weight:600;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.01em}
+.panel p{margin:0 0 1rem}
+.feat{list-style:none;margin:0 0 1.2rem;padding:0;font-size:1rem}
+.feat li{position:relative;padding-left:1.5rem;margin-bottom:.3rem}
+.feat li::before{content:"";position:absolute;left:0;top:.48em;width:.62rem;height:.62rem}
+.p1 .feat li:nth-child(3n+1)::before{background:#FF5A4E}
+.p1 .feat li:nth-child(3n+2)::before{background:#FFC83D;border-radius:50%}
+.p1 .feat li:nth-child(3n)::before{background:#3D5AFE}
+.p2 .feat li::before{background:#2A9D8F;border-radius:50%}
+.btns{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
+.play{border:0;font-weight:700;padding:.8rem 1.4rem;border-radius:999px;display:inline-flex;align-items:center;gap:.6rem}
+.play::before{content:"";border-left:.7rem solid currentColor;border-top:.45rem solid transparent;border-bottom:.45rem solid transparent}
+.p1 .play{background:#FFC83D;color:#1B1B3A}.p2 .play{background:#2A9D8F;color:#fff}
+.full{font-weight:500}
+.tool{font-size:.9rem;opacity:.85;margin:1rem 0 0!important}
+@media (max-width:760px){
+  .p1,.p2{left:1rem;right:1rem;width:auto;top:4.5rem;margin-top:0;padding:1.2rem 1.3rem}
+  .feat,.tool{display:none}
+  .panel p{font-size:.98rem}
+}
+
+/* ---------- ultima sezione ---------- */
+.more{position:relative;z-index:3;background:#1B1B3A;color:#fff;padding:5.5rem 0 3rem}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.5rem}
+.more h2{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:clamp(2.4rem,7vw,5rem);line-height:.98;margin:0 0 2.5rem;text-transform:uppercase}
+.more h2 em{font-style:normal;color:#FFC83D}
+.bio{font-size:clamp(1.15rem,2.2vw,1.45rem);line-height:1.5;max-width:46rem;margin:0 0 3rem;color:#fff}
+.item{border-top:2px solid #3D5AFE;padding:1.5rem 0;display:grid;gap:.3rem 2.5rem}
+@media (min-width:48rem){.item{grid-template-columns:13rem 1fr}}
+.item .when{color:#FFC83D;font-weight:700;margin:0}
+.item h3{margin:0 0 .35rem;font-size:1.25rem}
+.item p{margin:0;max-width:42rem;color:#D5D7EA}
+.contact{margin-top:3rem;font-size:clamp(1.3rem,3vw,2rem);font-weight:700}
+.contact a{text-decoration-color:#FF5A4E;text-underline-offset:.2em}
+
+/* ---------- lettore del modulo ---------- */
+#player{position:fixed;inset:0;z-index:50;display:none;background:rgba(10,10,28,.94);padding:4.2rem 3vw 3vh}
+#player.open{display:block}
+#player iframe{width:100%;height:100%;border:0;background:#fff;border-radius:6px}
+#close{position:absolute;top:1rem;right:3vw;border:0;background:#FFC83D;color:#1B1B3A;font-weight:700;border-radius:999px;padding:.55rem 1.2rem}
+
+@media (prefers-reduced-motion:reduce){.ball,.flat,.cube,.pill,.donut,.blob,.screen,.p0 .scroll::after{animation:none!important}}
+/* senza JavaScript: pagina normale */
+.nojs #scene{display:none}.nojs .journey{height:auto;pointer-events:auto;padding:3rem 1.5rem}.nojs .panel{position:static;opacity:1;pointer-events:auto;margin:0 auto 2rem;width:auto;max-width:40rem}
+</style>
+</head>
+<body class="nojs">
+
+<div id="scene" aria-hidden="true"><div id="world"></div></div>
+
+<main>
+<div class="journey">
+  <section class="panel p0" data-i="0">
+    <h1 class="sr" style="position:absolute;left:-9999px">Valentino Tufarelli, portfolio</h1>
+    <p class="role"><strong>Ciao, sono Valentino.</strong> Lavoro nel team Digital &amp; Technology di Pfizer Italia, dove costruisco agenti AI e automazioni. Per te ho preparato due moduli e-learning fatti in Articulate Storyline.</p>
+    <span class="scroll">Scorri per provarli</span>
+  </section>
+
+  <section class="panel p1" data-i="1" id="copilot">
+    <p class="num">Modulo 01</p>
+    <h2>Copilot 101</h2>
+    <p>Come scrivere a Copilot una richiesta che restituisce subito quello che serve. Nasce da una formazione dal vivo, ripensata per essere seguita in autonomia.</p>
+    <ul class="feat">
+      <li>Costruttore di prompt con il modello CORE</li>
+      <li>Blocchi da scoprire con un clic</li>
+      <li>Trascinamento con feedback</li>
+      <li>Scenario a tre scelte, ognuna con il suo esito</li>
+      <li>Quiz finale ed entrate animate sulla timeline</li>
+    </ul>
+    <div class="btns"><button class="play" type="button" data-src="copilot/" data-title="Modulo Copilot 101">Prova il modulo</button><a class="full" href="copilot/" target="_blank" rel="noopener">Apri a schermo intero</a></div>
+    <p class="tool">Articulate Storyline 3. Grafica no-brand.</p>
+  </section>
+
+  <section class="panel p2" data-i="2" id="onboarding">
+    <p class="num">Modulo 02</p>
+    <h2>La tua prima settimana</h2>
+    <p>Un onboarding per chi entra in azienda: cosa succede da lunedì a venerdì, a chi rivolgersi e cosa chiudere entro la prima settimana.</p>
+    <ul class="feat">
+      <li>Menu a navigazione libera sui cinque giorni</li>
+      <li>Consigli e risposte nascosti da scoprire</li>
+      <li>Abbinamento con trascinamento</li>
+      <li>Checklist da spuntare</li>
+      <li>Illustrazioni dedicate, una per ogni giorno</li>
+    </ul>
+    <div class="btns"><button class="play" type="button" data-src="onboarding/" data-title="Modulo La tua prima settimana">Prova il modulo</button><a class="full" href="onboarding/" target="_blank" rel="noopener">Apri a schermo intero</a></div>
+    <p class="tool">Articulate Storyline 3. Stessa tecnica, linguaggio visivo opposto.</p>
+  </section>
+</div>
+
+<section class="more" id="chi-sono">
+  <div class="wrap">
+    <h2>Chi <em>sono</em></h2>
+    <p class="bio">Grazie per aver guardato fino in fondo. Ti racconto in breve chi sono: lavoro nel team Digital &amp; Technology di Pfizer Italia, dove di norma costruisco agenti AI e automazioni per i colleghi e spiego come usarli. All’e-learning sono arrivato da lì: prima traducendo e controllando corsi fatti da altri, poi tenendo una formazione dal vivo su Copilot, infine costruendo i due moduli che hai appena visto.</p>
+    <div class="item"><p class="when">Oggi</p><div><h3>Digital &amp; Technology, Pfizer Italia</h3><p>Agenti AI con Copilot Studio, automazioni con Power Automate, report con Power BI. Uso l’AI generativa da oltre quattro anni, nel lavoro e in progetti miei.</p></div></div>
+    <div class="item"><p class="when">Formazione</p><div><h3>Corsi, lezioni e localizzazione</h3><p>Una formazione dal vivo su Copilot per la field force, preparata e tenuta con due colleghi: da lì nasce Copilot 101. Traduzione e adattamento in italiano di percorsi formativi su Copilot e AI responsabile. Controllo qualità della versione italiana di un corso e-learning sui fondamenti dell’AI.</p></div></div>
+    <div class="item"><p class="when">Prima</p><div><h3>Marketing e vendita</h3><p>Oltre cinque anni nella vendita, prima in negozio e poi come agente B2B. Marketing e comunicazione in agenzia: brand identity, siti, social e contenuti.</p></div></div>
+    <div class="item"><p class="when">Studi</p><div><h3>Marketing e management in ambito pharma</h3><p>Laurea magistrale in Marketing &amp; Digital Communication. Master in Pharma, Healthcare &amp; Biotech Management, 24ORE Business School.</p></div></div>
+    <div class="item"><p class="when">Strumenti</p><div><p>Articulate Storyline 3, PowerPoint, Microsoft 365 Copilot, Copilot Studio, Power Automate, Power BI. Per questi moduli ho usato anche strumenti di AI generativa, per accelerare bozze di testi e grafiche.</p></div></div>
+    <p class="contact">Se ti va di parlarne, mi trovi qui:<br><a href="https://github.com/tufawayz">github.com/tufawayz</a><br><a href="https://www.linkedin.com/in/valentinotufarelli">linkedin.com/in/valentinotufarelli</a></p>
+  </div>
+</section>
+</main>
+
+<div id="player" role="dialog" aria-modal="true" aria-label="Modulo e-learning"><button id="close" type="button">Chiudi</button><div id="frame" style="width:100%;height:100%"></div></div>
+
+<script>
+(function(){
+  document.body.classList.remove('nojs');
+  var G={cor:'#FF5A4E',yel:'#FFC83D',blu:'#3D5AFE',whi:'#FFFFFF'},P={tea:'#2A9D8F',pea:'#FFC9B5',sun:'#FFD166',min:'#BFE5DA',lil:'#D9D0F5'};
+  var D=2200, world=document.getElementById('world'), scene=document.getElementById('scene');
+  var narrow=function(){return window.innerWidth<=760;};
+  // [tipo, x, y, z, misura, colore, opzioni]
+  var SPEC=[
+    ['ball',-560,-230,250,150,G.cor],['ball',520,-270,600,190,G.yel],['ball',610,240,-60,100,G.blu],
+    ['cube',-450,250,420,120,G.blu],['cube',330,330,820,90,G.cor],
+    ['quarter',-700,30,700,220,G.yel],['semi',680,-30,350,170,G.whi],['ring',10,-360,900,240,G.cor],['stripes',-250,-330,520,130,G.whi],
+    ['ball',-120,340,1000,70,P.pea],['ball',180,-300,1200,60,P.min],
+    ['cube',-620,-200,1300,140,G.yel],['ball',640,180,1400,130,G.cor],['quarter',560,-300,1150,180,G.blu],['ring',-560,280,1600,200,G.whi],
+    ['semi',-200,-380,1750,150,G.cor],['ball',300,380,1850,90,G.yel],['stripes',700,-60,1700,120,G.whi],
+    ['ball',-90,-290,2300,80,G.yel],['cube',700,-250,2450,100,G.cor],['quarter',690,270,2350,150,G.yel],['ball',-60,300,2500,110,G.blu],
+    ['ringstill',310,0,2750,560,G.blu],['semi',-650,-300,2600,160,G.whi],['cube',-640,280,2550,110,G.blu],
+    ['ball',-600,-150,3100,140,G.cor],['cube',600,200,3200,120,G.yel],['ball',520,-280,3500,160,P.pea,'clay'],['pill',-520,260,3600,[220,90],P.sun],
+    ['donut',-300,-340,3800,170,P.tea],['ball',380,340,3900,110,P.lil,'clay'],['ball',700,0,3700,90,P.min,'clay'],
+    ['donut',120,-290,4500,150,P.pea],['ball',-720,-260,4650,120,P.sun,'clay'],['pill',-700,280,4550,[200,80],P.lil],['ball',80,310,4700,130,P.min,'clay'],
+    ['blob',-310,0,4950,620,P.pea],['ball',680,-200,4600,90,P.tea,'clay'],
+    ['ball',-400,-200,5300,150,P.lil,'clay'],['ball',420,220,5500,170,P.pea,'clay'],['donut',500,-260,5200,140,P.sun]
+  ];
+  var objs=[];
+  function add(el,x,y,z,kind){
+    var o=document.createElement('div'); o.className='obj'; o.appendChild(el); world.appendChild(o);
+    var rec={el:o,x:x,y:y,z:z,kind:kind||''}; objs.push(rec); return rec;
+  }
+  SPEC.forEach(function(s,i){
+    var t=s[0], size=s[4], w=size.length?size[0]:size, h=size.length?size[1]:size, e=document.createElement('div');
+    e.className='in'; e.style.setProperty('--c',s[5]); e.style.setProperty('--d',(5+(i*7)%9)+(t==='cube'?16:0)+(t==='ball'?0:8)+'s');
+    if(t==='semi') h=w/2;
+    e.style.width=w+'px'; e.style.height=h+'px'; e.style.left=(-w/2)+'px'; e.style.top=(-h/2)+'px';
+    if(t==='ball'){e.className+=' ball'+(s[6]?' clay':'');}
+    else if(t==='cube'){e.className+=' cube'; e.style.setProperty('--h',(w/2)+'px'); for(var k=0;k<6;k++) e.appendChild(document.createElement('i'));}
+    else if(t==='ring'||t==='ringstill'){e.className+=' flat ring'+(t==='ringstill'?' still':''); e.style.borderWidth=Math.round(w*.09)+'px'; e.style.setProperty('--rx',t==='ringstill'?'0deg':'65deg');}
+    else if(t==='pill'||t==='donut'||t==='blob'){e.className+=' '+t; e.style.setProperty('--rx','25deg');}
+    else {e.className+=' flat '+t; e.style.setProperty('--rx',(10+(i*13)%40)+'deg');}
+    add(e,s[1],s[2],s[3]);
+  });
+  // nome
+  var nm=document.createElement('div'); nm.className='in name'; nm.innerHTML='<span>Valentino</span><span>Tufarelli</span>'; add(nm,0,-30,0,'name');
+  // schermi
+  var ART1='<svg viewBox="0 0 270 360"><rect width="270" height="360" fill="#1B1B3A"/><path d="M0 0 L90 0 A90 90 0 0 1 0 90 Z" fill="#FFC83D"/><rect x="90" width="90" height="90" fill="#3D5AFE"/><circle cx="225" cy="45" r="45" fill="#FF5A4E"/><rect y="90" width="90" height="90" fill="#FF5A4E"/><path d="M90 180 A45 45 0 0 1 180 180 Z" fill="#fff"/><rect x="180" y="90" width="90" height="90" fill="#FFC83D"/><circle cx="225" cy="135" r="22" fill="#1B1B3A"/><circle cx="45" cy="225" r="45" fill="#3D5AFE"/><path d="M180 270 L90 270 A90 90 0 0 1 180 180 Z" fill="#FF5A4E"/><rect x="180" y="180" width="90" height="90" fill="#EDEFF5"/><rect y="270" width="90" height="90" fill="#FFC83D"/><rect x="90" y="285" width="90" height="14" fill="#fff"/><rect x="90" y="311" width="90" height="14" fill="#fff"/><rect x="90" y="337" width="90" height="14" fill="#fff"/><path d="M270 360 L180 360 A90 90 0 0 1 270 270 Z" fill="#3D5AFE"/></svg>';
+  var ART2='<svg viewBox="0 0 560 520"><path d="M150 40 C290 -30 520 30 540 210 C556 370 450 500 290 490 C140 480 20 400 30 250 C36 150 80 76 150 40 Z" fill="#FFC9B5"/><rect x="115" y="100" width="330" height="250" rx="26" fill="#fff"/><path d="M115 164 V126 a26 26 0 0 1 26 -26 H419 a26 26 0 0 1 26 26 V164 Z" fill="#2A9D8F"/><rect x="115" y="100" width="330" height="250" rx="26" fill="none" stroke="#1F3A5F" stroke-width="7"/><rect x="196" y="76" width="14" height="44" rx="7" fill="#1F3A5F"/><rect x="350" y="76" width="14" height="44" rx="7" fill="#1F3A5F"/><rect x="139" y="196" width="46" height="46" rx="10" fill="#FFC9B5"/><rect x="197" y="196" width="46" height="46" rx="10" fill="#FFD166"/><rect x="255" y="196" width="46" height="46" rx="10" fill="#BFE5DA"/><rect x="313" y="196" width="46" height="46" rx="10" fill="#D9D0F5"/><rect x="371" y="196" width="46" height="46" rx="10" fill="#E6F4EF"/><path d="M151 219 l8 9 l15 -17" fill="none" stroke="#1F3A5F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="139" y="268" width="190" height="13" rx="6.5" fill="#E6F4EF"/><rect x="139" y="296" width="130" height="13" rx="6.5" fill="#E6F4EF"/><rect x="372" y="330" width="96" height="106" rx="16" fill="#FFD166" stroke="#1F3A5F" stroke-width="7"/><path d="M468 356 q44 0 44 30 q0 30 -44 30" fill="none" stroke="#1F3A5F" stroke-width="7" stroke-linecap="round"/><ellipse cx="104" cy="352" rx="18" ry="50" fill="#2A9D8F"/><ellipse cx="74" cy="366" rx="16" ry="44" fill="#2A9D8F" transform="rotate(-32 74 366)"/><ellipse cx="134" cy="366" rx="16" ry="44" fill="#2A9D8F" transform="rotate(32 134 366)"/><rect x="62" y="392" width="84" height="74" rx="12" fill="#1F3A5F"/></svg>';
+  function screen(cls,name,sub,art,src,title,x,z){
+    var e=document.createElement('div'); e.className='in screen '+cls;
+    e.innerHTML='<button class="face" type="button" tabindex="-1"><span class="txt"><span class="nm">'+name+'</span><span class="sb">'+sub+'</span><span class="go">Prova il modulo</span></span>'+art+'</button><div class="back"></div><div class="lr l"></div><div class="lr r"></div><div class="tb t"></div><div class="tb b"></div>';
+    e.querySelector('.face').addEventListener('click',function(){openPlayer(src,title);});
+    var r=add(e,x,0,z,'screen'); r.x0=x; return r;
+  }
+  screen('s1','Copilot 101','AI Fundamentals training',ART1,'copilot/','Modulo Copilot 101',310,D);
+  screen('s2','La tua prima<br>settimana','Onboarding',ART2,'onboarding/','Modulo La tua prima settimana',-310,2*D);
+
+  function place(){
+    var n=narrow();
+    objs.forEach(function(o){
+      var x=o.x,y=o.y;
+      if(o.kind==='screen'&&n){x=0;y=250;}
+      if(o.kind==='name'){o.el.firstChild.style.fontSize=n?'96px':'150px';}
+      o.el.style.transform='translate3d('+x+'px,'+y+'px,'+(-o.z)+'px)';
+    });
+  }
+  place(); window.addEventListener('resize',place);
+
+  // colori di fondo lungo il percorso
+  var STOPS=[[0,[14,14,36]],[1,[27,27,58]],[1.5,[27,27,58]],[2,[230,244,239]],[9,[230,244,239]]];
+  function bg(p){
+    for(var i=0;i<STOPS.length-1;i++){var a=STOPS[i],b=STOPS[i+1]; if(p<=b[0]){var t=(p-a[0])/(b[0]-a[0]); t=Math.max(0,Math.min(1,t));
+      return 'rgb('+a[1].map(function(v,k){return Math.round(v+(b[1][k]-v)*t);}).join(',')+')';}}
+    return 'rgb(230,244,239)';
+  }
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var p=0,tp=0,mx=0,my=0,tmx=0,tmy=0;
+  function target(){tp=Math.max(0,Math.min(2.25,window.scrollY/window.innerHeight));}
+  window.addEventListener('scroll',target,{passive:true}); target(); p=tp;
+  window.addEventListener('pointermove',function(e){ if(e.pointerType==='touch')return; tmx=(e.clientX/window.innerWidth-.5)*9; tmy=-(e.clientY/window.innerHeight-.5)*7; },{passive:true});
+  function frame(){
+    p+=(tp-p)*(reduce?1:.09); mx+=(tmx-mx)*.06; my+=(tmy-my)*.06;
+    var k=Math.max(.55,Math.min(1,window.innerWidth/1150)), cam=p*D;
+    world.style.transform='scale('+k+') rotateX('+(reduce?0:my)+'deg) rotateY('+(reduce?0:mx)+'deg) translateZ('+cam+'px)';
+    scene.style.background=bg(p);
+    for(var i=0;i<objs.length;i++){
+      var o=objs[i], dz=cam-o.z, op=1;
+      if(dz>850) op=0; else if(dz>450) op=1-(dz-450)/400; else if(dz<-2150) op=0; else if(dz<-1300) op=1-(-1300-dz)/850;
+      if(o.op!==op){o.op=op; o.el.style.opacity=op; o.el.style.visibility=op<=.01?'hidden':'visible';}
+    }
+    for(var j=0;j<panels.length;j++){
+      var d=p-j, a=Math.max(0,1-Math.abs(d)/.42); a=a*a*(3-2*a);
+      panels[j].style.opacity=a; panels[j].style.transform='translateY('+(-d*50)+'px)';
+      panels[j].classList.toggle('on',a>.6);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // lettore del modulo
+  var player=document.getElementById('player'), holder=document.getElementById('frame'), last=null;
+  function openPlayer(src,title){
+    last=document.activeElement;
+    holder.innerHTML=''; var f=document.createElement('iframe'); f.src=src; f.title=title; f.setAttribute('allowfullscreen',''); holder.appendChild(f);
+    player.classList.add('open'); document.getElementById('close').focus();
+  }
+  function closePlayer(){player.classList.remove('open'); holder.innerHTML=''; if(last&&last.focus) last.focus();}
+  document.getElementById('close').addEventListener('click',closePlayer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&player.classList.contains('open')) closePlayer();});
+  document.querySelectorAll('.play').forEach(function(b){b.addEventListener('click',function(){openPlayer(b.getAttribute('data-src'),b.getAttribute('data-title'));});});
+})();
+</script>
+</body>
+</html>
