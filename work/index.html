@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Valentino Tufarelli</title>
-<meta name="description" content="Valentino Tufarelli costruisce agenti AI e automazioni, e progetta esperienze che le persone usano davvero.">
+<meta name="description" content="Valentino Tufarelli builds AI agents and automations that people actually use.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
@@ -22,6 +22,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 .bar{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;padding:1.6rem clamp(1.3rem,4vw,3.5rem);font-size:.82rem;letter-spacing:.08em;color:#fff;mix-blend-mode:difference;pointer-events:none}
+.bar a{pointer-events:auto;margin-left:1.4rem;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:.1rem}
 main{position:relative;z-index:2}
 section{position:relative;min-height:100vh;min-height:100svh;padding:clamp(6rem,14vh,10rem) clamp(1.3rem,4vw,3.5rem);display:flex;flex-direction:column;justify-content:center}
 .light{color:var(--ink)}
@@ -135,36 +136,36 @@ h1 em{font-style:italic;font-weight:400}
 <body>
 <canvas id="silk" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
-<div class="bar" aria-hidden="true"><span>Valentino Tufarelli</span><span>Portfolio, 2026</span></div>
+<div class="bar"><span>Valentino Tufarelli</span><span>Portfolio, 2026<a class="lang" href="../" lang="it">Italiano</a></span></div>
 
 <main>
   <section class="hero dark" data-t="0">
-    <p class="hello fade">Ciao.</p>
+    <p class="hello fade">Hi.</p>
     <h1><span class="line"><span>Valentino</span></span><span class="line"><span><em>Tufarelli</em></span></span></h1>
     <div class="foot fade">
-      <p class="lede">Costruisco agenti AI e automazioni che le persone usano davvero. Lavoro con l’AI generativa da oltre quattro anni.</p>
-      <span class="cue">Scorri, oppure tieni premuto</span>
+      <p class="lede">I build AI agents and automations that people actually use. I’ve been working with generative AI for over four years.</p>
+      <span class="cue">Scroll, or press and hold</span>
     </div>
   </section>
 
   <section class="light" data-t="1">
-    <p class="tagline fade">Il metodo</p>
-    <p class="say"><span class="line"><span>Parto da come</span></span><span class="line"><span>lavorano le persone.</span></span><span class="line"><span><em>Poi tolgo quello</em></span></span><span class="line"><span><em>che non serve.</em></span></span></p>
+    <p class="tagline fade">The method</p>
+    <p class="say"><span class="line"><span>I start from how</span></span><span class="line"><span>people really work.</span></span><span class="line"><span><em>Then I take away</em></span></span><span class="line"><span><em>what isn’t needed.</em></span></span></p>
   </section>
 
   <section class="dark" data-t="0">
-    <p class="tagline fade">Cosa faccio</p>
+    <p class="tagline fade">What I do</p>
     <ol class="chapters fade">
       <li class="open">
-        <button class="head" type="button" aria-expanded="true"><span class="n">I</span><h2>Agenti AI</h2><span class="pm" aria-hidden="true"></span></button>
+        <button class="head" type="button" aria-expanded="true"><span class="n">I</span><h2>AI agents</h2><span class="pm" aria-hidden="true"></span></button>
         <div class="story"><div><div class="cols">
           <div>
-            <p>In Pfizer Italia porto un caso d’uso dall’idea alla prova con chi lo userà. Finora: un agente che controlla i documenti di spesa e segnala cosa non torna, uno che mette a confronto le proposte dei fornitori per gli eventi, un assistente che aiuta a pianificare gli account pescando i dati da SharePoint.</p>
-            <p>Ho lavorato anche su altro: un agente che legge le email in arrivo e sceglie la strada (risposta pronta, ticket o persona), un controllo automatico di compliance sulle risposte a un questionario, la verifica riga per riga di quello che un agente restituisce rispetto alla fonte.</p>
+            <p>At Pfizer Italy I take a use case from the idea to a test with the people who will use it. So far: an agent that checks expense documents and flags what doesn’t add up, one that compares supplier proposals for events, and an assistant that helps plan accounts by pulling data from SharePoint.</p>
+            <p>I’ve worked on other things too: an agent that reads incoming emails and picks the route (ready-made answer, ticket or a person), an automated compliance check on survey responses, and line-by-line verification of what an agent returns against its source.</p>
           </div>
           <div>
-            <p class="pull">La parte difficile non è far rispondere il modello. È decidere cosa deve sapere, e cosa non deve fare mai.</p>
-            <p class="tools">Microsoft 365 Copilot, Copilot Studio, Agent Builder, Power Automate, SharePoint. Python e Node quando c’è da elaborare documenti in serie.</p>
+            <p class="pull">The hard part isn’t getting the model to answer. It’s deciding what it should know, and what it must never do.</p>
+            <p class="tools">Microsoft 365 Copilot, Copilot Studio, Agent Builder, Power Automate, SharePoint. Python and Node when documents need processing in bulk.</p>
           </div>
         </div></div></div>
       </li>
@@ -172,26 +173,26 @@ h1 em{font-style:italic;font-weight:400}
         <button class="head" type="button" aria-expanded="false"><span class="n">II</span><h2>E-learning</h2><span class="pm" aria-hidden="true"></span></button>
         <div class="story"><div><div class="cols">
           <div>
-            <p>Ho tenuto con due colleghi la formazione su Copilot per la field force: le demo e gli esercizi dal vivo erano miei. Da lì ho costruito due moduli in Articulate Storyline, che puoi provare adesso.</p>
-            <p>Prima ancora ho curato la versione italiana di un corso sui fondamenti dell’AI. Le correzioni ai sottotitoli le ho riscritte in tre formati diversi, finché non sono diventate comode per chi doveva applicarle.</p>
+            <p>With two colleagues I ran the Copilot training for the field force: the live demos and exercises were mine. From there I built two modules in Articulate Storyline, which you can try right now.</p>
+            <p>Before that I looked after the Italian version of a course on AI fundamentals. I rewrote the subtitle corrections in three different formats, until they were easy to use for the people who had to apply them.</p>
           </div>
           <div>
-            <p class="pull">Un corso funziona quando lo provi con le mani.</p>
-            <p class="try"><button class="link" type="button" data-play="../copilot/" data-title="Modulo Copilot 101">Prova Copilot 101</button><button class="link" type="button" data-play="../onboarding/" data-title="Modulo La tua prima settimana">Prova La tua prima settimana</button></p>
-            <p class="tools">Articulate Storyline, formazione dal vivo, localizzazione dall’inglese.</p>
+            <p class="pull">A course works when you try it with your own hands.</p>
+            <p class="try"><button class="link" type="button" data-play="../../copilot/" data-title="Copilot 101 module">Try Copilot 101</button><button class="link" type="button" data-play="../../onboarding/" data-title="Your first week module">Try Your first week</button></p>
+            <p class="tools">Articulate Storyline, live training, localisation from English. The two modules are in Italian.</p>
           </div>
         </div></div></div>
       </li>
       <li>
-        <button class="head" type="button" aria-expanded="false"><span class="n">III</span><h2>Innovazione</h2><span class="pm" aria-hidden="true"></span></button>
+        <button class="head" type="button" aria-expanded="false"><span class="n">III</span><h2>Innovation</h2><span class="pm" aria-hidden="true"></span></button>
         <div class="story"><div><div class="cols">
           <div>
-            <p>In ELIS Innovation Hub cercavo startup AI per ENI, RFI e Italferr, e poi le accompagnavo alla prova sul campo. Ho coordinato quattro Proof of Concept: Italferr con B4Tech e con HPA, ENI con Trailslight, RFI con KOMETE.</p>
-            <p>Il mio lavoro era tenere insieme tre mondi che parlano lingue diverse: l’azienda, la startup e i tecnici. Piani, scadenze, stati di avanzamento, budget.</p>
+            <p>At ELIS Innovation Hub I scouted AI startups for ENI, RFI and Italferr, then took them through to a field trial. I coordinated four Proofs of Concept: Italferr with B4Tech and with HPA, ENI with Trailslight, RFI with KOMETE.</p>
+            <p>My job was to hold together three worlds that speak different languages: the company, the startup and the engineers. Plans, deadlines, progress reports, budgets.</p>
           </div>
           <div>
-            <p class="pull">Una tecnologia si giudica quando incontra un processo vero, non durante la demo.</p>
-            <p class="tools">Scouting tecnologico, venture client, coordinamento di Proof of Concept, metodologie Agile.</p>
+            <p class="pull">You judge a technology when it meets a real process, not during the demo.</p>
+            <p class="tools">Technology scouting, venture client, Proof of Concept coordination, Agile methods.</p>
           </div>
         </div></div></div>
       </li>
@@ -199,12 +200,12 @@ h1 em{font-style:italic;font-weight:400}
         <button class="head" type="button" aria-expanded="false"><span class="n">IV</span><h2>Marketing</h2><span class="pm" aria-hidden="true"></span></button>
         <div class="story"><div><div class="cols">
           <div>
-            <p>Vengo da qui. Ho venduto per anni, in negozio e poi come agente B2B, e ho lavorato nel marketing digitale: la nuova identità di un’agenzia, siti, social, piani editoriali. All’università ho costruito strategie per marchi come Ferrarelle, Pirelli e Utravel.</p>
-            <p>Oggi mi serve ogni giorno. Fuori dall’ufficio curo anche la crescita di un’app indipendente, a budget zero.</p>
+            <p>This is where I come from. I sold for years, in stores and then as a B2B agent, and I worked in digital marketing: a new identity for an agency, websites, social media, editorial plans. At university I built strategies for brands such as Ferrarelle, Pirelli and Utravel.</p>
+            <p>It helps me every day. Outside the office I also look after the growth of an independent app, on a zero budget.</p>
           </div>
           <div>
-            <p class="pull">Un agente che nessuno adotta è un progetto fallito. E far adottare qualcosa è un lavoro di vendita.</p>
-            <p class="tools">Strategia digitale, brand identity, contenuti, vendita B2B e B2C.</p>
+            <p class="pull">An agent nobody adopts is a failed project. And getting something adopted is a sales job.</p>
+            <p class="tools">Digital strategy, brand identity, content, B2B and B2C sales.</p>
           </div>
         </div></div></div>
       </li>
@@ -212,19 +213,19 @@ h1 em{font-style:italic;font-weight:400}
   </section>
 
   <section class="light" data-t="1">
-    <p class="tagline fade">Come costruisco un agente</p>
-    <h2 class="title"><span class="line"><span>Cinque passi,</span></span><span class="line"><span><em>sempre gli stessi.</em></span></span></h2>
+    <p class="tagline fade">How I build an agent</p>
+    <h2 class="title"><span class="line"><span>Five steps,</span></span><span class="line"><span><em>always the same.</em></span></span></h2>
     <ol class="steps fade">
-      <li><span class="n">I</span><h3>Ascolto</h3><p>Mi siedo con chi fa quel lavoro e me lo faccio raccontare.</p></li>
-      <li><span class="n">II</span><h3>Perimetro</h3><p>Scelgo la parte più piccola che vale la pena automatizzare.</p></li>
-      <li><span class="n">III</span><h3>Istruzioni e fonti</h3><p>Scrivo cosa deve fare l’agente e da quali documenti può attingere.</p></li>
-      <li><span class="n">IV</span><h3>Casi veri</h3><p>Lo provo sui casi reali e correggo dove sbaglia.</p></li>
-      <li><span class="n">V</span><h3>Decide una persona</h3><p>L’agente segnala e propone. L’ultima parola non è sua.</p></li>
+      <li><span class="n">I</span><h3>Listen</h3><p>I sit down with the people who do the job and have them walk me through it.</p></li>
+      <li><span class="n">II</span><h3>Scope</h3><p>I pick the smallest part worth automating.</p></li>
+      <li><span class="n">III</span><h3>Instructions and sources</h3><p>I write what the agent must do and which documents it can draw on.</p></li>
+      <li><span class="n">IV</span><h3>Real cases</h3><p>I test it on real cases and fix where it goes wrong.</p></li>
+      <li><span class="n">V</span><h3>A person decides</h3><p>The agent flags and suggests. The last word isn’t its own.</p></li>
     </ol>
   </section>
 
   <section class="dark" data-t="0">
-    <p class="tagline fade">Chiedimi qualcosa</p>
+    <p class="tagline fade">Ask me something</p>
     <div class="ask fade">
       <ul class="qs" id="qs"></ul>
       <div class="answer" aria-live="polite"><p class="q" id="aq"></p><p class="a" id="aa"></p></div>
@@ -232,30 +233,30 @@ h1 em{font-style:italic;font-weight:400}
   </section>
 
   <section class="light" data-t="1">
-    <p class="tagline fade">In numeri</p>
+    <p class="tagline fade">In numbers</p>
     <dl class="figs fade">
-      <div><dt data-n="4" data-suf="+">4+</dt><dd>anni di lavoro con l’AI generativa</dd></div>
-      <div><dt data-n="3">3</dt><dd>agenti e assistenti AI costruiti in Pfizer Italia</dd></div>
-      <div><dt data-n="4">4</dt><dd>Proof of Concept coordinati tra startup e grandi aziende</dd></div>
-      <div><dt data-n="2">2</dt><dd>moduli e-learning online, da provare</dd></div>
+      <div><dt data-n="4" data-suf="+">4+</dt><dd>years working with generative AI</dd></div>
+      <div><dt data-n="3">3</dt><dd>AI agents and assistants built at Pfizer Italy</dd></div>
+      <div><dt data-n="4">4</dt><dd>Proofs of Concept coordinated between startups and large companies</dd></div>
+      <div><dt data-n="2">2</dt><dd>e-learning modules online, ready to try</dd></div>
     </dl>
   </section>
 
   <section class="end dark" data-t="0">
-    <p class="tagline fade">Contatti</p>
-    <p class="big"><span class="line"><span>Parliamone.</span></span></p>
+    <p class="tagline fade">Contact</p>
+    <p class="big"><span class="line"><span>Let’s talk.</span></span></p>
     <div class="fade">
       <ul>
         <li><a class="link" href="https://www.linkedin.com/in/valentinotufarelli">LinkedIn</a></li>
         <li><a class="link" href="https://github.com/tufawayz">GitHub</a></li>
       </ul>
-      <div class="sign"><span>Valentino Tufarelli, Roma</span><span>2026</span></div>
+      <div class="sign"><span>Valentino Tufarelli, Rome</span><span>2026</span></div>
     </div>
   </section>
 </main>
 
 <div class="dot" aria-hidden="true"></div>
-<div id="player" role="dialog" aria-modal="true" aria-label="Modulo e-learning"><button id="close" type="button">Chiudi</button><div id="frame" style="width:100%;height:100%"></div></div>
+<div id="player" role="dialog" aria-modal="true" aria-label="E-learning module"><button id="close" type="button">Close</button><div id="frame" style="width:100%;height:100%"></div></div>
 
 <script>
 (function(){
@@ -342,12 +343,12 @@ h1 em{font-style:italic;font-weight:400}
 
   /* chiedimi qualcosa: le risposte si scrivono da sole */
   var QA=[
-    ['Da quanto lavori con l’AI?','Uso l’AI generativa da oltre quattro anni, anche contribuendo all’addestramento di modelli linguistici. Dal 2024 ho valutato startup AI per grandi aziende, e dal 2026 costruisco agenti in Pfizer Italia.'],
-    ['Di quale progetto vai più fiero?','Dell’agente che controlla i documenti di spesa. Nei test sui casi reali leggeva male alcuni documenti, e ho corretto gli errori uno a uno. Non decide lui: segnala cosa non torna, poi tocca a una persona.'],
-    ['Come capisci se un agente funziona?','Lo metto davanti ai casi veri e confronto quello che restituisce con la fonte, riga per riga: elenco delle differenze, tabella di confronto, sintesi. Se non regge lì, non è pronto.'],
-    ['Cosa non fai fare all’AI?','Decidere al posto delle persone. I miei agenti segnalano, confrontano, preparano una risposta. E i dati personali li inserisce solo chi li conosce: restano separati da quelli che l’agente recupera da solo.'],
-    ['Sai anche programmare?','Lavoro soprattutto con strumenti low-code: Copilot Studio, Agent Builder, Power Automate. Quando c’è da elaborare documenti in serie scrivo pipeline in Python o Node. Non sviluppo modelli da zero: li faccio lavorare bene dentro un processo.'],
-    ['Perché dal marketing all’AI?','Il marketing mi ha insegnato a partire dalle persone. L’AI mi ha dato il modo di costruire quello che a quelle persone serve. In mezzo c’è stata l’innovazione: a forza di valutare le tecnologie degli altri mi è venuta voglia di costruirle.']
+    ['How long have you worked with AI?','I’ve used generative AI for over four years, including contributing to the training of language models. Since 2024 I’ve assessed AI startups for large companies, and since 2026 I’ve been building agents at Pfizer Italy.'],
+    ['Which project are you proudest of?','The agent that checks expense documents. In tests on real cases it misread some documents, and I fixed the errors one by one. It doesn’t decide: it flags what doesn’t add up, then a person takes over.'],
+    ['How do you know an agent works?','I put it in front of real cases and compare what it returns with the source, line by line: a list of differences, a comparison table, a summary. If it doesn’t hold up there, it isn’t ready.'],
+    ['What don’t you let AI do?','Decide in place of people. My agents flag, compare and draft an answer. And personal data is entered only by the people who know it: it stays separate from what the agent retrieves on its own.'],
+    ['Can you code too?','I mostly work with low-code tools: Copilot Studio, Agent Builder, Power Automate. When documents need processing in bulk I write pipelines in Python or Node. I don’t develop models from scratch: I make them work well inside a process.'],
+    ['Why from marketing to AI?','Marketing taught me to start from people. AI gave me the means to build what those people need. In between came innovation: after assessing other people’s technology for long enough, I wanted to build my own.']
   ];
   var qs=document.getElementById('qs'),aq=document.getElementById('aq'),aa=document.getElementById('aa'),typing=null,btns=[];
   function say(i){
