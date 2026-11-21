@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valentino Tufarelli</title>
+<meta name="description" content="Valentino Tufarelli costruisce agenti AI e automazioni, e progetta esperienze che le persone usano davvero.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0B0B0C;--bone:#F3F0EA;--serif:"Bodoni Moda","Didot","Bodoni MT","Cardo","Crimson Text",Georgia,serif;--sans:"Jost","DM Sans","Helvetica Neue",Arial,sans-serif;--ease:cubic-bezier(.19,1,.22,1)}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--ink)}
+body{margin:0;font-family:var(--sans);font-weight:300;font-size:1.0625rem;line-height:1.6;color:var(--bone);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:1px solid currentColor;outline-offset:6px}
+::selection{background:var(--bone);color:var(--ink)}
+
+#silk{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.bar{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;padding:1.6rem clamp(1.3rem,4vw,3.5rem);font-size:.82rem;letter-spacing:.08em;color:#fff;mix-blend-mode:difference;pointer-events:none}
+.bar a{pointer-events:auto;margin-left:1.4rem;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:.1rem}
+main{position:relative;z-index:2}
+section{position:relative;min-height:100vh;min-height:100svh;padding:clamp(6rem,14vh,10rem) clamp(1.3rem,4vw,3.5rem);display:flex;flex-direction:column;justify-content:center}
+.light{color:var(--ink)}
+.dark{text-shadow:0 0 22px rgba(0,0,0,.6),0 0 3px rgba(0,0,0,.35)}
+.nogl .light{background:var(--bone)}.nogl .dark{background:var(--ink)}
+
+/* comparsa del testo, riga per riga */
+.line{display:block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}
+.line>span{display:block;transform:translateY(112%);transition:transform 1.5s var(--ease)}
+.in .line>span{transform:none}
+.line:nth-child(2)>span{transition-delay:.12s}.line:nth-child(3)>span{transition-delay:.24s}.line:nth-child(4)>span{transition-delay:.36s}
+.fade{opacity:0;transform:translateY(14px);transition:opacity 1.4s var(--ease) .35s,transform 1.4s var(--ease) .35s}
+.in .fade{opacity:1;transform:none}
+
+/* ingresso */
+.hero{justify-content:flex-end;padding-bottom:clamp(3rem,9vh,6rem)}
+.hello{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.4vw,2rem);margin:0 0 1.2rem}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.6rem,15.5vw,16.5rem);line-height:.86;letter-spacing:-.035em;margin:0}
+h1 .line:nth-child(2){padding-left:clamp(1.5rem,13vw,15rem)}
+h1 em{font-style:italic;font-weight:400}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-top:clamp(2rem,6vh,4rem)}
+.lede{max-width:27rem;margin:0;font-size:clamp(1.05rem,1.5vw,1.25rem)}
+@media (max-width:40rem){.foot{flex-direction:column;align-items:flex-start;gap:1.4rem}}
+.cue{font-size:.82rem;letter-spacing:.08em;display:flex;align-items:center;gap:.9rem;white-space:nowrap;text-align:right}
+.cue::after{content:"";width:4.5rem;height:1px;background:currentColor;transform-origin:left;animation:draw 2.6s var(--ease) infinite}
+@keyframes draw{0%{transform:scaleX(0)}55%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+
+/* frase */
+.say{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,6.2vw,6.4rem);line-height:1.02;letter-spacing:-.025em;margin:0;max-width:17ch}
+.say em{font-style:italic}
+.tagline{font-size:.82rem;letter-spacing:.08em;margin:0 0 clamp(1.5rem,5vh,3.5rem)}
+
+/* capitoli che si aprono */
+.chapters{list-style:none;margin:0;padding:0;border-top:1px solid rgba(243,240,234,.28)}
+.chapters>li{border-bottom:1px solid rgba(243,240,234,.28)}
+.head{width:100%;display:grid;grid-template-columns:3.2rem 1fr auto;gap:0 1rem;align-items:baseline;padding:clamp(1rem,2.6vh,1.8rem) 0;text-align:left}
+@media (min-width:56rem){.head{grid-template-columns:5rem 1fr auto}}
+.head .n{font-family:var(--serif);font-style:italic;font-size:1.1rem;opacity:.7}
+.head h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.4rem,7.2vw,6.8rem);line-height:.95;letter-spacing:-.03em;margin:0;transition:transform 1s var(--ease)}
+.head:hover h2,.open .head h2{transform:translateX(clamp(.4rem,1.6vw,1.6rem));font-style:italic}
+.head .pm{position:relative;width:1.6rem;height:1.6rem;align-self:center}
+.head .pm::before,.head .pm::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:currentColor;transition:transform .8s var(--ease)}
+.head .pm::after{transform:rotate(90deg)}
+.open .head .pm::after{transform:rotate(0deg)}
+.story{display:grid;grid-template-rows:0fr;transition:grid-template-rows 1s var(--ease)}
+.open .story{grid-template-rows:1fr}
+.story>div{overflow:hidden}
+.story .cols{display:grid;gap:1.2rem 3rem;padding:.4rem 0 clamp(1.6rem,4vh,2.8rem) 4.2rem;opacity:0;transition:opacity 1s var(--ease) .2s}
+.open .story .cols{opacity:1}
+@media (min-width:56rem){.story .cols{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);padding-left:6rem}}
+@media (max-width:40rem){.story .cols{padding-left:0}}
+.story p{margin:0 0 1rem;max-width:36rem;font-size:clamp(1.02rem,1.35vw,1.2rem)}
+.story .pull{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,2.3vw,2rem);line-height:1.2;max-width:22rem;margin:0 0 1.2rem}
+.story .tools{font-size:.9rem;opacity:.8;max-width:22rem}
+.try{display:flex;flex-wrap:wrap;gap:.5rem 1.8rem;margin:0 0 1.2rem}
+.link{position:relative;padding-bottom:.15rem;font-weight:400}
+.link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform-origin:right;transition:transform .8s var(--ease)}
+.link:hover::after{transform:scaleX(0)}
+
+/* cinque passi */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:0 clamp(1.2rem,3vw,3rem)}
+@media (min-width:56rem){.steps{grid-template-columns:repeat(5,1fr)}}
+.steps li{border-top:1px solid rgba(11,11,12,.3);padding:1.1rem 0 clamp(1.4rem,4vh,2.4rem)}
+.steps .n{font-family:var(--serif);font-style:italic;font-size:1.1rem;opacity:.7;display:block;margin-bottom:clamp(.6rem,3vh,2.4rem)}
+.steps h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,2.6vw,2.5rem);line-height:1;letter-spacing:-.02em;margin:0 0 .7rem}
+.steps p{margin:0;max-width:17rem}
+.title{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,5.4vw,5.2rem);line-height:1;letter-spacing:-.025em;margin:0 0 clamp(2rem,6vh,4rem);max-width:16ch}
+.title em{font-style:italic}
+
+/* chiedimi qualcosa */
+.ask{display:grid;gap:clamp(2rem,5vh,3rem) 4rem}
+@media (min-width:56rem){.ask{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);align-items:start}}
+.qs{list-style:none;margin:0;padding:0;border-top:1px solid rgba(243,240,234,.28)}
+.qs button{width:100%;text-align:left;padding:.95rem 2rem .95rem 0;border-bottom:1px solid rgba(243,240,234,.28);position:relative;font-size:clamp(1.02rem,1.3vw,1.15rem);transition:padding 1s var(--ease),opacity .6s}
+.qs button::after{content:"";position:absolute;right:.2rem;top:50%;width:.55rem;height:.55rem;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:translateY(-50%) rotate(45deg);opacity:.6}
+.qs button:hover,.qs button[aria-pressed="true"]{padding-left:1rem}
+.qs button.seen{opacity:.55}.qs button[aria-pressed="true"]{opacity:1}
+.answer{min-height:15rem}
+.answer .q{font-size:.82rem;letter-spacing:.08em;margin:0 0 1rem;opacity:.75;min-height:1.3em}
+.answer .a{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.9vw,2.7rem);line-height:1.18;letter-spacing:-.015em;margin:0}
+.answer .a::after{content:"";display:inline-block;width:.06em;height:.9em;background:currentColor;margin-left:.12em;vertical-align:-.08em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* numeri */
+.figs{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(2rem,6vh,4rem) clamp(1.5rem,4vw,4rem);margin:0}
+@media (min-width:56rem){.figs{grid-template-columns:repeat(4,1fr)}}
+.figs div{border-top:1px solid rgba(11,11,12,.3);padding-top:1rem}
+.figs dt{font-family:var(--serif);font-weight:400;font-size:clamp(4.2rem,11vw,10.5rem);line-height:.9;letter-spacing:-.04em}
+.figs dd{margin:.9rem 0 0;max-width:14rem}
+
+/* chiusura */
+.end{justify-content:space-between}
+.end .big{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3.4rem,14vw,15rem);line-height:.9;letter-spacing:-.035em;margin:auto 0}
+.end ul{list-style:none;display:flex;flex-wrap:wrap;gap:.6rem 2.6rem;margin:0;padding:0;font-size:clamp(1.05rem,1.6vw,1.3rem)}
+.end ul a{text-decoration:none}
+.sign{display:flex;justify-content:space-between;gap:1rem;font-size:.82rem;letter-spacing:.08em;margin-top:clamp(2rem,6vh,4rem);opacity:.75}
+
+/* cursore */
+.dot{position:fixed;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:70;transition:width .5s var(--ease),height .5s var(--ease),margin .5s var(--ease);display:none}
+.dot.on{display:block}.dot.big{width:64px;height:64px;margin:-32px 0 0 -32px}
+
+/* lettore dei moduli */
+#player{position:fixed;inset:0;z-index:60;display:none;background:rgba(6,6,7,.96);padding:4.4rem 3vw 3vh}
+#player.open{display:block}
+#player iframe{width:100%;height:100%;border:0;background:#fff}
+#close{position:absolute;top:1.3rem;right:3vw;color:var(--bone);font-size:.82rem;letter-spacing:.08em}
+
+@media (prefers-reduced-motion:reduce){.line>span,.fade{transition:none;transform:none;opacity:1}.cue::after,.answer .a::after{animation:none}.story,.story .cols{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="silk" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="bar"><span>Valentino Tufarelli</span><span>Portfolio, 2026<a class="lang" href="en/" lang="en">English</a></span></div>
+
+<main>
+  <section class="hero dark" data-t="0">
+    <p class="hello fade">Ciao.</p>
+    <h1><span class="line"><span>Valentino</span></span><span class="line"><span><em>Tufarelli</em></span></span></h1>
+    <div class="foot fade">
+      <p class="lede">Costruisco agenti AI e automazioni che le persone usano davvero. Lavoro con l’AI generativa da oltre quattro anni.</p>
+      <span class="cue">Scorri, oppure tieni premuto</span>
+    </div>
+  </section>
+
+  <section class="light" data-t="1">
+    <p class="tagline fade">Il metodo</p>
+    <p class="say"><span class="line"><span>Parto da come</span></span><span class="line"><span>lavorano le persone.</span></span><span class="line"><span><em>Poi tolgo quello</em></span></span><span class="line"><span><em>che non serve.</em></span></span></p>
+  </section>
+
+  <section class="dark" data-t="0">
+    <p class="tagline fade">Cosa faccio</p>
+    <ol class="chapters fade">
+      <li class="open">
+        <button class="head" type="button" aria-expanded="true"><span class="n">I</span><h2>Agenti AI</h2><span class="pm" aria-hidden="true"></span></button>
+        <div class="story"><div><div class="cols">
+          <div>
+            <p>In Pfizer Italia porto un caso d’uso dall’idea alla prova con chi lo userà. Finora: un agente che controlla i documenti di spesa e segnala cosa non torna, uno che mette a confronto le proposte dei fornitori per gli eventi, un assistente che aiuta a pianificare gli account pescando i dati da SharePoint.</p>
+            <p>Ho lavorato anche su altro: un agente che legge le email in arrivo e sceglie la strada (risposta pronta, ticket o persona), un controllo automatico di compliance sulle risposte a un questionario, la verifica riga per riga di quello che un agente restituisce rispetto alla fonte.</p>
+          </div>
+          <div>
+            <p class="pull">La parte difficile non è far rispondere il modello. È decidere cosa deve sapere, e cosa non deve fare mai.</p>
+            <p class="tools">Microsoft 365 Copilot, Copilot Studio, Agent Builder, Power Automate, SharePoint. Python e Node quando c’è da elaborare documenti in serie.</p>
+          </div>
+        </div></div></div>
+      </li>
+      <li>
+        <button class="head" type="button" aria-expanded="false"><span class="n">II</span><h2>E-learning</h2><span class="pm" aria-hidden="true"></span></button>
+        <div class="story"><div><div class="cols">
+          <div>
+            <p>Ho tenuto con due colleghi la formazione su Copilot per la field force: le demo e gli esercizi dal vivo erano miei. Da lì ho costruito due moduli in Articulate Storyline, che puoi provare adesso.</p>
+            <p>Prima ancora ho curato la versione italiana di un corso sui fondamenti dell’AI. Le correzioni ai sottotitoli le ho riscritte in tre formati diversi, finché non sono diventate comode per chi doveva applicarle.</p>
+          </div>
+          <div>
+            <p class="pull">Un corso funziona quando lo provi con le mani.</p>
+            <p class="try"><button class="link" type="button" data-play="../copilot/" data-title="Modulo Copilot 101">Prova Copilot 101</button><button class="link" type="button" data-play="../onboarding/" data-title="Modulo La tua prima settimana">Prova La tua prima settimana</button></p>
+            <p class="tools">Articulate Storyline, formazione dal vivo, localizzazione dall’inglese.</p>
+          </div>
+        </div></div></div>
+      </li>
+      <li>
+        <button class="head" type="button" aria-expanded="false"><span class="n">III</span><h2>Innovazione</h2><span class="pm" aria-hidden="true"></span></button>
+        <div class="story"><div><div class="cols">
+          <div>
+            <p>In ELIS Innovation Hub cercavo startup AI per ENI, RFI e Italferr, e poi le accompagnavo alla prova sul campo. Ho coordinato quattro Proof of Concept: Italferr con B4Tech e con HPA, ENI con Trailslight, RFI con KOMETE.</p>
+            <p>Il mio lavoro era tenere insieme tre mondi che parlano lingue diverse: l’azienda, la startup e i tecnici. Piani, scadenze, stati di avanzamento, budget.</p>
+          </div>
+          <div>
+            <p class="pull">Una tecnologia si giudica quando incontra un processo vero, non durante la demo.</p>
+            <p class="tools">Scouting tecnologico, venture client, coordinamento di Proof of Concept, metodologie Agile.</p>
+          </div>
+        </div></div></div>
+      </li>
+      <li>
+        <button class="head" type="button" aria-expanded="false"><span class="n">IV</span><h2>Marketing</h2><span class="pm" aria-hidden="true"></span></button>
+        <div class="story"><div><div class="cols">
+          <div>
+            <p>Vengo da qui. Ho venduto per anni, in negozio e poi come agente B2B, e ho lavorato nel marketing digitale: la nuova identità di un’agenzia, siti, social, piani editoriali. All’università ho costruito strategie per marchi come Ferrarelle, Pirelli e Utravel.</p>
+            <p>Oggi mi serve ogni giorno. Fuori dall’ufficio curo anche la crescita di un’app indipendente, a budget zero.</p>
+          </div>
+          <div>
+            <p class="pull">Un agente che nessuno adotta è un progetto fallito. E far adottare qualcosa è un lavoro di vendita.</p>
+            <p class="tools">Strategia digitale, brand identity, contenuti, vendita B2B e B2C.</p>
+          </div>
+        </div></div></div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="light" data-t="1">
+    <p class="tagline fade">Come costruisco un agente</p>
+    <h2 class="title"><span class="line"><span>Cinque passi,</span></span><span class="line"><span><em>sempre gli stessi.</em></span></span></h2>
+    <ol class="steps fade">
+      <li><span class="n">I</span><h3>Ascolto</h3><p>Mi siedo con chi fa quel lavoro e me lo faccio raccontare.</p></li>
+      <li><span class="n">II</span><h3>Perimetro</h3><p>Scelgo la parte più piccola che vale la pena automatizzare.</p></li>
+      <li><span class="n">III</span><h3>Istruzioni e fonti</h3><p>Scrivo cosa deve fare l’agente e da quali documenti può attingere.</p></li>
+      <li><span class="n">IV</span><h3>Casi veri</h3><p>Lo provo sui casi reali e correggo dove sbaglia.</p></li>
+      <li><span class="n">V</span><h3>Decide una persona</h3><p>L’agente segnala e propone. L’ultima parola non è sua.</p></li>
+    </ol>
+  </section>
+
+  <section class="dark" data-t="0">
+    <p class="tagline fade">Chiedimi qualcosa</p>
+    <div class="ask fade">
+      <ul class="qs" id="qs"></ul>
+      <div class="answer" aria-live="polite"><p class="q" id="aq"></p><p class="a" id="aa"></p></div>
+    </div>
+  </section>
+
+  <section class="light" data-t="1">
+    <p class="tagline fade">In numeri</p>
+    <dl class="figs fade">
+      <div><dt data-n="4" data-suf="+">4+</dt><dd>anni di lavoro con l’AI generativa</dd></div>
+      <div><dt data-n="3">3</dt><dd>agenti e assistenti AI costruiti in Pfizer Italia</dd></div>
+      <div><dt data-n="4">4</dt><dd>Proof of Concept coordinati tra startup e grandi aziende</dd></div>
+      <div><dt data-n="2">2</dt><dd>moduli e-learning online, da provare</dd></div>
+    </dl>
+  </section>
+
+  <section class="end dark" data-t="0">
+    <p class="tagline fade">Contatti</p>
+    <p class="big"><span class="line"><span>Parliamone.</span></span></p>
+    <div class="fade">
+      <ul>
+        <li><a class="link" href="https://www.linkedin.com/in/valentinotufarelli">LinkedIn</a></li>
+        <li><a class="link" href="https://github.com/tufawayz">GitHub</a></li>
+      </ul>
+      <div class="sign"><span>Valentino Tufarelli, Roma</span><span>2026</span></div>
+    </div>
+  </section>
+</main>
+
+<div class="dot" aria-hidden="true"></div>
+<div id="player" role="dialog" aria-modal="true" aria-label="Modulo e-learning"><button id="close" type="button">Chiudi</button><div id="frame" style="width:100%;height:100%"></div></div>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sections=[].slice.call(document.querySelectorAll('section'));
+
+  /* comparsa dei testi */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.25});
+    sections.forEach(function(s){io.observe(s);});
+  } else sections.forEach(function(s){s.classList.add('in');});
+
+  /* seta liquida in WebGL */
+  var cv=document.getElementById('silk'), gl=null;
+  try{gl=cv.getContext('webgl',{antialias:false,alpha:false,powerPreference:'low-power'});}catch(e){}
+  var FS='precision highp float;uniform vec2 r;uniform float t;uniform vec2 m;uniform float s;uniform float b;uniform float i0;uniform float i1;uniform float g;'+
+  'float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}'+
+  'float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),f.x),f.y);}'+
+  'float fbm(vec2 p){float a=.5,v=0.;for(int i=0;i<4;i++){v+=a*n(p);p=p*2.03+vec2(17.3,9.1);a*=.5;}return v;}'+
+  'float H(vec2 p,float k,vec2 pull){vec2 q=vec2(fbm(p+vec2(0.,k)),fbm(p+vec2(5.2,1.3)-k));return fbm(p+2.4*q+pull);}'+
+  'void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec2 p=uv*vec2(.62,1.25)+vec2(.3,s*1.6);float k=t*.03;'+
+  'vec2 d=m-uv;vec2 pull=(.35+1.1*g)*d*exp(-2.5*dot(d,d));vec2 e=vec2(.014,0.);'+
+  'float h0=H(p,k,pull),hx=H(p+e.xy,k,pull),hy=H(p+e.yx,k,pull);'+
+  'vec3 nr=normalize(vec3((h0-hx)/e.x*.55,(h0-hy)/e.x*.55,1.));vec3 L=normalize(vec3(-.45,.55,.7));'+
+  'float dif=clamp(dot(nr,L),0.,1.);float sp=pow(max(dot(nr,normalize(L+vec3(0.,0.,1.))),0.),60.);float rim=pow(1.-nr.z,2.);'+
+  'vec3 dark=vec3(.016,.016,.019)+pow(dif,3.)*vec3(.15,.15,.16)+sp*vec3(.52,.51,.49)+rim*vec3(.04);'+
+  'vec3 lite=vec3(.957,.945,.922)-pow(1.-dif,1.5)*vec3(.19,.19,.20)-rim*vec3(.09)+sp*vec3(.04);'+
+  'float y=r.y-gl_FragCoord.y;float inv=mix(i0,i1,smoothstep(b-r.y*.07,b+r.y*.07,y));'+
+  'vec3 c=mix(dark,lite,inv);c*=1.-.4*dot(uv,uv)*(1.-inv*.8);gl_FragColor=vec4(c,1.);}';
+  var prog,loc={},ok=false;
+  if(gl){
+    var mk=function(type,src){var sh=gl.createShader(type);gl.shaderSource(sh,src);gl.compileShader(sh);return gl.getShaderParameter(sh,gl.COMPILE_STATUS)?sh:null;};
+    var vs=mk(gl.VERTEX_SHADER,'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'), fs=mk(gl.FRAGMENT_SHADER,FS);
+    if(vs&&fs){prog=gl.createProgram();gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);
+      if(gl.getProgramParameter(prog,gl.LINK_STATUS)){gl.useProgram(prog);
+        var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+        var a=gl.getAttribLocation(prog,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+        ['r','t','m','s','b','i0','i1','g'].forEach(function(u){loc[u]=gl.getUniformLocation(prog,u);});ok=true;}}
+  }
+  if(!ok){document.documentElement.classList.add('nogl');cv.style.display='none';}
+  function size(){var sc=Math.min(.6,900/window.innerWidth);cv.width=Math.max(2,Math.round(window.innerWidth*sc));cv.height=Math.max(2,Math.round(window.innerHeight*sc));if(ok)gl.viewport(0,0,cv.width,cv.height);}
+  size();window.addEventListener('resize',size);
+
+  var mx=0,my=0,tx=0,ty=0,sc=0,tsc=0,bd=-1e5,t0=0,t1=0,start=performance.now(),prev=start,vis=true,ag=0,tag=0,tim=12;
+  window.addEventListener('pointerdown',function(){tag=1;},{passive:true});['pointerup','pointercancel','blur'].forEach(function(ev){window.addEventListener(ev,function(){tag=0;},{passive:true});});
+  document.addEventListener('visibilitychange',function(){vis=!document.hidden;});
+  /* ogni sezione ha il suo tono: la seta cambia colore lungo il confine tra due sezioni */
+  function theme(){
+    var H=window.innerHeight,found=false;
+    for(var i=0;i<sections.length;i++){var top=sections[i].getBoundingClientRect().top;
+      if(top>0&&top<=H&&i>0){bd=top;t0=+sections[i-1].getAttribute('data-t');t1=+sections[i].getAttribute('data-t');found=true;break;}}
+    if(!found){for(var j=0;j<sections.length;j++){var r=sections[j].getBoundingClientRect();if(r.top<=0&&r.bottom>0){t0=t1=+sections[j].getAttribute('data-t');}}bd=-1e5;}
+    var max=document.documentElement.scrollHeight-H;tsc=max>0?window.scrollY/max:0;
+  }
+  window.addEventListener('scroll',theme,{passive:true});window.addEventListener('resize',theme);theme();sc=tsc;
+
+  /* cursore */
+  var dot=document.querySelector('.dot'),fine=window.matchMedia('(pointer:fine)').matches,cx=-100,cy=-100,dx=-100,dy=-100;
+  window.addEventListener('pointermove',function(e){
+    tx=(e.clientX-.5*window.innerWidth)/window.innerHeight;ty=-(e.clientY-.5*window.innerHeight)/window.innerHeight;
+    if(fine&&e.pointerType!=='touch'){cx=e.clientX;cy=e.clientY;dot.classList.add('on');}
+  },{passive:true});
+  if(fine){document.querySelectorAll('a,button').forEach(function(el){
+    el.addEventListener('pointerenter',function(){dot.classList.add('big');});el.addEventListener('pointerleave',function(){dot.classList.remove('big');});});}
+
+  function frame(now){
+    var dt=Math.min(.1,(now-prev)/1000);prev=now;var k=function(rate){return 1-Math.exp(-dt*rate);};
+    if(vis){
+      mx+=(tx-mx)*k(2.5);my+=(ty-my)*k(2.5);sc+=(tsc-sc)*k(4);ag+=(tag-ag)*k(tag?2.2:1.2);if(!reduce)tim+=dt*(1+ag*9);
+      dx+=(cx-dx)*k(16);dy+=(cy-dy)*k(16);dot.style.transform='translate('+dx+'px,'+dy+'px)';
+      if(ok){var q=cv.height/window.innerHeight;
+        gl.uniform2f(loc.r,cv.width,cv.height);gl.uniform1f(loc.t,tim);gl.uniform1f(loc.g,ag);gl.uniform2f(loc.m,mx,my);gl.uniform1f(loc.s,sc);
+        gl.uniform1f(loc.b,bd*q);gl.uniform1f(loc.i0,t0);gl.uniform1f(loc.i1,t1);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);}
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* capitoli che si aprono */
+  [].forEach.call(document.querySelectorAll('.chapters>li'),function(li){
+    var h=li.querySelector('.head');
+    h.addEventListener('click',function(){var o=li.classList.toggle('open');h.setAttribute('aria-expanded',o?'true':'false');setTimeout(theme,1050);});
+  });
+
+  /* chiedimi qualcosa: le risposte si scrivono da sole */
+  var QA=[
+    ['Da quanto lavori con l’AI?','Uso l’AI generativa da oltre quattro anni, anche contribuendo all’addestramento di modelli linguistici. Dal 2024 ho valutato startup AI per grandi aziende, e dal 2026 costruisco agenti in Pfizer Italia.'],
+    ['Di quale progetto vai più fiero?','Dell’agente che controlla i documenti di spesa. Nei test sui casi reali leggeva male alcuni documenti, e ho corretto gli errori uno a uno. Non decide lui: segnala cosa non torna, poi tocca a una persona.'],
+    ['Come capisci se un agente funziona?','Lo metto davanti ai casi veri e confronto quello che restituisce con la fonte, riga per riga: elenco delle differenze, tabella di confronto, sintesi. Se non regge lì, non è pronto.'],
+    ['Cosa non fai fare all’AI?','Decidere al posto delle persone. I miei agenti segnalano, confrontano, preparano una risposta. E i dati personali li inserisce solo chi li conosce: restano separati da quelli che l’agente recupera da solo.'],
+    ['Sai anche programmare?','Lavoro soprattutto con strumenti low-code: Copilot Studio, Agent Builder, Power Automate. Quando c’è da elaborare documenti in serie scrivo pipeline in Python o Node. Non sviluppo modelli da zero: li faccio lavorare bene dentro un processo.'],
+    ['Perché dal marketing all’AI?','Il marketing mi ha insegnato a partire dalle persone. L’AI mi ha dato il modo di costruire quello che a quelle persone serve. In mezzo c’è stata l’innovazione: a forza di valutare le tecnologie degli altri mi è venuta voglia di costruirle.']
+  ];
+  var qs=document.getElementById('qs'),aq=document.getElementById('aq'),aa=document.getElementById('aa'),typing=null,btns=[];
+  function say(i){
+    if(typing)cancelAnimationFrame(typing);
+    btns.forEach(function(b,k){b.setAttribute('aria-pressed',k===i?'true':'false');if(k===i)b.classList.add('seen');});
+    aq.textContent=QA[i][0];var txt=QA[i][1],n=0;
+    if(reduce){aa.textContent=txt;return;}
+    aa.textContent='';var t0=performance.now();(function step(now){n=Math.min(txt.length,Math.floor((now-t0)/13));aa.textContent=txt.slice(0,n);typing=n<txt.length?requestAnimationFrame(step):null;})(t0);
+  }
+  QA.forEach(function(q,i){var li=document.createElement('li'),b=document.createElement('button');b.type='button';b.textContent=q[0];b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){say(i);});li.appendChild(b);qs.appendChild(li);btns.push(b);});
+  var asked=false,askSec=qs.closest('section');
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting&&!asked){asked=true;setTimeout(function(){say(0);},700);o.disconnect();}});},{threshold:.4}).observe(askSec);} else say(0);
+
+  /* numeri che contano */
+  [].forEach.call(document.querySelectorAll('.figs dt'),function(dt){
+    var to=+dt.getAttribute('data-n'),suf=dt.getAttribute('data-suf')||'';
+    if(reduce||!('IntersectionObserver' in window))return;
+    dt.textContent='0'+suf;
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(!e.isIntersecting)return;o.disconnect();var v=0,id=setInterval(function(){v++;dt.textContent=v+suf;if(v>=to)clearInterval(id);},260);});},{threshold:.6}).observe(dt);
+  });
+
+  /* lettore */
+  var player=document.getElementById('player'),holder=document.getElementById('frame'),last=null;
+  function closeP(){player.classList.remove('open');holder.innerHTML='';document.body.style.overflow='';if(last&&last.focus)last.focus();}
+  document.querySelectorAll('[data-play]').forEach(function(b){b.addEventListener('click',function(){
+    last=b;holder.innerHTML='';var f=document.createElement('iframe');f.src=b.getAttribute('data-play');f.title=b.getAttribute('data-title');f.setAttribute('allowfullscreen','');holder.appendChild(f);
+    player.classList.add('open');document.body.style.overflow='hidden';document.getElementById('close').focus();});});
+  document.getElementById('close').addEventListener('click',closeP);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&player.classList.contains('open'))closeP();});
+})();
+</script>
+</body>
+</html>
