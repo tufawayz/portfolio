@@ -1,312 +1,392 @@
 <!doctype html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Valentino Tufarelli, portfolio</title>
-<meta name="description" content="Valentino Tufarelli lavora nel team Digital &amp; Technology di Pfizer Italia. Qui due moduli e-learning costruiti in Articulate Storyline.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<title>tufawayz/portfolio: Valentino Tufarelli, AI agents and automation</title>
+<meta name="description" content="Valentino Tufarelli builds AI agents and automations on Microsoft Copilot Studio and Power Platform. Case studies, method, demos.">
 <style>
+:root{color-scheme:dark;--bg:#0d1117;--bg2:#161b22;--bg3:#010409;--bd:#30363d;--fg:#e6edf3;--mu:#8b949e;--link:#58a6ff;--green:#3fb950;--btn:#238636;--purple:#a371f7;--yellow:#d29922;--blue:#1f6feb;--red:#f78166;--chip:rgba(56,139,253,.15);--k:#7ee787;--s:#a5d6ff;--c:#8b949e;--cell:#161b22;--study:#484f58}
+@media (prefers-color-scheme:light){:root{color-scheme:light;--bg:#fff;--bg2:#f6f8fa;--bg3:#f6f8fa;--bd:#d0d7de;--fg:#1f2328;--mu:#656d76;--link:#0969da;--green:#1a7f37;--btn:#1f883d;--purple:#8250df;--yellow:#9a6700;--blue:#0969da;--red:#fd8c73;--chip:#ddf4ff;--k:#116329;--s:#0a3069;--c:#6e7781;--cell:#ebedf0;--study:#afb8c1}}
 *,*::before,*::after{box-sizing:border-box}
-html{background:#0E0E24}
-body{margin:0;color:#fff;font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.0625rem;line-height:1.55;overflow-x:hidden}
-a{color:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif}
+.mono,pre,code,kbd{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
 button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:3px solid #FFC83D;outline-offset:3px}
-
-/* ---------- scena 3D ---------- */
-#scene{position:fixed;inset:0;overflow:hidden;perspective:1000px;background:#0E0E24;z-index:0}
-#world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;will-change:transform}
-.obj{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:opacity}
-.in{position:absolute;transform-style:preserve-3d}
-@keyframes spin{from{transform:rotateX(var(--rx,20deg)) rotateY(0deg)}to{transform:rotateX(var(--rx,20deg)) rotateY(360deg)}}
-@keyframes tumble{from{transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg)}to{transform:rotateX(360deg) rotateY(720deg) rotateZ(360deg)}}
-@keyframes bob{from{transform:translateY(-14px)}to{transform:translateY(14px)}}
-@keyframes sway{from{transform:rotateY(var(--ry0)) rotateX(5deg) translateY(-8px)}to{transform:rotateY(var(--ry1)) rotateX(-2deg) translateY(8px)}}
-.ball{border-radius:50%;background:radial-gradient(circle at 32% 28%,color-mix(in srgb,var(--c) 55%,#fff) 0,var(--c) 46%,color-mix(in srgb,var(--c) 62%,#000) 100%);animation:bob var(--d,5s) ease-in-out infinite alternate}
-.ball.clay{background:radial-gradient(circle at 34% 30%,color-mix(in srgb,var(--c) 60%,#fff) 0,var(--c) 55%,color-mix(in srgb,var(--c) 82%,#1F3A5F) 100%)}
-.flat{animation:spin var(--d,14s) linear infinite}
-.flat.quarter{background:var(--c);border-radius:100% 0 0 0}
-.flat.semi{background:var(--c);border-radius:999px 999px 0 0}
-.flat.ring{border:solid var(--c);border-radius:50%}
-.flat.stripes{background:repeating-linear-gradient(var(--c) 0 16%,transparent 16% 33.3%)}
-.still{animation:none;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
-.cube{animation:tumble var(--d,22s) linear infinite}
-.cube i{position:absolute;inset:0;display:block;background:var(--c)}
-.cube i:nth-child(1){transform:translateZ(var(--h))}
-.cube i:nth-child(2){transform:rotateY(180deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 60%,#000)}
-.cube i:nth-child(3){transform:rotateY(90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 80%,#000)}
-.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 72%,#000)}
-.cube i:nth-child(5){transform:rotateX(90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 80%,#fff)}
-.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 50%,#000)}
-.pill{border-radius:999px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 60%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 80%,#1F3A5F));animation:bob var(--d,6s) ease-in-out infinite alternate}
-.donut{border-radius:50%;background:radial-gradient(circle,transparent 36%,color-mix(in srgb,var(--c) 78%,#1F3A5F) 37%,var(--c) 52%,color-mix(in srgb,var(--c) 60%,#fff) 60%,var(--c) 68%,transparent 69%);animation:spin var(--d,18s) linear infinite}
-.blob{border-radius:46% 54% 58% 42% / 44% 46% 54% 56%;background:var(--c);animation:bob 7s ease-in-out infinite alternate}
-
-/* nome estruso */
-.name{left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;text-align:center;font-family:"Archivo Black","DM Sans",sans-serif;font-size:150px;line-height:.9;letter-spacing:-.02em;color:#fff;text-transform:uppercase;
-  text-shadow:1px 1px 0 #FF5A4E,2px 2px 0 #FF5A4E,3px 3px 0 #FF5A4E,4px 4px 0 #FF5A4E,5px 5px 0 #FF5A4E,6px 6px 0 #FF5A4E,7px 7px 0 #FF5A4E,8px 8px 0 #FF5A4E,9px 9px 0 #FF5A4E,10px 10px 0 #FF5A4E,11px 11px 0 #FF5A4E,12px 12px 0 #FF5A4E,13px 13px 0 #3D5AFE,14px 14px 0 #3D5AFE,15px 15px 0 #3D5AFE,16px 16px 0 #3D5AFE,17px 17px 0 #3D5AFE,18px 18px 0 #3D5AFE}
-.name span{display:block}
-.name span + span{color:#FFC83D}
-
-/* schermi dei moduli: lastre 3D con spessore */
-.screen{width:560px;height:350px;left:-280px;top:-175px;animation:sway 6s ease-in-out infinite alternate}
-.screen .face{position:absolute;inset:0;transform:translateZ(16px);border:0;padding:0;display:flex;align-items:stretch;text-align:left;overflow:hidden}
-.screen .back{position:absolute;inset:0;transform:rotateY(180deg) translateZ(16px);background:var(--edge)}
-.screen .lr,.screen .tb{position:absolute;background:var(--edge)}
-.screen .lr{width:32px;height:100%;top:0;left:calc(50% - 16px)}
-.screen .tb{height:32px;width:100%;left:0;top:calc(50% - 16px)}
-.screen .l{transform:rotateY(-90deg) translateZ(280px)}
-.screen .r{transform:rotateY(90deg) translateZ(280px);filter:brightness(.8)}
-.screen .t{transform:rotateX(90deg) translateZ(175px);filter:brightness(1.15)}
-.screen .b{transform:rotateX(-90deg) translateZ(175px);filter:brightness(.7)}
-.screen .txt{flex:1;display:flex;flex-direction:column;justify-content:center;padding:34px}
-.screen .nm{display:block;line-height:1.02;margin-bottom:8px}
-.screen .sb{display:block;margin-bottom:22px;font-size:16px}
-.screen .go{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:16px;padding:11px 20px;border-radius:999px}
-.screen .go::before{content:"";border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
-.screen svg{height:100%;width:auto;flex:none;display:block}
-.s1{--edge:#3D5AFE;--ry0:-24deg;--ry1:-12deg}
-.s1 .face{background:#EDEFF5;color:#1B1B3A}
-.s1 .nm{font-family:"Archivo Black",sans-serif;font-size:44px}
-.s1 .go{background:#1B1B3A;color:#FFC83D}
-.s2{--edge:#2A9D8F;--ry0:24deg;--ry1:12deg}
-.s2 .face,.s2 .back,.s2 .lr,.s2 .tb{border-radius:0}
-.s2 .face{background:#fff;color:#1F3A5F;font-family:"Poppins",sans-serif}
-.s2 .nm{font-weight:600;font-size:36px}
-.s2 .go{background:#1F3A5F;color:#fff}
-.s2 svg{padding:16px 16px 16px 0}
-
-/* ---------- testi sopra la scena ---------- */
-.journey{position:relative;z-index:1;height:300vh;pointer-events:none}
-.panel{position:fixed;z-index:2;opacity:0;pointer-events:none;will-change:opacity,transform}
-.panel.on{pointer-events:auto}
-.p0{left:0;right:0;bottom:7vh;text-align:center;padding:0 1.5rem}
-.p0 .role{font-size:clamp(1.05rem,2vw,1.35rem);max-width:38rem;margin:0 auto 1.2rem}
-.p0 .role strong{display:block;font-size:1.25em;margin-bottom:.2rem;color:#FFC83D}
-.p0 .scroll{display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;font-weight:700;color:#FFC83D}
-.p0 .scroll::after{content:"";width:14px;height:14px;border-right:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg);animation:bob 1s ease-in-out infinite alternate}
-.p1,.p2{top:50%;width:min(31rem,40vw);padding:1.8rem 2rem;border-radius:4px}
-.p1{left:5vw;margin-top:-17rem;background:rgba(27,27,58,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.p2{right:5vw;margin-top:-17rem;background:rgba(255,255,255,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#1F3A5F;font-family:"Poppins","DM Sans",sans-serif;border-radius:28px}
-.num{margin:0 0 .5rem;font-weight:700}
-.p1 .num{color:#FFC83D}.p2 .num{color:#2A9D8F}
-.panel h2{margin:0 0 .8rem;line-height:1.02}
-.p1 h2{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:clamp(2.2rem,4.6vw,3.6rem)}
-.p2 h2{font-weight:600;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.01em}
-.panel p{margin:0 0 1rem}
-.feat{list-style:none;margin:0 0 1.2rem;padding:0;font-size:1rem}
-.feat li{position:relative;padding-left:1.5rem;margin-bottom:.3rem}
-.feat li::before{content:"";position:absolute;left:0;top:.48em;width:.62rem;height:.62rem}
-.p1 .feat li:nth-child(3n+1)::before{background:#FF5A4E}
-.p1 .feat li:nth-child(3n+2)::before{background:#FFC83D;border-radius:50%}
-.p1 .feat li:nth-child(3n)::before{background:#3D5AFE}
-.p2 .feat li::before{background:#2A9D8F;border-radius:50%}
-.btns{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
-.play{border:0;font-weight:700;padding:.8rem 1.4rem;border-radius:999px;display:inline-flex;align-items:center;gap:.6rem}
-.play::before{content:"";border-left:.7rem solid currentColor;border-top:.45rem solid transparent;border-bottom:.45rem solid transparent}
-.p1 .play{background:#FFC83D;color:#1B1B3A}.p2 .play{background:#2A9D8F;color:#fff}
-.full{font-weight:500}
-.tool{font-size:.9rem;opacity:.85;margin:1rem 0 0!important}
-@media (max-width:760px){
-  .p1,.p2{left:1rem;right:1rem;width:auto;top:4.5rem;margin-top:0;padding:1.2rem 1.3rem}
-  .feat,.tool{display:none}
-  .panel p{font-size:.98rem}
-}
-
-/* ---------- ultima sezione ---------- */
-.more{position:relative;z-index:3;background:#1B1B3A;color:#fff;padding:5.5rem 0 3rem}
-.wrap{max-width:68rem;margin:0 auto;padding:0 1.5rem}
-.more h2{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:clamp(2.4rem,7vw,5rem);line-height:.98;margin:0 0 2.5rem;text-transform:uppercase}
-.more h2 em{font-style:normal;color:#FFC83D}
-.bio{font-size:clamp(1.15rem,2.2vw,1.45rem);line-height:1.5;max-width:46rem;margin:0 0 3rem;color:#fff}
-.item{border-top:2px solid #3D5AFE;padding:1.5rem 0;display:grid;gap:.3rem 2.5rem}
-@media (min-width:48rem){.item{grid-template-columns:13rem 1fr}}
-.item .when{color:#FFC83D;font-weight:700;margin:0}
-.item h3{margin:0 0 .35rem;font-size:1.25rem}
-.item p{margin:0;max-width:42rem;color:#D5D7EA}
-.contact{margin-top:3rem;font-size:clamp(1.3rem,3vw,2rem);font-weight:700}
-.contact a{text-decoration-color:#FF5A4E;text-underline-offset:.2em}
-
-/* ---------- lettore del modulo ---------- */
-#player{position:fixed;inset:0;z-index:50;display:none;background:rgba(10,10,28,.94);padding:4.2rem 3vw 3vh}
+:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+h1,h2,h3,p{margin:0}
+.mu{color:var(--mu)}
+.top{background:var(--bg3);border-bottom:1px solid var(--bd)}
+.bar{max-width:1280px;margin:0 auto;padding:14px 24px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.av{width:32px;height:32px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:12px;flex:none}
+.crumb{font-size:18px}.crumb b{font-weight:600}
+.pill{border:1px solid var(--bd);border-radius:2em;padding:0 7px;font-size:12px;color:var(--mu);font-weight:500;white-space:nowrap}
+.pill.ok{color:var(--green);border-color:var(--green)}
+.sp{flex:1}
+.btn{background:var(--btn);color:#fff;border:1px solid rgba(240,246,252,.1);border-radius:6px;padding:5px 14px;font-weight:600;display:inline-block}
+.btn:hover{text-decoration:none;filter:brightness(1.1)}
+.btn2{background:var(--bg2);border:1px solid var(--bd);border-radius:6px;padding:5px 14px;color:var(--fg);font-weight:500;display:inline-block}
+.btn2:hover{text-decoration:none;border-color:var(--mu)}
+.tabs{max-width:1280px;margin:0 auto;padding:8px 24px 0;display:flex;gap:4px;overflow-x:auto}
+.tab{padding:8px 12px 10px;border:0;background:none;border-bottom:2px solid transparent;white-space:nowrap;border-radius:6px 6px 0 0}
+.tab:hover{background:var(--bg2)}
+.tab[aria-selected="true"]{border-color:var(--red);font-weight:600}
+.cnt{background:var(--bd);border-radius:2em;padding:0 6px;font-size:12px;margin-left:6px;font-weight:500}
+main{max-width:1280px;margin:0 auto;padding:24px}
+.view[hidden]{display:none}
+.grid{display:grid;gap:24px}.grid>*{min-width:0}
+@media (min-width:900px){.grid{grid-template-columns:minmax(0,1fr) 296px}}
+.box{border:1px solid var(--bd);border-radius:6px;background:var(--bg)}
+.boxhead{background:var(--bg2);border-bottom:1px solid var(--bd);border-radius:6px 6px 0 0;padding:10px 16px;font-size:13px}
+.files{margin-bottom:16px}
+.row{display:grid;grid-template-columns:minmax(120px,220px) 1fr auto;gap:12px;padding:8px 16px;border-top:1px solid var(--bd);font-size:14px;width:100%;text-align:left;background:none;border-left:0;border-right:0;border-bottom:0;align-items:center}
+button.row:hover{background:var(--bg2)}
+.row .nm{display:flex;align-items:center;gap:8px;min-width:0}
+.row .ds{color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .dt{color:var(--mu);white-space:nowrap}
+.ic{width:16px;height:16px;flex:none}
+.fo{fill:#54aeff}.fi{fill:none;stroke:var(--mu);stroke-width:1.3}
+@media (max-width:640px){.row{grid-template-columns:1fr auto}.row .ds{display:none}}
+.md{padding:24px 32px 32px}
+@media (max-width:640px){.md{padding:18px}}
+.md h1{font-size:28px;font-weight:600;padding-bottom:.3em;border-bottom:1px solid var(--bd);margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.md h2{font-size:20px;font-weight:600;padding-bottom:.3em;border-bottom:1px solid var(--bd);margin:26px 0 14px}
+.md p{margin-bottom:14px;font-size:16px;max-width:76ch}
+.md ol,.md ul{margin:0 0 14px;padding-left:1.6em;font-size:16px;max-width:76ch}
+.md li{margin-bottom:6px}
+.md code{background:var(--bg2);border-radius:6px;padding:.15em .4em;font-size:85%}
+pre{margin:0 0 16px;background:var(--bg2);border-radius:6px;padding:16px;font-size:13px;line-height:1.55;overflow-x:auto}
+.k{color:var(--k)}.s{color:var(--s)}.c{color:var(--c)}
+.badge{display:inline-flex;font-size:11px;border-radius:3px;overflow:hidden;margin:0 6px 6px 0;font-weight:600}.badge b{background:#555;color:#fff;padding:3px 6px;font-weight:600}.badge i{font-style:normal;padding:3px 6px;color:#fff}
+.chip{background:var(--chip);color:var(--link);border-radius:2em;padding:2px 10px;font-size:12px;font-weight:500;display:inline-block;margin:0 4px 6px 0}
+.side h3{font-size:16px;font-weight:600;margin-bottom:10px}
+.side section{padding:0 0 16px;margin-bottom:16px;border-bottom:1px solid var(--bd)}
+.side section:last-child{border:0}
+.langbar{display:flex;height:8px;border-radius:6px;overflow:hidden;margin:10px 0}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.legend{font-size:12px;line-height:2;color:var(--mu)}
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.card{padding:16px;display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--bg);border:1px solid var(--bd);border-radius:6px;min-height:150px}
+button.card:hover{border-color:var(--mu)}
+.card .t{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.card .t b{color:var(--link);font-size:15px;font-weight:600}
+.card p{color:var(--mu);font-size:13px;flex:1}
+.card .f{font-size:12px;color:var(--mu);display:flex;gap:14px;flex-wrap:wrap}
+.md .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:0 0 16px;padding:0;list-style:none;max-width:none}
+.md .flow li{border:1px solid var(--bd);border-radius:6px;padding:10px 12px;background:var(--bg2);font-size:13px;max-width:210px;position:relative;margin:0 14px 0 0}
+.flow li:not(:last-child)::after{content:"";position:absolute;right:-17px;top:50%;width:8px;height:8px;border-top:2px solid var(--mu);border-right:2px solid var(--mu);transform:translateY(-50%) rotate(45deg)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px;display:block;overflow-x:auto}
+.tbl th,.tbl td{border:1px solid var(--bd);padding:7px 13px;text-align:left}.tbl th{background:var(--bg2);font-weight:600}
+.back{background:none;border:0;color:var(--link);padding:0;margin-bottom:14px}
+/* career */
+.heat{display:grid;grid-template-columns:auto repeat(12,minmax(14px,1fr));gap:4px;font-size:11px;color:var(--mu);max-width:520px;align-items:center}
+.heat i{aspect-ratio:1;border-radius:3px;background:var(--cell);display:block}
+.log{font-size:13px;line-height:1.7;white-space:pre-wrap}
+.log .h{color:var(--yellow)}.log .d{color:var(--mu)}
+/* terminal */
+.term{background:var(--bg3);border:1px solid var(--bd);border-radius:6px;overflow:hidden}
+.termbar{background:var(--bg2);border-bottom:1px solid var(--bd);padding:8px 14px;font-size:12px;color:var(--mu);display:flex;gap:8px;align-items:center}
+.termbar i{width:11px;height:11px;border-radius:50%;background:var(--bd);display:block}
+#out{padding:16px 18px 4px;font-size:13.5px;line-height:1.65;height:min(52vh,430px);overflow:auto;white-space:pre-wrap;word-break:break-word}
+#out .p{color:var(--green)}#out .h{color:var(--link)}#out .y{color:var(--yellow)}#out .d{color:var(--mu)}
+.inp{display:flex;gap:8px;padding:4px 18px 14px;font-size:13.5px;align-items:center}
+.inp label{color:var(--green);white-space:nowrap}
+.inp input{flex:1;background:none;border:0;color:var(--fg);font:inherit;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;outline:none;min-width:0}
+.cmds{border-top:1px solid var(--bd);padding:10px 14px;display:flex;gap:8px;flex-wrap:wrap}
+.cmd{border:1px solid var(--bd);border-radius:6px;padding:3px 10px;background:var(--bg2);font-size:12.5px}
+.cmd:hover{border-color:var(--mu)}
+/* demo player */
+#player{position:fixed;inset:0;z-index:50;display:none;background:rgba(1,4,9,.92);padding:56px 3vw 3vh}
 #player.open{display:block}
-#player iframe{width:100%;height:100%;border:0;background:#fff;border-radius:6px}
-#close{position:absolute;top:1rem;right:3vw;border:0;background:#FFC83D;color:#1B1B3A;font-weight:700;border-radius:999px;padding:.55rem 1.2rem}
-
-@media (prefers-reduced-motion:reduce){.ball,.flat,.cube,.pill,.donut,.blob,.screen,.p0 .scroll::after{animation:none!important}}
-/* senza JavaScript: pagina normale */
-.nojs #scene{display:none}.nojs .journey{height:auto;pointer-events:auto;padding:3rem 1.5rem}.nojs .panel{position:static;opacity:1;pointer-events:auto;margin:0 auto 2rem;width:auto;max-width:40rem}
+#player iframe{width:100%;height:100%;border:1px solid var(--bd);border-radius:6px;background:#fff}
+#close{position:absolute;top:14px;right:3vw}
+footer{max-width:1280px;margin:0 auto;padding:24px;color:var(--mu);font-size:12px;border-top:1px solid var(--bd)}
 </style>
 </head>
-<body class="nojs">
-
-<div id="scene" aria-hidden="true"><div id="world"></div></div>
+<body>
+<header class="top">
+  <div class="bar">
+    <div class="av" aria-hidden="true">VT</div>
+    <div class="crumb"><a href="https://github.com/tufawayz">tufawayz</a> <span class="mu">/</span> <b>portfolio</b></div>
+    <span class="pill">Public</span>
+    <span class="sp"></span>
+    <a class="btn2" href="https://www.linkedin.com/in/valentinotufarelli">LinkedIn</a>
+    <a class="btn" href="https://www.linkedin.com/in/valentinotufarelli">Open to AI engineer roles</a>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" data-v="readme">README</button>
+    <button class="tab" role="tab" data-v="agents">Agents<span class="cnt">6</span></button>
+    <button class="tab" role="tab" data-v="elearning">E-learning<span class="cnt">2</span></button>
+    <button class="tab" role="tab" data-v="innovation">Innovation<span class="cnt">4</span></button>
+    <button class="tab" role="tab" data-v="career">Career</button>
+    <button class="tab" role="tab" data-v="terminal">Terminal</button>
+  </nav>
+</header>
 
 <main>
-<div class="journey">
-  <section class="panel p0" data-i="0">
-    <h1 class="sr" style="position:absolute;left:-9999px">Valentino Tufarelli, portfolio</h1>
-    <p class="role"><strong>Ciao, sono Valentino.</strong> Lavoro nel team Digital &amp; Technology di Pfizer Italia, dove costruisco agenti AI e automazioni. Per te ho preparato due moduli e-learning fatti in Articulate Storyline.</p>
-    <span class="scroll">Scorri per provarli</span>
-  </section>
-
-  <section class="panel p1" data-i="1" id="copilot">
-    <p class="num">Modulo 01</p>
-    <h2>Copilot 101</h2>
-    <p>Come scrivere a Copilot una richiesta che restituisce subito quello che serve. Nasce da una formazione dal vivo, ripensata per essere seguita in autonomia.</p>
-    <ul class="feat">
-      <li>Costruttore di prompt con il modello CORE</li>
-      <li>Blocchi da scoprire con un clic</li>
-      <li>Trascinamento con feedback</li>
-      <li>Scenario a tre scelte, ognuna con il suo esito</li>
-      <li>Quiz finale ed entrate animate sulla timeline</li>
-    </ul>
-    <div class="btns"><button class="play" type="button" data-src="copilot/" data-title="Modulo Copilot 101">Prova il modulo</button><a class="full" href="copilot/" target="_blank" rel="noopener">Apri a schermo intero</a></div>
-    <p class="tool">Articulate Storyline 3. Grafica no-brand.</p>
-  </section>
-
-  <section class="panel p2" data-i="2" id="onboarding">
-    <p class="num">Modulo 02</p>
-    <h2>La tua prima settimana</h2>
-    <p>Un onboarding per chi entra in azienda: cosa succede da lunedì a venerdì, a chi rivolgersi e cosa chiudere entro la prima settimana.</p>
-    <ul class="feat">
-      <li>Menu a navigazione libera sui cinque giorni</li>
-      <li>Consigli e risposte nascosti da scoprire</li>
-      <li>Abbinamento con trascinamento</li>
-      <li>Checklist da spuntare</li>
-      <li>Illustrazioni dedicate, una per ogni giorno</li>
-    </ul>
-    <div class="btns"><button class="play" type="button" data-src="onboarding/" data-title="Modulo La tua prima settimana">Prova il modulo</button><a class="full" href="onboarding/" target="_blank" rel="noopener">Apri a schermo intero</a></div>
-    <p class="tool">Articulate Storyline 3. Stessa tecnica, linguaggio visivo opposto.</p>
-  </section>
-</div>
-
-<section class="more" id="chi-sono">
-  <div class="wrap">
-    <h2>Chi <em>sono</em></h2>
-    <p class="bio">Grazie per aver guardato fino in fondo. Ti racconto in breve chi sono: lavoro nel team Digital &amp; Technology di Pfizer Italia, dove di norma costruisco agenti AI e automazioni per i colleghi e spiego come usarli. All’e-learning sono arrivato da lì: prima traducendo e controllando corsi fatti da altri, poi tenendo una formazione dal vivo su Copilot, infine costruendo i due moduli che hai appena visto.</p>
-    <div class="item"><p class="when">Oggi</p><div><h3>Digital &amp; Technology, Pfizer Italia</h3><p>Agenti AI con Copilot Studio, automazioni con Power Automate, report con Power BI. Uso l’AI generativa da oltre quattro anni, nel lavoro e in progetti miei.</p></div></div>
-    <div class="item"><p class="when">Formazione</p><div><h3>Corsi, lezioni e localizzazione</h3><p>Una formazione dal vivo su Copilot per la field force, preparata e tenuta con due colleghi: da lì nasce Copilot 101. Traduzione e adattamento in italiano di percorsi formativi su Copilot e AI responsabile. Controllo qualità della versione italiana di un corso e-learning sui fondamenti dell’AI.</p></div></div>
-    <div class="item"><p class="when">Prima</p><div><h3>Marketing e vendita</h3><p>Oltre cinque anni nella vendita, prima in negozio e poi come agente B2B. Marketing e comunicazione in agenzia: brand identity, siti, social e contenuti.</p></div></div>
-    <div class="item"><p class="when">Studi</p><div><h3>Marketing e management in ambito pharma</h3><p>Laurea magistrale in Marketing &amp; Digital Communication. Master in Pharma, Healthcare &amp; Biotech Management, 24ORE Business School.</p></div></div>
-    <div class="item"><p class="when">Strumenti</p><div><p>Articulate Storyline 3, PowerPoint, Microsoft 365 Copilot, Copilot Studio, Power Automate, Power BI. Per questi moduli ho usato anche strumenti di AI generativa, per accelerare bozze di testi e grafiche.</p></div></div>
-    <p class="contact">Se ti va di parlarne, mi trovi qui:<br><a href="https://github.com/tufawayz">github.com/tufawayz</a><br><a href="https://www.linkedin.com/in/valentinotufarelli">linkedin.com/in/valentinotufarelli</a></p>
+  <!-- README -->
+  <div class="view" id="v-readme">
+    <div class="grid">
+      <div>
+        <div class="box files">
+          <div class="boxhead"><b>tufawayz</b> <span class="mu">agents: add email triage, output review</span></div>
+          <button class="row" data-go="agents"><span class="nm"><svg class="ic fo" viewBox="0 0 16 16"><path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h3.6l1.6 1.8h5.8A1.5 1.5 0 0 1 15 5.3v7.2a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5z"/></svg>agents</span><span class="ds">six agents and automations, from requirement to test</span><span class="dt">2026</span></button>
+          <button class="row" data-go="elearning"><span class="nm"><svg class="ic fo" viewBox="0 0 16 16"><path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h3.6l1.6 1.8h5.8A1.5 1.5 0 0 1 15 5.3v7.2a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5z"/></svg>elearning</span><span class="ds">two interactive modules, live demos</span><span class="dt">Nov 2026</span></button>
+          <button class="row" data-go="innovation"><span class="nm"><svg class="ic fo" viewBox="0 0 16 16"><path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h3.6l1.6 1.8h5.8A1.5 1.5 0 0 1 15 5.3v7.2a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 12.5z"/></svg>innovation</span><span class="ds">four Proofs of Concept with AI startups</span><span class="dt">2024-2025</span></button>
+          <button class="row" data-go="career"><span class="nm"><svg class="ic fi" viewBox="0 0 16 16"><path d="M3.5 1.5h6l3 3v10h-9z"/><path d="M9.5 1.5v3h3"/></svg>CAREER.md</span><span class="ds">2015 to today, month by month</span><span class="dt">Nov 2026</span></button>
+          <button class="row" data-go="readme"><span class="nm"><svg class="ic fi" viewBox="0 0 16 16"><path d="M3.5 1.5h6l3 3v10h-9z"/><path d="M9.5 1.5v3h3"/></svg>README.md</span><span class="ds">who I am and how I work</span><span class="dt">Nov 2026</span></button>
+        </div>
+        <div class="box">
+          <div class="boxhead mono">README.md</div>
+          <div class="md">
+            <h1>Valentino Tufarelli</h1>
+            <p><span class="badge"><b>agents</b><i style="background:#8957e5">Copilot Studio</i></span><span class="badge"><b>agents</b><i style="background:#8957e5">Agent Builder</i></span><span class="badge"><b>flows</b><i style="background:#1f6feb">Power Automate</i></span><span class="badge"><b>data</b><i style="background:#1f6feb">SharePoint</i></span><span class="badge"><b>scripting</b><i style="background:#238636">Python</i></span><span class="badge"><b>scripting</b><i style="background:#238636">Node.js</i></span></p>
+            <p>I build AI agents and automations at Pfizer Italy, in the Digital &amp; Technology team. I take a use case from the first conversation with the people who do the job to a prototype tested on real cases.</p>
+            <p>I have used generative AI for over four years. Before this I scouted AI startups and coordinated Proofs of Concept for large companies, and before that I worked in marketing and sales.</p>
+            <h2>How I build an agent</h2>
+            <ol>
+              <li><b>Requirements.</b> I sit with the people who do the job and map the process as it is.</li>
+              <li><b>Scope.</b> I pick the smallest part worth automating and define the MVP.</li>
+              <li><b>Instructions and sources.</b> I write what the agent must do and which documents it may use. Controlled sources only.</li>
+              <li><b>Real cases.</b> I run it on real cases and compare the output with the source, line by line.</li>
+              <li><b>A person decides.</b> The agent flags and suggests. It does not approve, reject or send.</li>
+            </ol>
+            <h2>What one looks like</h2>
+<pre><span class="k">agent</span>: <span class="s">expense-doc-checker</span>
+<span class="k">platform</span>: <span class="s">Microsoft 365 Copilot</span>
+<span class="k">input</span>: <span class="s">expense documentation</span>
+<span class="k">knowledge</span>: <span class="s">rules and reference cases</span>      <span class="c"># controlled sources only</span>
+<span class="k">steps</span>:
+  - <span class="s">read the document</span>
+  - <span class="s">compare with the rules</span>
+  - <span class="s">flag anomalies and missing information</span>
+<span class="k">guardrail</span>: <span class="s">the authorised operator decides</span>
+<span class="k">evaluation</span>: <span class="s">real cases, reading errors fixed one by one</span></pre>
+            <p>The agents are internal, so the code is not public. Each one is documented here as a case study: what it does, how it is built, how it was tested and where it stops. See <a href="#agents">agents</a>.</p>
+            <h2>Try it</h2>
+            <p>Two e-learning modules run in the browser under <a href="#elearning">elearning</a>. There is also a <a href="#terminal">terminal</a>, if you prefer typing.</p>
+          </div>
+        </div>
+      </div>
+      <aside class="side">
+        <section><h3>About</h3><p class="mu" style="margin-bottom:12px">AI agents and automations on Microsoft Copilot Studio and Power Platform. Rome, Italy.</p>
+          <span class="chip">ai-agents</span><span class="chip">copilot-studio</span><span class="chip">power-automate</span><span class="chip">prompt-design</span><span class="chip">evaluation</span><span class="chip">human-in-the-loop</span></section>
+        <section><h3>Stack</h3>
+          <div class="langbar" aria-hidden="true"><i style="flex:5;background:#8957e5"></i><i style="flex:3;background:#1f6feb"></i><i style="flex:2;background:#238636"></i><i style="flex:1.4;background:#d29922"></i></div>
+          <div class="legend"><span class="dot" style="background:#8957e5"></span>Copilot Studio, Agent Builder<br><span class="dot" style="background:#1f6feb"></span>Power Automate, SharePoint, Power BI<br><span class="dot" style="background:#238636"></span>Python, Node.js<br><span class="dot" style="background:#d29922"></span>Articulate Storyline</div></section>
+        <section><h3>Certification</h3><p class="mu">Microsoft Applied Skills: Build an agent in Microsoft Copilot Studio, Oct 2026.</p></section>
+        <section><h3>Contact</h3><p style="margin-bottom:10px"><a href="https://www.linkedin.com/in/valentinotufarelli">linkedin.com/in/valentinotufarelli</a></p><p><a href="https://github.com/tufawayz">github.com/tufawayz</a></p></section>
+      </aside>
+    </div>
   </div>
-</section>
+
+  <!-- AGENTS -->
+  <div class="view" id="v-agents" hidden>
+    <div id="agent-list"><p class="mu" style="margin-bottom:16px;max-width:76ch">Six agents and automations I designed and built at Pfizer Italy. The code is internal, so each is marked private and described as a case study, without product names or screenshots.</p><div class="cards" id="cards"></div></div>
+    <div id="agent-detail" hidden></div>
+  </div>
+
+  <!-- E-LEARNING -->
+  <div class="view" id="v-elearning" hidden>
+    <div class="cards" style="margin-bottom:24px">
+      <div class="card"><div class="t"><b>copilot-101</b><span class="pill">Public</span><span class="pill ok">Live demo</span></div><p>Interactive module on writing effective Copilot prompts. Click-to-reveal prompt builder, drag-and-drop exercise, branching scenario with three outcomes, graded quiz, timed entrance animations. In Italian.</p><div class="f"><span><span class="dot" style="background:#d29922"></span>Articulate Storyline 3</span></div><div><button class="btn" data-play="../copilot/" data-title="Copilot 101 module">Run demo</button> <a class="btn2" href="../copilot/" target="_blank" rel="noopener">Open in new tab</a></div></div>
+      <div class="card"><div class="t"><b>first-week-onboarding</b><span class="pill">Public</span><span class="pill ok">Live demo</span></div><p>Onboarding module with a free-navigation menu, hidden tips to uncover, a matching exercise and a checklist. Same triggers and states, different visual language. In Italian.</p><div class="f"><span><span class="dot" style="background:#d29922"></span>Articulate Storyline 3</span></div><div><button class="btn" data-play="../onboarding/" data-title="First week onboarding module">Run demo</button> <a class="btn2" href="../onboarding/" target="_blank" rel="noopener">Open in new tab</a></div></div>
+    </div>
+    <div class="box"><div class="boxhead mono">elearning/README.md</div><div class="md">
+      <h1>Training and e-learning</h1>
+      <p>Building an agent is half of the work. The other half is getting people to use it.</p>
+      <ul>
+        <li><b>Live Copilot training for the field force.</b> Co-designed and delivered with two colleagues. I ran the live demos and the prompting exercises.</li>
+        <li><b>Two Storyline modules.</b> The first turns that live session into a self-paced module. Built with triggers, states, drag-and-drop and a graded quiz.</li>
+        <li><b>Localisation and QA.</b> Italian version of an AI fundamentals course: subtitle and text review, with corrections delivered in a format the course team could apply directly.</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- INNOVATION -->
+  <div class="view" id="v-innovation" hidden>
+    <div class="box"><div class="boxhead mono">innovation/README.md</div><div class="md">
+      <h1>Proofs of Concept with AI startups</h1>
+      <p>Innovation Consultant at ELIS Innovation Hub, Rome, September 2024 to June 2025. I scouted and assessed AI startups for corporate partners, then coordinated the Proofs of Concept alongside the PMO.</p>
+      <table class="tbl"><thead><tr><th>Company</th><th>Startup</th><th>My part</th></tr></thead><tbody>
+        <tr><td>Italferr</td><td>B4Tech</td><td>PoC coordination: plan, timeline, deliverables, progress reports</td></tr>
+        <tr><td>Italferr</td><td>HPA</td><td>PoC coordination: plan, timeline, deliverables, progress reports</td></tr>
+        <tr><td>ENI</td><td>Trailslight</td><td>PoC coordination: plan, timeline, deliverables, progress reports</td></tr>
+        <tr><td>RFI</td><td>KOMETE</td><td>PoC coordination: plan, timeline, deliverables, progress reports</td></tr>
+      </tbody></table>
+      <h2>What I did</h2>
+      <ul>
+        <li>Technology scouting: research and assessment of AI startups against each company’s need.</li>
+        <li>Liaison between the company, the startup and the technical partners.</li>
+        <li>Progress reports, a Teams channel per PoC, budget tracking.</li>
+      </ul>
+      <h2>Why it matters for agents</h2>
+      <p>Assessing other people’s AI products taught me to look past the demo: what data it needs, where it fails, who has to operate it.</p>
+    </div></div>
+  </div>
+
+  <!-- CAREER -->
+  <div class="view" id="v-career" hidden>
+    <div class="box" style="margin-bottom:16px"><div class="boxhead">2015 to today, one square per month</div><div style="padding:18px 18px 14px">
+      <div class="heat" id="heat"></div>
+      <div class="legend" style="margin-top:12px"><span class="dot" style="background:var(--green)"></span>AI and automation <span class="dot" style="background:var(--purple);margin-left:12px"></span>Innovation <span class="dot" style="background:var(--yellow);margin-left:12px"></span>Marketing <span class="dot" style="background:var(--blue);margin-left:12px"></span>Sales <span class="dot" style="background:var(--study);margin-left:12px"></span>Study</div>
+    </div></div>
+    <div class="box"><div class="boxhead mono">git log --career</div><div style="padding:16px 18px"><div class="log mono" id="log"></div></div></div>
+  </div>
+
+  <!-- TERMINAL -->
+  <div class="view" id="v-terminal" hidden>
+    <div class="term">
+      <div class="termbar"><i></i><i></i><i></i><span class="mono" style="margin-left:8px">valentino@portfolio: ~</span></div>
+      <div id="out" class="mono" aria-live="polite"></div>
+      <div class="inp mono"><label for="cmd">valentino@portfolio:~$</label><input id="cmd" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Command"></div>
+      <div class="cmds mono" id="cmds"></div>
+    </div>
+  </div>
 </main>
 
-<div id="player" role="dialog" aria-modal="true" aria-label="Modulo e-learning"><button id="close" type="button">Chiudi</button><div id="frame" style="width:100%;height:100%"></div></div>
+<footer>Valentino Tufarelli, Rome. This page is styled after a code repository; the agents described are internal and their code is not public.</footer>
+
+<div id="player" role="dialog" aria-modal="true" aria-label="E-learning demo"><button id="close" class="btn2" type="button">Close</button><div id="frame" style="width:100%;height:100%"></div></div>
 
 <script>
 (function(){
-  document.body.classList.remove('nojs');
-  var G={cor:'#FF5A4E',yel:'#FFC83D',blu:'#3D5AFE',whi:'#FFFFFF'},P={tea:'#2A9D8F',pea:'#FFC9B5',sun:'#FFD166',min:'#BFE5DA',lil:'#D9D0F5'};
-  var D=2200, world=document.getElementById('world'), scene=document.getElementById('scene');
-  var narrow=function(){return window.innerWidth<=760;};
-  // [tipo, x, y, z, misura, colore, opzioni]
-  var SPEC=[
-    ['ball',-560,-230,250,150,G.cor],['ball',520,-270,600,190,G.yel],['ball',610,240,-60,100,G.blu],
-    ['cube',-450,250,420,120,G.blu],['cube',330,330,820,90,G.cor],
-    ['quarter',-700,30,700,220,G.yel],['semi',680,-30,350,170,G.whi],['ring',10,-360,900,240,G.cor],['stripes',-250,-330,520,130,G.whi],
-    ['ball',-120,340,1000,70,P.pea],['ball',180,-300,1200,60,P.min],
-    ['cube',-620,-200,1300,140,G.yel],['ball',640,180,1400,130,G.cor],['quarter',560,-300,1150,180,G.blu],['ring',-560,280,1600,200,G.whi],
-    ['semi',-200,-380,1750,150,G.cor],['ball',300,380,1850,90,G.yel],['stripes',700,-60,1700,120,G.whi],
-    ['ball',-90,-290,2300,80,G.yel],['cube',700,-250,2450,100,G.cor],['quarter',690,270,2350,150,G.yel],['ball',-60,300,2500,110,G.blu],
-    ['ringstill',310,0,2750,560,G.blu],['semi',-650,-300,2600,160,G.whi],['cube',-640,280,2550,110,G.blu],
-    ['ball',-600,-150,3100,140,G.cor],['cube',600,200,3200,120,G.yel],['ball',520,-280,3500,160,P.pea,'clay'],['pill',-520,260,3600,[220,90],P.sun],
-    ['donut',-300,-340,3800,170,P.tea],['ball',380,340,3900,110,P.lil,'clay'],['ball',700,0,3700,90,P.min,'clay'],
-    ['donut',120,-290,4500,150,P.pea],['ball',-720,-260,4650,120,P.sun,'clay'],['pill',-700,280,4550,[200,80],P.lil],['ball',80,310,4700,130,P.min,'clay'],
-    ['blob',-310,0,4950,620,P.pea],['ball',680,-200,4600,90,P.tea,'clay'],
-    ['ball',-400,-200,5300,150,P.lil,'clay'],['ball',420,220,5500,170,P.pea,'clay'],['donut',500,-260,5200,140,P.sun]
+  var AG=[
+   {id:'expense-doc-checker',plat:'Microsoft 365 Copilot',col:'#3fb950',status:'Tested on real cases',
+    d:'Pre-checks expense documentation and flags anomalies and missing information before human review.',
+    does:'Reads the expense documents, compares them with the rules and reports what does not add up or is missing. It does not approve or reject anything.',
+    flow:['Expense documents','Agent: instructions + knowledge base','Flags: anomalies, missing information','Authorised operator decides'],
+    spec:[['platform','Microsoft 365 Copilot'],['input','expense documentation'],['knowledge','rules and reference cases'],['output','list of anomalies and missing information'],['guardrail','no approval, no rejection: the operator decides']],
+    ev:'Run on real cases. The failures were document-reading errors, which I corrected one by one.',
+    me:'Process analysis with the business owner, MVP scope, design of instructions and knowledge base, testing and fixes.'},
+   {id:'event-logistics-compare',plat:'Agent Builder',col:'#a371f7',status:'Tested on real cases',
+    d:'Compares supplier proposals for event logistics against economic, qualitative and operational criteria.',
+    does:'Takes proposals that arrive in different formats, brings them to a common structure and compares the alternatives on defined criteria.',
+    flow:['Supplier proposals','Normalise the information','Compare on economic, qualitative, operational criteria','Review with the business'],
+    spec:[['platform','Agent Builder'],['input','supplier proposals, mixed formats'],['criteria','economic, qualitative, operational'],['output','side-by-side comparison of alternatives'],['guardrail','the business reviews the method and the result']],
+    ev:'Tested on real cases. The evaluation method was revised with the business after the tests.',
+    me:'Definition of the criteria and of the normalisation, agent design, testing.'},
+   {id:'account-planning-assistant',plat:'Copilot Studio',col:'#a371f7',status:'Prototype',
+    d:'Conversational assistant for account planning, with data retrieved from SharePoint through Power Automate.',
+    does:'Guides the user through account planning in a conversation, keeping context across turns and pulling the information it needs from SharePoint.',
+    flow:['User question','Conversation flow in Copilot Studio','Power Automate retrieves from SharePoint','Answer; personal data entered manually only'],
+    spec:[['platform','Copilot Studio + Power Automate + SharePoint'],['input','user questions in natural language'],['retrieval','SharePoint via Power Automate flows'],['context','managed across conversation turns'],['guardrail','retrieved data kept separate from manually entered personal data']],
+    ev:'Built as a working prototype of the conversation flow and of the retrieval path.',
+    me:'Conversation design, context handling, integration flows, data separation.'},
+   {id:'email-triage-agent',plat:'Copilot Studio',col:'#a371f7',status:'Prototype',
+    d:'Reads an incoming email and proposes a route: answer from FAQ, open a ticket, or hand over to a person.',
+    does:'Analyses the request in an incoming email and proposes one of three explicit outcomes, so that routine questions do not wait in a queue.',
+    flow:['Incoming email','Analyse the request','Route: FAQ answer, ticket, or manual review','A person confirms'],
+    spec:[['platform','Copilot agent'],['input','incoming email'],['outcomes','faq_answer | open_ticket | manual_review'],['starting point','an existing email-analysis prompt, turned into an agent'],['guardrail','proposes the route; does not send on its own']],
+    ev:'Prototype built from an existing prompt, with the three outcomes made explicit.',
+    me:'Turning the prompt into an agent, defining the outcomes and the handover.'},
+   {id:'survey-compliance-check',plat:'Power Automate',col:'#1f6feb',status:'Iterated over several months',
+    d:'Automated first-pass compliance review of free-text survey responses.',
+    does:'A flow sends each response to a prompt that carries the reference material it needs, and returns a first-pass assessment for the human reviewer.',
+    flow:['Survey responses','Power Automate flow','Prompt with embedded reference material','First-pass result for the human reviewer'],
+    spec:[['platform','Power Automate + AI prompt'],['input','free-text survey responses'],['knowledge','reference material embedded in the prompt'],['output','first-pass assessment with reason'],['guardrail','a human reviewer makes the final call']],
+    ev:'Refined over several months against real responses.',
+    me:'Flow design, prompt design with embedded references, iteration on real responses.'},
+   {id:'agent-output-review',plat:'Python, Node.js',col:'#238636',status:'In use for reviews',
+    d:'Structured review of what an agent returns against its source, plus normalisation of its knowledge files.',
+    does:'Compares the agent output with the source line by line and reports the differences. Separately, rebuilds the knowledge documents in one consistent format so the agent retrieves from them reliably.',
+    flow:['Source mapping + agent output','Line-by-line comparison','Report: discrepancies, comparison table, summary','Fix knowledge files or instructions'],
+    spec:[['method','line-by-line consistency check'],['report','discrepancy list, comparison table, summary'],['knowledge','files normalised to one structure'],['tooling','Python and Node.js document pipelines'],['guardrail','nothing ships until the review is clean']],
+    ev:'This is the evaluation step itself: it is how I decide whether an agent is ready.',
+    me:'Review method, report format, document pipeline.'}
   ];
-  var objs=[];
-  function add(el,x,y,z,kind){
-    var o=document.createElement('div'); o.className='obj'; o.appendChild(el); world.appendChild(o);
-    var rec={el:o,x:x,y:y,z:z,kind:kind||''}; objs.push(rec); return rec;
-  }
-  SPEC.forEach(function(s,i){
-    var t=s[0], size=s[4], w=size.length?size[0]:size, h=size.length?size[1]:size, e=document.createElement('div');
-    e.className='in'; e.style.setProperty('--c',s[5]); e.style.setProperty('--d',(5+(i*7)%9)+(t==='cube'?16:0)+(t==='ball'?0:8)+'s');
-    if(t==='semi') h=w/2;
-    e.style.width=w+'px'; e.style.height=h+'px'; e.style.left=(-w/2)+'px'; e.style.top=(-h/2)+'px';
-    if(t==='ball'){e.className+=' ball'+(s[6]?' clay':'');}
-    else if(t==='cube'){e.className+=' cube'; e.style.setProperty('--h',(w/2)+'px'); for(var k=0;k<6;k++) e.appendChild(document.createElement('i'));}
-    else if(t==='ring'||t==='ringstill'){e.className+=' flat ring'+(t==='ringstill'?' still':''); e.style.borderWidth=Math.round(w*.09)+'px'; e.style.setProperty('--rx',t==='ringstill'?'0deg':'65deg');}
-    else if(t==='pill'||t==='donut'||t==='blob'){e.className+=' '+t; e.style.setProperty('--rx','25deg');}
-    else {e.className+=' flat '+t; e.style.setProperty('--rx',(10+(i*13)%40)+'deg');}
-    add(e,s[1],s[2],s[3]);
+  var esc=function(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');};
+
+  /* agents: list and detail */
+  var cards=document.getElementById('cards'),list=document.getElementById('agent-list'),det=document.getElementById('agent-detail');
+  AG.forEach(function(a){
+    var b=document.createElement('button');b.className='card';b.type='button';
+    b.innerHTML='<span class="t"><b>'+a.id+'</b><span class="pill">Private</span></span><p>'+esc(a.d)+'</p><span class="f"><span><span class="dot" style="background:'+a.col+'"></span>'+a.plat+'</span><span>'+a.status+'</span></span>';
+    b.addEventListener('click',function(){location.hash='agents/'+a.id;});cards.appendChild(b);
   });
-  // nome
-  var nm=document.createElement('div'); nm.className='in name'; nm.innerHTML='<span>Valentino</span><span>Tufarelli</span>'; add(nm,0,-30,0,'name');
-  // schermi
-  var ART1='<svg viewBox="0 0 270 360"><rect width="270" height="360" fill="#1B1B3A"/><path d="M0 0 L90 0 A90 90 0 0 1 0 90 Z" fill="#FFC83D"/><rect x="90" width="90" height="90" fill="#3D5AFE"/><circle cx="225" cy="45" r="45" fill="#FF5A4E"/><rect y="90" width="90" height="90" fill="#FF5A4E"/><path d="M90 180 A45 45 0 0 1 180 180 Z" fill="#fff"/><rect x="180" y="90" width="90" height="90" fill="#FFC83D"/><circle cx="225" cy="135" r="22" fill="#1B1B3A"/><circle cx="45" cy="225" r="45" fill="#3D5AFE"/><path d="M180 270 L90 270 A90 90 0 0 1 180 180 Z" fill="#FF5A4E"/><rect x="180" y="180" width="90" height="90" fill="#EDEFF5"/><rect y="270" width="90" height="90" fill="#FFC83D"/><rect x="90" y="285" width="90" height="14" fill="#fff"/><rect x="90" y="311" width="90" height="14" fill="#fff"/><rect x="90" y="337" width="90" height="14" fill="#fff"/><path d="M270 360 L180 360 A90 90 0 0 1 270 270 Z" fill="#3D5AFE"/></svg>';
-  var ART2='<svg viewBox="0 0 560 520"><path d="M150 40 C290 -30 520 30 540 210 C556 370 450 500 290 490 C140 480 20 400 30 250 C36 150 80 76 150 40 Z" fill="#FFC9B5"/><rect x="115" y="100" width="330" height="250" rx="26" fill="#fff"/><path d="M115 164 V126 a26 26 0 0 1 26 -26 H419 a26 26 0 0 1 26 26 V164 Z" fill="#2A9D8F"/><rect x="115" y="100" width="330" height="250" rx="26" fill="none" stroke="#1F3A5F" stroke-width="7"/><rect x="196" y="76" width="14" height="44" rx="7" fill="#1F3A5F"/><rect x="350" y="76" width="14" height="44" rx="7" fill="#1F3A5F"/><rect x="139" y="196" width="46" height="46" rx="10" fill="#FFC9B5"/><rect x="197" y="196" width="46" height="46" rx="10" fill="#FFD166"/><rect x="255" y="196" width="46" height="46" rx="10" fill="#BFE5DA"/><rect x="313" y="196" width="46" height="46" rx="10" fill="#D9D0F5"/><rect x="371" y="196" width="46" height="46" rx="10" fill="#E6F4EF"/><path d="M151 219 l8 9 l15 -17" fill="none" stroke="#1F3A5F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="139" y="268" width="190" height="13" rx="6.5" fill="#E6F4EF"/><rect x="139" y="296" width="130" height="13" rx="6.5" fill="#E6F4EF"/><rect x="372" y="330" width="96" height="106" rx="16" fill="#FFD166" stroke="#1F3A5F" stroke-width="7"/><path d="M468 356 q44 0 44 30 q0 30 -44 30" fill="none" stroke="#1F3A5F" stroke-width="7" stroke-linecap="round"/><ellipse cx="104" cy="352" rx="18" ry="50" fill="#2A9D8F"/><ellipse cx="74" cy="366" rx="16" ry="44" fill="#2A9D8F" transform="rotate(-32 74 366)"/><ellipse cx="134" cy="366" rx="16" ry="44" fill="#2A9D8F" transform="rotate(32 134 366)"/><rect x="62" y="392" width="84" height="74" rx="12" fill="#1F3A5F"/></svg>';
-  function screen(cls,name,sub,art,src,title,x,z){
-    var e=document.createElement('div'); e.className='in screen '+cls;
-    e.innerHTML='<button class="face" type="button" tabindex="-1"><span class="txt"><span class="nm">'+name+'</span><span class="sb">'+sub+'</span><span class="go">Prova il modulo</span></span>'+art+'</button><div class="back"></div><div class="lr l"></div><div class="lr r"></div><div class="tb t"></div><div class="tb b"></div>';
-    e.querySelector('.face').addEventListener('click',function(){openPlayer(src,title);});
-    var r=add(e,x,0,z,'screen'); r.x0=x; return r;
+  function showAgent(id){
+    var a=AG.filter(function(x){return x.id===id;})[0];
+    if(!a){list.hidden=false;det.hidden=true;return;}
+    var w=Math.max.apply(null,a.spec.map(function(s){return s[0].length;}));
+    var spec='<span class="k">agent</span>: <span class="s">'+a.id+'</span>\n'+a.spec.map(function(s){return '<span class="k">'+s[0]+'</span>: '+new Array(w-s[0].length+1).join(' ')+'<span class="s">'+esc(s[1])+'</span>';}).join('\n');
+    det.innerHTML='<button class="back" type="button">&larr; agents</button><div class="box"><div class="boxhead mono">agents/'+a.id+'/README.md</div><div class="md">'+
+      '<h1>'+a.id+' <span class="pill">Private</span> <span class="pill ok">'+a.status+'</span></h1><p>'+esc(a.d)+'</p>'+
+      '<h2>What it does</h2><p>'+esc(a.does)+'</p>'+
+      '<h2>Flow</h2><ol class="flow">'+a.flow.map(function(f){return '<li>'+esc(f)+'</li>';}).join('')+'</ol>'+
+      '<h2>Spec</h2><pre>'+spec+'</pre>'+
+      '<h2>Evaluation</h2><p>'+esc(a.ev)+'</p>'+
+      '<h2>My part</h2><p>'+esc(a.me)+'</p>'+
+      '<p class="mu" style="font-size:13px">Internal project: no screenshots, names or data are shown here.</p></div></div>';
+    det.querySelector('.back').addEventListener('click',function(){location.hash='agents';});
+    list.hidden=true;det.hidden=false;
   }
-  screen('s1','Copilot 101','AI Fundamentals training',ART1,'copilot/','Modulo Copilot 101',310,D);
-  screen('s2','La tua prima<br>settimana','Onboarding',ART2,'onboarding/','Modulo La tua prima settimana',-310,2*D);
 
-  function place(){
-    var n=narrow();
-    objs.forEach(function(o){
-      var x=o.x,y=o.y;
-      if(o.kind==='screen'&&n){x=0;y=250;}
-      if(o.kind==='name'){o.el.firstChild.style.fontSize=n?'96px':'150px';}
-      o.el.style.transform='translate3d('+x+'px,'+y+'px,'+(-o.z)+'px)';
-    });
-  }
-  place(); window.addEventListener('resize',place);
+  /* career: month grid and log */
+  var P=[['sales','2015-07','2018-10'],['study','2018-10','2021-07'],['study','2021-10','2023-11'],['mkt','2022-09','2023-04'],['mkt','2023-02','2023-08'],['sales','2023-11','2024-04'],['study','2024-04','2024-06'],['inn','2024-09','2025-06'],['study','2025-11','2026-05'],['ai','2026-06','2026-11']];
+  var COL={ai:'var(--green)',inn:'var(--purple)',mkt:'var(--yellow)',sales:'var(--blue)',study:'var(--study)'},RANK={study:1,sales:2,mkt:3,inn:4,ai:5};
+  var heat=document.getElementById('heat'),MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  heat.appendChild(document.createElement('span'));
+  for(var y=2015;y<=2026;y++){var s=document.createElement('span');s.textContent="'"+String(y).slice(2);s.style.textAlign='center';heat.appendChild(s);}
+  for(var m=1;m<=12;m++){var l=document.createElement('span');l.textContent=MN[m-1];heat.appendChild(l);
+    for(y=2015;y<=2026;y++){var key=y+'-'+(m<10?'0':'')+m,best=null;P.forEach(function(p){if(key>=p[1]&&key<=p[2]&&(!best||RANK[p[0]]>RANK[best]))best=p[0];});
+      var c=document.createElement('i');if(best)c.style.background=COL[best];c.title=MN[m-1]+' '+y;heat.appendChild(c);}}
+  var LOG=[['2026-06 → now','Pfizer Italy','Digital & Technology Trainee. AI agents and assistants on the Microsoft ecosystem.'],
+    ['2025-11 → 2026-05','24ORE Business School','Postgraduate Master in Pharma, Healthcare & Biotech Management.'],
+    ['2024-09 → 2025-06','ELIS Innovation Hub','Innovation Consultant. AI startup scouting, coordination of four Proofs of Concept.'],
+    ['2023-11 → 2024-04','Philip Morris Italia','Sales Activation Specialist.'],
+    ['2023-02 → 2023-08','Does Matter Agency','Digital Marketing Strategist. Brand identity, website redesign, social channels.'],
+    ['2022-09 → 2023-04','Myriam Arte Sacra','Digital and Marketing Expert, internship.'],
+    ['2021-10 → 2023-11','LUMSA, Rome','Master’s degree in Marketing & Digital Communication.'],
+    ['2018-10 → 2021-07','University of Urbino','Bachelor’s degree in Information, Media and Advertising.'],
+    ['2015-07 → 2018-10','Telecom retail','Sales assistant, then store manager, then B2B sales agent.']];
+  document.getElementById('log').innerHTML=LOG.map(function(r){return '<span class="h">'+r[0]+'</span>  <b>'+esc(r[1])+'</b>\n<span class="d">    '+esc(r[2])+'</span>';}).join('\n\n');
 
-  // colori di fondo lungo il percorso
-  var STOPS=[[0,[14,14,36]],[1,[27,27,58]],[1.5,[27,27,58]],[2,[230,244,239]],[9,[230,244,239]]];
-  function bg(p){
-    for(var i=0;i<STOPS.length-1;i++){var a=STOPS[i],b=STOPS[i+1]; if(p<=b[0]){var t=(p-a[0])/(b[0]-a[0]); t=Math.max(0,Math.min(1,t));
-      return 'rgb('+a[1].map(function(v,k){return Math.round(v+(b[1][k]-v)*t);}).join(',')+')';}}
-    return 'rgb(230,244,239)';
+  /* terminal */
+  var out=document.getElementById('out'),inp=document.getElementById('cmd'),PROMPT='<span class="p">valentino@portfolio</span>:<span class="h">~</span>$ ';
+  function print(h){out.insertAdjacentHTML('beforeend',h+'\n');out.scrollTop=out.scrollHeight;}
+  var CMD={
+    help:function(){return 'Commands:\n  <span class="y">whoami</span>          who I am\n  <span class="y">ls agents</span>       list the agents\n  <span class="y">cat &lt;agent&gt;</span>     show one agent, e.g. cat expense-doc-checker\n  <span class="y">stack</span>           tools I work with\n  <span class="y">method</span>          how I build an agent\n  <span class="y">career</span>          work history\n  <span class="y">demo</span>            open the e-learning demos\n  <span class="y">contact</span>         how to reach me\n  <span class="y">clear</span>           clear the screen';},
+    whoami:function(){return 'Valentino Tufarelli, Rome.\nI build AI agents and automations on Microsoft Copilot Studio and Power Platform, at Pfizer Italy.\nOpen to AI engineer roles.';},
+    stack:function(){return '<span class="y">agents</span>      Microsoft 365 Copilot, Copilot Studio, Agent Builder\n<span class="y">flows</span>       Power Automate, SharePoint, Power Apps, Power BI\n<span class="y">scripting</span>   Python, Node.js (document pipelines)\n<span class="y">training</span>    Articulate Storyline\n<span class="d">I do not train models from scratch. I make them work inside a process.</span>';},
+    method:function(){return '1. requirements   sit with the people who do the job\n2. scope          smallest part worth automating (MVP)\n3. instructions   what the agent does, which sources it may use\n4. real cases     run it, compare output with source line by line\n5. human          the agent flags and suggests, a person decides';},
+    career:function(){return LOG.map(function(r){return '<span class="y">'+r[0]+'</span>  '+esc(r[1])+'\n<span class="d">    '+esc(r[2])+'</span>';}).join('\n');},
+    demo:function(){location.hash='elearning';return 'Opening elearning/ ...';},
+    contact:function(){return 'LinkedIn  <a href="https://www.linkedin.com/in/valentinotufarelli">linkedin.com/in/valentinotufarelli</a>\nGitHub    <a href="https://github.com/tufawayz">github.com/tufawayz</a>';},
+    clear:function(){out.innerHTML='';return null;}
+  };
+  function run(raw){
+    var c=raw.trim();print(PROMPT+esc(c));if(!c)return;
+    var low=c.toLowerCase().replace(/\s+/g,' '),r;
+    if(low==='ls'||low==='ls agents'||low==='ls agents/'){r=AG.map(function(a){return '<span class="h">'+a.id+'/</span>  <span class="d">'+a.plat+', '+a.status.toLowerCase()+'</span>';}).join('\n');}
+    else if(low.indexOf('cat ')===0||low.indexOf('open ')===0){var id=low.split(' ')[1].replace(/^agents\//,'').replace(/\/.*$/,'');var a=AG.filter(function(x){return x.id===id;})[0];
+      r=a?'<span class="y"># '+a.id+'</span>\n'+esc(a.d)+'\n<span class="d">'+a.flow.map(esc).join(' → ')+'</span>\nStatus: '+a.status+'. '+esc(a.ev):'cat: '+esc(id)+': no such agent. Try <span class="y">ls agents</span>.';}
+    else if(CMD[low]){r=CMD[low]();}
+    else r=esc(c)+': command not found. Type <span class="y">help</span>.';
+    if(r!=null)print(r);
   }
-  var panels=[].slice.call(document.querySelectorAll('.panel'));
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var p=0,tp=0,mx=0,my=0,tmx=0,tmy=0;
-  function target(){tp=Math.max(0,Math.min(2.25,window.scrollY/window.innerHeight));}
-  window.addEventListener('scroll',target,{passive:true}); target(); p=tp;
-  window.addEventListener('pointermove',function(e){ if(e.pointerType==='touch')return; tmx=(e.clientX/window.innerWidth-.5)*9; tmy=-(e.clientY/window.innerHeight-.5)*7; },{passive:true});
-  function frame(){
-    p+=(tp-p)*(reduce?1:.09); mx+=(tmx-mx)*.06; my+=(tmy-my)*.06;
-    var k=Math.max(.55,Math.min(1,window.innerWidth/1150)), cam=p*D;
-    world.style.transform='scale('+k+') rotateX('+(reduce?0:my)+'deg) rotateY('+(reduce?0:mx)+'deg) translateZ('+cam+'px)';
-    scene.style.background=bg(p);
-    for(var i=0;i<objs.length;i++){
-      var o=objs[i], dz=cam-o.z, op=1;
-      if(dz>850) op=0; else if(dz>450) op=1-(dz-450)/400; else if(dz<-2150) op=0; else if(dz<-1300) op=1-(-1300-dz)/850;
-      if(o.op!==op){o.op=op; o.el.style.opacity=op; o.el.style.visibility=op<=.01?'hidden':'visible';}
-    }
-    for(var j=0;j<panels.length;j++){
-      var d=p-j, a=Math.max(0,1-Math.abs(d)/.42); a=a*a*(3-2*a);
-      panels[j].style.opacity=a; panels[j].style.transform='translateY('+(-d*50)+'px)';
-      panels[j].classList.toggle('on',a>.6);
-    }
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'){run(inp.value);inp.value='';}});
+  ['help','whoami','ls agents','cat expense-doc-checker','stack','method','career','contact'].forEach(function(c){var b=document.createElement('button');b.className='cmd';b.type='button';b.textContent=c;b.addEventListener('click',function(){run(c);inp.focus();});document.getElementById('cmds').appendChild(b);});
+  var booted=false;function boot(){if(booted)return;booted=true;print('<span class="d">Type a command or click one below. Start with help.</span>');run('whoami');}
 
-  // lettore del modulo
-  var player=document.getElementById('player'), holder=document.getElementById('frame'), last=null;
-  function openPlayer(src,title){
-    last=document.activeElement;
-    holder.innerHTML=''; var f=document.createElement('iframe'); f.src=src; f.title=title; f.setAttribute('allowfullscreen',''); holder.appendChild(f);
-    player.classList.add('open'); document.getElementById('close').focus();
+  /* routing */
+  var tabs=[].slice.call(document.querySelectorAll('.tab')),views=['readme','agents','elearning','innovation','career','terminal'];
+  function route(){
+    var h=location.hash.replace(/^#/,'')||'readme',parts=h.split('/'),v=views.indexOf(parts[0])>=0?parts[0]:'readme';
+    views.forEach(function(n){document.getElementById('v-'+n).hidden=n!==v;});
+    tabs.forEach(function(t){t.setAttribute('aria-selected',t.getAttribute('data-v')===v?'true':'false');});
+    if(v==='agents')showAgent(parts[1]);
+    if(v==='terminal')boot();
+    window.scrollTo(0,0);
   }
-  function closePlayer(){player.classList.remove('open'); holder.innerHTML=''; if(last&&last.focus) last.focus();}
-  document.getElementById('close').addEventListener('click',closePlayer);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&player.classList.contains('open')) closePlayer();});
-  document.querySelectorAll('.play').forEach(function(b){b.addEventListener('click',function(){openPlayer(b.getAttribute('data-src'),b.getAttribute('data-title'));});});
+  tabs.forEach(function(t){t.addEventListener('click',function(){location.hash=t.getAttribute('data-v');});});
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){location.hash=b.getAttribute('data-go');});});
+  window.addEventListener('hashchange',route);route();
+
+  /* demo player */
+  var player=document.getElementById('player'),holder=document.getElementById('frame'),last=null;
+  function closeP(){player.classList.remove('open');holder.innerHTML='';document.body.style.overflow='';if(last&&last.focus)last.focus();}
+  [].forEach.call(document.querySelectorAll('[data-play]'),function(b){b.addEventListener('click',function(){last=b;holder.innerHTML='';var f=document.createElement('iframe');f.src=b.getAttribute('data-play');f.title=b.getAttribute('data-title');f.setAttribute('allowfullscreen','');holder.appendChild(f);player.classList.add('open');document.body.style.overflow='hidden';document.getElementById('close').focus();});});
+  document.getElementById('close').addEventListener('click',closeP);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&player.classList.contains('open'))closeP();});
 })();
 </script>
 </body>
