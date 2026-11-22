@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valentino Tufarelli, portfolio</title>
+<meta name="description" content="Agenti AI e automazioni, moduli e-learning, progetti di innovazione e strategie di marketing: il portfolio completo di Valentino Tufarelli.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Lora:ital,wght@1,700&family=Poppins:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{background:#0E0E24}
+body{margin:0;color:#fff;font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.0625rem;line-height:1.55;overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid #FFC83D;outline-offset:3px}
+
+/* ---------- scena 3D ---------- */
+#scene{position:fixed;inset:0;overflow:hidden;perspective:1000px;background:#0E0E24;z-index:0}
+#world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+.obj{position:absolute;left:0;top:0;transform-style:preserve-3d;will-change:opacity}
+.in{position:absolute;transform-style:preserve-3d}
+@keyframes spin{from{transform:rotateX(var(--rx,20deg)) rotateY(0deg)}to{transform:rotateX(var(--rx,20deg)) rotateY(360deg)}}
+@keyframes tumble{from{transform:rotateX(0deg) rotateY(0deg) rotateZ(0deg)}to{transform:rotateX(360deg) rotateY(720deg) rotateZ(360deg)}}
+@keyframes bob{from{transform:translateY(-14px)}to{transform:translateY(14px)}}
+@keyframes sway{from{transform:rotateY(var(--ry0)) rotateX(5deg) translateY(-8px)}to{transform:rotateY(var(--ry1)) rotateX(-2deg) translateY(8px)}}
+.ball{border-radius:50%;background:radial-gradient(circle at 32% 28%,color-mix(in srgb,var(--c) 55%,#fff) 0,var(--c) 46%,color-mix(in srgb,var(--c) 62%,#000) 100%);animation:bob var(--d,5s) ease-in-out infinite alternate}
+.ball.clay{background:radial-gradient(circle at 34% 30%,color-mix(in srgb,var(--c) 60%,#fff) 0,var(--c) 55%,color-mix(in srgb,var(--c) 82%,#1F3A5F) 100%)}
+.ball.glow{box-shadow:0 0 50px 8px color-mix(in srgb,var(--c) 60%,transparent)}
+.flat{animation:spin var(--d,14s) linear infinite}
+.flat.quarter{background:var(--c);border-radius:100% 0 0 0}
+.flat.semi{background:var(--c);border-radius:999px 999px 0 0}
+.flat.disc{background:var(--c);border-radius:50%}
+.flat.ring{border:solid var(--c);border-radius:50%}
+.flat.stripes{background:repeating-linear-gradient(var(--c) 0 16%,transparent 16% 33.3%)}
+.flat.dots{background:radial-gradient(circle,var(--c) 0 30%,transparent 32%) 0 0/14px 14px}
+.still{animation:none;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.cube{animation:tumble var(--d,22s) linear infinite}
+.cube i{position:absolute;inset:0;display:block;background:var(--c)}
+.cube i:nth-child(1){transform:translateZ(var(--h))}
+.cube i:nth-child(2){transform:rotateY(180deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 60%,#000)}
+.cube i:nth-child(3){transform:rotateY(90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 80%,#000)}
+.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 72%,#000)}
+.cube i:nth-child(5){transform:rotateX(90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 80%,#fff)}
+.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(var(--h));background:color-mix(in srgb,var(--c) 50%,#000)}
+.pill{border-radius:999px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 60%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 80%,#1F3A5F));animation:bob var(--d,6s) ease-in-out infinite alternate}
+.donut{border-radius:50%;background:radial-gradient(circle,transparent 36%,color-mix(in srgb,var(--c) 78%,#1F3A5F) 37%,var(--c) 52%,color-mix(in srgb,var(--c) 60%,#fff) 60%,var(--c) 68%,transparent 69%);animation:spin var(--d,18s) linear infinite}
+
+.name{left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;text-align:center;font-family:"Archivo Black","DM Sans",sans-serif;font-size:150px;line-height:.9;letter-spacing:-.02em;color:#fff;text-transform:uppercase;
+  text-shadow:1px 1px 0 #FF5A4E,2px 2px 0 #FF5A4E,3px 3px 0 #FF5A4E,4px 4px 0 #FF5A4E,5px 5px 0 #FF5A4E,6px 6px 0 #FF5A4E,7px 7px 0 #FF5A4E,8px 8px 0 #FF5A4E,9px 9px 0 #FF5A4E,10px 10px 0 #FF5A4E,11px 11px 0 #FF5A4E,12px 12px 0 #FF5A4E,13px 13px 0 #3D5AFE,14px 14px 0 #3D5AFE,15px 15px 0 #3D5AFE,16px 16px 0 #3D5AFE,17px 17px 0 #3D5AFE,18px 18px 0 #3D5AFE}
+.name span{display:block}
+.name span + span{color:#FFC83D}
+
+/* lastre 3D: schede e schermi dei progetti */
+.slab{width:var(--w);height:var(--h);left:calc(var(--w) / -2);top:calc(var(--h) / -2);animation:sway 6s ease-in-out infinite alternate}
+.slab .face{position:absolute;inset:0;transform:translateZ(14px);border:0;padding:0;overflow:hidden;display:flex;align-items:stretch;text-align:left}
+.slab .back{position:absolute;inset:0;transform:rotateY(180deg) translateZ(14px);background:var(--edge)}
+.slab .lr,.slab .tb{position:absolute;background:var(--edge)}
+.slab .lr{width:28px;height:100%;top:0;left:calc(50% - 14px)}
+.slab .tb{height:28px;width:100%;left:0;top:calc(50% - 14px)}
+.slab .l{transform:rotateY(-90deg) translateZ(calc(var(--w) / 2))}
+.slab .r{transform:rotateY(90deg) translateZ(calc(var(--w) / 2));filter:brightness(.8)}
+.slab .t{transform:rotateX(90deg) translateZ(calc(var(--h) / 2));filter:brightness(1.15)}
+.slab .b{transform:rotateX(-90deg) translateZ(calc(var(--h) / 2));filter:brightness(.7)}
+/* agenti */
+.f-ai{background:linear-gradient(150deg,#232879,#12143D);color:#fff;font-family:"Space Grotesk","DM Sans",sans-serif;flex-direction:column;justify-content:space-between;padding:20px 22px!important}
+.f-ai .tag{font-size:13px;font-weight:700;color:#3DE0D0}
+.f-ai .ttl{font-size:21px;font-weight:700;line-height:1.12}
+.f-ai .go{align-self:flex-start;font-size:13px;font-weight:700;background:#3DE0D0;color:#0B0F2E;border-radius:999px;padding:5px 12px}
+/* moduli */
+.f-mod .txt{flex:1;display:flex;flex-direction:column;justify-content:center;padding:34px}
+.f-mod .nm{display:block;line-height:1.02;margin-bottom:8px}
+.f-mod .sb{display:block;margin-bottom:22px;font-size:16px}
+.f-mod .go{align-self:flex-start;display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:16px;padding:11px 20px;border-radius:999px}
+.f-mod .go::before{content:"";border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
+.f-mod svg{height:100%;width:auto;flex:none;display:block}
+.m1{background:#EDEFF5;color:#1B1B3A}
+.m1 .nm{font-family:"Archivo Black",sans-serif;font-size:44px}
+.m1 .go{background:#1B1B3A;color:#FFC83D}
+.m2{background:#fff;color:#1F3A5F;font-family:"Poppins",sans-serif}
+.m2 .nm{font-weight:600;font-size:36px}
+.m2 .go{background:#1F3A5F;color:#fff}
+.m2 svg{padding:16px 16px 16px 0}
+/* proof of concept */
+.f-poc{background:#fff;color:#1B1B3A;flex-direction:column;justify-content:center;padding:18px 20px!important}
+.f-poc .tag{font-size:12px;font-weight:700;color:#FF5A4E;margin-bottom:6px}
+.f-poc .ttl{font-family:"Archivo Black",sans-serif;font-size:23px;line-height:1.05}
+/* project work */
+.f-mkt{background:#F1EEE8;color:#1E1E1E;flex-direction:column;justify-content:space-between;padding:16px 18px!important;border:2px solid #2337C6!important}
+.f-mkt .tag{font-size:12px;font-weight:700;color:#E23A1C}
+.f-mkt .ttl{font-family:"Lora",Georgia,serif;font-style:italic;font-weight:700;font-size:27px;line-height:1.02;color:#2337C6}
+.f-mkt .go{align-self:flex-start;font-size:12px;font-weight:700;background:#2337C6;color:#F1EEE8;padding:4px 10px}
+.f-ai.sm{padding:14px 16px!important}.f-ai.sm .ttl{font-size:19px}.f-ai.sm .tag{font-size:12px}.f-ai.sm .go{font-size:12px;padding:4px 10px}
+
+/* cubo da girare */
+.cube4{width:var(--s);height:var(--s);left:calc(var(--s) / -2);top:calc(var(--s) / -2)}
+.spin{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.8,.2,1);cursor:grab;touch-action:pan-y}
+.cube4 .spin{transform:translateZ(calc(var(--s) / -2)) rotateX(-10deg) rotateY(calc(var(--ang,0deg) - 22deg))}
+.dragging .spin{transition:none;cursor:grabbing}
+.fc{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:26px 28px;overflow:hidden;user-select:none;-webkit-user-select:none}
+.fc:nth-child(1){transform:rotateY(0deg) translateZ(calc(var(--s) / 2))}
+.fc:nth-child(2){transform:rotateY(90deg) translateZ(calc(var(--s) / 2))}
+.fc:nth-child(3){transform:rotateY(180deg) translateZ(calc(var(--s) / 2))}
+.fc:nth-child(4){transform:rotateY(270deg) translateZ(calc(var(--s) / 2))}
+.cap{position:absolute;inset:0;background:var(--cap)}
+.cap.t{transform:rotateX(90deg) translateZ(calc(var(--s) / 2))}
+.cap.b{transform:rotateX(-90deg) translateZ(calc(var(--s) / 2))}
+.fc .lb{font-size:17px;font-weight:700}
+.fc .bg{font-family:"Archivo Black","DM Sans",sans-serif;font-size:58px;line-height:.92;letter-spacing:-.02em;text-transform:uppercase}
+.fc .tg{font-size:15px;font-weight:700;opacity:.85}
+.fc .no{position:absolute;right:22px;top:16px;font-family:"Archivo Black",sans-serif;font-size:30px;opacity:.35}
+.riso .fc .bg{font-family:"Lora",Georgia,serif;font-style:italic;font-weight:700;text-transform:none;font-size:62px;letter-spacing:-.01em}
+/* ruota dei progetti */
+.ring{width:0;height:0}
+.ring .spin{transform:translateZ(calc(var(--r) * -1)) rotateX(-7deg) rotateY(var(--ang,0deg));inset:auto;left:0;top:0;width:0;height:0}
+.pn{position:absolute;width:250px;height:170px;left:-125px;top:-85px;transform-style:preserve-3d;transform:rotateY(calc(var(--i) * 45deg)) translateZ(var(--r));cursor:pointer;user-select:none;-webkit-user-select:none}
+.pn .ft,.pn .bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.pn .ft{display:flex;flex-direction:column;justify-content:space-between;padding:16px 18px}
+.pn .bk{transform:rotateY(180deg);background:#241457;border:2px solid #3DE0D0}
+.pn .when{font-size:14px;font-weight:700}
+.pn .ti{font-family:"Archivo Black","DM Sans",sans-serif;font-size:24px;line-height:1;text-transform:uppercase}
+.pn .no{font-family:"Archivo Black",sans-serif;font-size:20px;opacity:.5;align-self:flex-end}
+/* testo che cambia insieme alla forma */
+.live{min-height:9.2rem;margin:0 0 1rem}
+.live h3{font-size:1.15rem;margin:0 0 .35rem;color:var(--ac)}
+.live p{margin:0;font-size:1.05rem}
+.live.swap{animation:swap .45s ease}
+@keyframes swap{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pick{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
+.pick button{border:1.5px solid var(--ac);border-radius:999px;padding:.22rem .75rem;font-weight:700;font-size:.88rem;background:transparent;color:inherit}
+.pick button[aria-pressed="true"]{background:var(--ac);color:var(--on)}
+.ctl{display:flex;align-items:center;gap:.7rem}
+.ctl button{width:44px;height:44px;border-radius:50%;border:2px solid currentColor;background:transparent;position:relative}
+.ctl button::before{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;border-top:2.5px solid currentColor;border-right:2.5px solid currentColor;transform:translate(-70%,-50%) rotate(45deg)}
+.ctl button.pv::before{transform:translate(-30%,-50%) rotate(-135deg)}
+.ctl .count{font-weight:700;min-width:3.2rem;text-align:center}
+.ctl .hintt{font-size:.88rem;opacity:.8;margin-left:.3rem}
+@media (max-width:760px){.live{min-height:6.6rem;margin-bottom:.7rem}.live p{font-size:.95rem}.ctl .hintt,.side .intro{display:none}.pick{margin-bottom:.7rem}.pick button{font-size:.8rem;padding:.18rem .6rem}}
+@media (prefers-reduced-motion:reduce){.spin{transition:none}.live.swap{animation:none}}
+
+/* ---------- testi sopra la scena ---------- */
+.journey{position:relative;z-index:1;height:700vh;pointer-events:none}
+.panel{position:fixed;z-index:2;opacity:0;pointer-events:none;will-change:opacity,transform}
+.panel.on{pointer-events:auto}
+.p0{left:0;right:0;bottom:6vh;text-align:center;padding:0 1.5rem}
+.p0 .role{font-size:clamp(1.05rem,2vw,1.35rem);max-width:40rem;margin:0 auto 1.2rem}
+.p0 .role strong{display:block;font-size:1.25em;margin-bottom:.2rem;color:#FFC83D}
+.p0 .scroll{display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;font-weight:700;color:#FFC83D}
+.p0 .scroll::after{content:"";width:14px;height:14px;border-right:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg);animation:bob 1s ease-in-out infinite alternate}
+.side{top:50%;width:min(31rem,40vw);padding:1.7rem 1.9rem;margin-top:-16rem;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:4px}
+.left{left:5vw}.right{right:6vw}
+.num{margin:0 0 .5rem;font-weight:700}
+.panel h2{margin:0 0 .8rem;line-height:1.02}
+.panel p{margin:0 0 1rem}
+.feat{list-style:none;margin:0 0 1.2rem;padding:0;font-size:1rem}
+.feat li{position:relative;padding-left:1.5rem;margin-bottom:.3rem}
+.feat li::before{content:"";position:absolute;left:0;top:.48em;width:.62rem;height:.62rem;background:var(--ac)}
+.btns{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
+.act{border:0;font-weight:700;padding:.8rem 1.4rem;border-radius:999px;display:inline-flex;align-items:center;gap:.6rem;background:var(--ac);color:var(--on)}
+.act.playicon::before{content:"";border-left:.7rem solid currentColor;border-top:.45rem solid transparent;border-bottom:.45rem solid transparent}
+.full{font-weight:500}
+.tool{font-size:.9rem;opacity:.85;margin:1rem 0 0!important}
+/* i cinque mondi */
+.w-ai{--ac:#3DE0D0;--on:#0B0F2E;background:rgba(11,15,46,.78);font-family:"Space Grotesk","DM Sans",sans-serif}
+.w-ai .num{color:#3DE0D0}.w-ai h2{font-weight:700;font-size:clamp(2.1rem,4.4vw,3.4rem);letter-spacing:-.02em}
+.w-co{--ac:#FFC83D;--on:#1B1B3A;background:rgba(27,27,58,.78)}
+.w-co .num{color:#FFC83D}.w-co h2{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:clamp(2.2rem,4.6vw,3.6rem)}
+.w-co .feat li:nth-child(3n+1)::before{background:#FF5A4E}.w-co .feat li:nth-child(3n+2)::before{background:#FFC83D;border-radius:50%}.w-co .feat li:nth-child(3n)::before{background:#3D5AFE}
+.w-on{--ac:#2A9D8F;--on:#fff;background:rgba(255,255,255,.84);color:#1F3A5F;font-family:"Poppins","DM Sans",sans-serif;border-radius:28px}
+.w-on .num{color:#2A9D8F}.w-on h2{font-weight:600;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.01em}.w-on .feat li::before{border-radius:50%}
+.w-el .live h3{color:#D43A2F}.w-el{--ac:#1B1B3A;--on:#FFC83D;background:rgba(255,255,255,.88);color:#1B1B3A}
+.w-el .num{color:#D43A2F}.w-el h2{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:clamp(2.1rem,4.4vw,3.4rem)}
+.w-mk{--ac:#2337C6;--on:#F1EEE8;background:rgba(241,238,232,.9);color:#1E1E1E;border-top:2px solid #2337C6;border-bottom:2px solid #2337C6;border-radius:0}
+.w-mk .num{color:#E23A1C}.w-mk h2{font-family:"Lora",Georgia,serif;font-style:italic;font-weight:700;color:#2337C6;font-size:clamp(2.2rem,4.6vw,3.6rem)}
+@media (max-width:760px){
+  .side{left:1rem;right:1rem;width:auto;top:4.2rem;margin-top:0;padding:1.1rem 1.2rem}
+  .feat,.tool{display:none}
+  .panel p{font-size:.96rem;margin-bottom:.8rem}
+}
+
+/* indice a pallini */
+.dots{position:fixed;right:1.1rem;top:50%;transform:translateY(-50%);z-index:6;display:flex;flex-direction:column;gap:.7rem}
+.dots button{position:relative;width:14px;height:14px;border-radius:50%;border:2px solid #fff;background:transparent;padding:0;mix-blend-mode:difference}
+.dots button[aria-current="true"]{background:#fff}
+.dots button span{position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:.85rem;font-weight:700;color:#fff;opacity:0;pointer-events:none}
+.dots button:hover span,.dots button:focus-visible span{opacity:1}
+@media (max-width:760px){.dots{display:none}}
+
+/* ---------- ultima sezione ---------- */
+.more{position:relative;z-index:5;background:#12122B;color:#fff;padding:5.5rem 0 3rem}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.5rem}
+.more h2{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:clamp(2.4rem,7vw,5rem);line-height:.98;margin:0 0 2rem;text-transform:uppercase}
+.more h2 em{font-style:normal;color:#FFC83D}
+.more h3.sec{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:1.5rem;margin:3.2rem 0 1rem;color:#3DE0D0;text-transform:uppercase}
+.bio{font-size:clamp(1.15rem,2.2vw,1.45rem);line-height:1.5;max-width:46rem;margin:0 0 1rem}
+.item{border-top:2px solid #3D5AFE;padding:1.3rem 0;display:grid;gap:.3rem 2.5rem}
+@media (min-width:48rem){.item{grid-template-columns:13rem 1fr}}
+.item .when{color:#FFC83D;font-weight:700;margin:0}
+.item h3{margin:0 0 .35rem;font-size:1.2rem}
+.item p{margin:0;max-width:42rem;color:#D5D7EA}
+.contact{margin-top:3rem;font-size:clamp(1.3rem,3vw,2rem);font-weight:700;line-height:1.5}
+.contact a{text-decoration-color:#FF5A4E;text-underline-offset:.2em}
+
+.more .sec2{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:clamp(2rem,5.5vw,3.8rem);line-height:1;margin:5.5rem 0 1.8rem;text-transform:uppercase}
+.more .sec2:first-child{margin-top:0}
+.sec2 em{font-style:normal;color:#FFC83D}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.steps li{padding:18px 18px 22px;min-height:210px;display:flex;flex-direction:column;color:#1B1B3A}
+.steps li:nth-child(1){background:#FF5A4E}.steps li:nth-child(2){background:#FFC83D}.steps li:nth-child(3){background:#3D5AFE;color:#fff}.steps li:nth-child(4){background:#3DE0D0}.steps li:nth-child(5){background:#fff}
+.steps .n{font-family:"Archivo Black",sans-serif;font-size:3.4rem;line-height:1;margin-bottom:auto}
+.steps h3{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:1.2rem;margin:1.2rem 0 .4rem;text-transform:uppercase}
+.steps p{margin:0;font-size:.98rem}
+.ask{display:grid;gap:1.5rem 3rem}
+@media (min-width:56rem){.ask{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);align-items:start}}
+.qs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.qs button{width:100%;text-align:left;border:2px solid #3D5AFE;background:transparent;color:#fff;padding:.8rem 1.1rem;font-weight:700;border-radius:999px;transition:background .2s,color .2s,transform .2s}
+.qs button:hover{transform:translateX(6px)}
+.qs button[aria-pressed="true"]{background:#FFC83D;border-color:#FFC83D;color:#1B1B3A}
+.answer{background:#1B1B3A;border:2px solid #3D5AFE;padding:1.4rem 1.6rem;min-height:15rem}
+.answer .q{color:#FFC83D;font-weight:700;margin:0 0 .6rem;min-height:1.4em}
+.answer .a{font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.4;margin:0;color:#fff}
+.answer .a::after{content:"";display:inline-block;width:.5em;height:1em;background:#3DE0D0;margin-left:.15em;vertical-align:-.12em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.figs{display:grid;grid-template-columns:repeat(2,1fr);gap:2.2rem 1.5rem;margin:0}
+@media (min-width:56rem){.figs{grid-template-columns:repeat(4,1fr)}}
+.figs dt{font-family:"Archivo Black",sans-serif;font-size:clamp(4rem,10vw,7.5rem);line-height:.9;color:#fff;text-shadow:1px 1px 0 #FF5A4E,2px 2px 0 #FF5A4E,3px 3px 0 #FF5A4E,4px 4px 0 #FF5A4E,5px 5px 0 #FF5A4E,6px 6px 0 #3D5AFE,7px 7px 0 #3D5AFE,8px 8px 0 #3D5AFE}
+.figs dd{margin:1.1rem 0 0;color:#D5D7EA;max-width:15rem}
+@media (prefers-reduced-motion:reduce){.answer .a::after{animation:none}}
+/* ---------- scheda progetto ---------- */
+#sheet,#player{position:fixed;inset:0;z-index:60;display:none;background:rgba(8,8,24,.93)}
+#sheet{overflow:auto;padding:4.5rem 4vw 4rem}
+#sheet.open,#player.open{display:block}
+.card{max-width:60rem;margin:0 auto;background:#15173F;border-radius:10px;padding:clamp(1.3rem,4vw,2.6rem);--ac:#3DE0D0}
+.card .k{color:var(--ac);font-weight:700;margin:0 0 .5rem}
+.card h2{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:clamp(1.8rem,4.5vw,3rem);line-height:1.05;margin:0 0 1.2rem}
+.card p{margin:0 0 1rem;max-width:46rem;color:#E4E6F5}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1rem 1.5rem;margin:0 0 1.6rem;padding:1rem 0;border-top:1px solid #343878;border-bottom:1px solid #343878}
+.facts dt{color:var(--ac);font-weight:700;font-size:.9rem}
+.facts dd{margin:.1rem 0 0}
+.flow{list-style:none;margin:1.6rem 0;padding:0;display:grid;gap:.7rem;counter-reset:st}
+@media (min-width:48rem){.flow{grid-template-columns:repeat(4,1fr)}}
+.flow li{counter-increment:st;background:#1F2360;border-left:4px solid var(--ac);padding:.9rem 1rem .9rem 1rem;font-size:.98rem}
+.flow li::before{content:counter(st);display:block;font-family:"Archivo Black",sans-serif;font-size:1.5rem;color:var(--ac);line-height:1;margin-bottom:.35rem}
+.gal{display:grid;gap:1rem;margin-top:1.6rem}
+.gal img{width:100%;height:auto;display:block;border-radius:4px;background:#0B0B22}
+.note{font-size:.92rem;color:#AEB2D6!important}
+.others{margin:0 0 1rem;padding-left:1.2rem;color:#E4E6F5}
+.others li{margin-bottom:.5rem}
+.x{position:fixed;top:1rem;right:4vw;z-index:61;border:0;background:#FFC83D;color:#1B1B3A;font-weight:700;border-radius:999px;padding:.55rem 1.2rem}
+#player{padding:4.2rem 3vw 3vh}
+#player iframe{width:100%;height:100%;border:0;background:#fff;border-radius:6px}
+
+@media (prefers-reduced-motion:reduce){.ball,.flat,.cube,.pill,.donut,.slab,.p0 .scroll::after{animation:none!important}}
+.nojs #scene,.nojs .dots{display:none}.nojs .journey{height:auto;pointer-events:auto;padding:3rem 1.5rem}.nojs .panel{position:static;opacity:1;pointer-events:auto;margin:0 auto 2rem;width:auto;max-width:40rem}
+</style>
+</head>
+<body class="nojs">
+
+<div id="scene" aria-hidden="true"><div id="world"></div></div>
+
+<nav class="dots" aria-label="Sezioni">
+  <button type="button" data-i="0"><span>Inizio</span></button>
+  <button type="button" data-i="1"><span>Agenti AI</span></button>
+  <button type="button" data-i="2"><span>Progetti</span></button>
+  <button type="button" data-i="3"><span>E-learning: Copilot 101</span></button>
+  <button type="button" data-i="4"><span>E-learning: onboarding</span></button>
+  <button type="button" data-i="5"><span>Innovazione</span></button>
+  <button type="button" data-i="6"><span>Vendita e marketing</span></button>
+  <button type="button" data-i="7"><span>Metodo e contatti</span></button>
+</nav>
+
+<main>
+<div class="journey">
+  <section class="panel p0">
+    <h1 style="position:absolute;left:-9999px">Valentino Tufarelli, portfolio</h1>
+    <p class="role"><strong>Ciao, sono Valentino.</strong> Costruisco agenti AI e automazioni, e mi piace che le cose siano anche belle da usare. Qui dentro c’è tutto quello che ho fatto.</p>
+    <span class="scroll">Scorri per entrare</span>
+  </section>
+
+  <section class="panel side left w-ai">
+    <p class="num">01 Agenti AI</p>
+    <h2>Agenti AI</h2>
+    <p class="intro">Sei agenti e casi d’uso che ho seguito in Pfizer Italia. Scegline uno e gira il cubo: ogni faccia ne racconta un pezzo.</p>
+    <div class="pick" id="ag-pick" role="group" aria-label="Scegli un agente"></div>
+    <div class="live" id="ag-live" aria-live="polite"><h3></h3><p></p></div>
+    <div class="ctl"><button class="pv" type="button" data-prev="ag" aria-label="Precedente"></button><span class="count" id="ag-n"></span><button type="button" data-next="ag" aria-label="Successivo"></button><span class="hintt">oppure trascina</span></div>
+  </section>
+
+  <section class="panel side right w-ai">
+    <p class="num">02 Progetti</p>
+    <h2>Progetti</h2>
+    <p class="intro">Otto progetti Digital e AI seguiti nel 2026, oltre agli agenti. Gira la ruota.</p>
+    <div class="live" id="pr-live" aria-live="polite"><h3></h3><p></p></div>
+    <div class="ctl"><button class="pv" type="button" data-prev="pr" aria-label="Precedente"></button><span class="count" id="pr-n"></span><button type="button" data-next="pr" aria-label="Successivo"></button><span class="hintt">oppure trascina</span></div>
+  </section>
+
+  <section class="panel side left w-co">
+    <p class="num">03 E-learning</p>
+    <h2>Copilot 101</h2>
+    <p>Un modulo su come scrivere a Copilot una richiesta che restituisce subito quello che serve. Nasce da una formazione dal vivo che ho tenuto in Pfizer, ripensata per essere seguita in autonomia.</p>
+    <ul class="feat">
+      <li>Costruttore di prompt con il modello CORE</li>
+      <li>Blocchi da scoprire, trascinamento, scenario a scelte</li>
+      <li>Quiz finale ed entrate animate sulla timeline</li>
+    </ul>
+    <div class="btns"><button class="act playicon" type="button" data-play="../copilot/" data-title="Modulo Copilot 101">Prova il modulo</button><a class="full" href="../copilot/" target="_blank" rel="noopener">Apri a schermo intero</a></div>
+    <p class="tool">Costruito con Articulate Storyline 3.</p>
+  </section>
+
+  <section class="panel side right w-on">
+    <p class="num">04 E-learning</p>
+    <h2>La tua prima settimana</h2>
+    <p>Un onboarding per chi entra in azienda: cosa succede da lunedì a venerdì, a chi rivolgersi e cosa chiudere entro la prima settimana. Stessa tecnica del primo modulo, grafica opposta.</p>
+    <ul class="feat">
+      <li>Menu a navigazione libera sui cinque giorni</li>
+      <li>Consigli nascosti, abbinamenti, checklist</li>
+      <li>Illustrazioni dedicate, una per ogni giorno</li>
+    </ul>
+    <div class="btns"><button class="act playicon" type="button" data-play="../onboarding/" data-title="Modulo La tua prima settimana">Prova il modulo</button><a class="full" href="../onboarding/" target="_blank" rel="noopener">Apri a schermo intero</a></div>
+    <p class="tool">Costruito con Articulate Storyline 3.</p>
+  </section>
+
+  <section class="panel side right w-el">
+    <p class="num">05 Innovazione</p>
+    <h2>Startup e Proof of Concept</h2>
+    <p class="intro">ELIS Innovation Hub, 2024-2025. Gira il cubo.</p>
+    <div class="live" id="el-live" aria-live="polite"><h3></h3><p></p></div>
+    <div class="ctl"><button class="pv" type="button" data-prev="el" aria-label="Precedente"></button><span class="count" id="el-n"></span><button type="button" data-next="el" aria-label="Successivo"></button><span class="hintt">oppure trascina</span></div>
+  </section>
+
+  <section class="panel side left w-mk">
+    <p class="num">06 Vendita e marketing</p>
+    <h2>Da dove vengo</h2>
+    <p class="intro">Prima dell’AI ho venduto e fatto marketing, per anni. Scegli un capitolo e gira il cubo.</p>
+    <div class="pick" id="mk-pick" role="group" aria-label="Scegli un capitolo"></div>
+    <div class="live" id="mk-live" aria-live="polite"><h3></h3><p></p></div>
+    <div class="ctl"><button class="pv" type="button" data-prev="mk" aria-label="Precedente"></button><span class="count" id="mk-n"></span><button type="button" data-next="mk" aria-label="Successivo"></button><span class="hintt">oppure trascina</span></div>
+  </section>
+</div>
+
+<section class="more" id="chi-sono">
+  <div class="wrap">
+    <h2 class="sec2">Come costruisco un <em>agente</em></h2>
+    <ol class="steps">
+      <li><span class="n">1</span><h3>Ascolto</h3><p>Mi siedo con chi fa quel lavoro e me lo faccio raccontare.</p></li>
+      <li><span class="n">2</span><h3>Perimetro</h3><p>Scelgo la parte più piccola che vale la pena automatizzare.</p></li>
+      <li><span class="n">3</span><h3>Istruzioni e fonti</h3><p>Scrivo cosa deve fare l’agente e da quali documenti può attingere.</p></li>
+      <li><span class="n">4</span><h3>Casi veri</h3><p>Lo provo sui casi reali e correggo dove sbaglia.</p></li>
+      <li><span class="n">5</span><h3>Decide una persona</h3><p>L’agente segnala e propone. L’ultima parola non è sua.</p></li>
+    </ol>
+
+    <h2 class="sec2">Formazione che ho <em>curato</em></h2>
+    <div class="item"><p class="when">Novembre 2026</p><div><h3>Corso su Copilot e AI Fluency</h3><p>Ho preparato il deck del corso e la versione italiana. I moduli li abbiamo divisi tra relatori; a me toccavano demo ed esercizi dal vivo.</p></div></div>
+    <div class="item"><p class="when">Giugno – settembre</p><div><h3>Formazione sull’AI responsabile</h3><p>Per i colleghi a contatto con i clienti: sessione di domande e risposte, traduzione in italiano e revisione prima del caricamento sulla piattaforma di formazione.</p></div></div>
+    <div class="item"><p class="when">Agosto</p><div><h3>Corso AI di secondo livello</h3><p>Revisione della versione italiana.</p></div></div>
+
+    <h2 class="sec2">Chiedimi <em>qualcosa</em></h2>
+    <div class="ask">
+      <ul class="qs" id="qs"></ul>
+      <div class="answer" aria-live="polite"><p class="q" id="aq"></p><p class="a" id="aa"></p></div>
+    </div>
+
+    <h2 class="sec2">In <em>numeri</em></h2>
+    <dl class="figs">
+      <div><dt data-n="6">6</dt><dd>agenti e casi d’uso AI seguiti in Pfizer Italia</dd></div>
+      <div><dt data-n="8">8</dt><dd>progetti Digital e AI nel 2026</dd></div>
+      <div><dt data-n="4">4</dt><dd>Proof of Concept coordinati tra startup e grandi aziende</dd></div>
+      <div><dt data-n="2">2</dt><dd>moduli e-learning online, da provare</dd></div>
+    </dl>
+
+    <h2 class="sec2">Chi <em>sono</em></h2>
+    <p class="bio">Grazie per aver guardato fino in fondo. Lavoro tra l’analisi dei processi e la costruzione di soluzioni AI: parto da come lavorano le persone, definisco cosa serve davvero e lo prototipo. Ci sono arrivato passando dalla vendita, dal marketing digitale e dall’innovazione con le startup.</p>
+    <h3 class="sec">Esperienza</h3>
+    <div class="item"><p class="when">2026</p><div><h3>Digital &amp; Technology, Pfizer Italia</h3><p>Agenti e assistenti AI su ecosistema Microsoft per funzioni Medical, commerciali e di gestione eventi. Formazione su Copilot per la field force.</p></div></div>
+    <div class="item"><p class="when">2024 – 2025</p><div><h3>Innovation Consultant, ELIS Innovation Hub</h3><p>Scouting di startup AI e coordinamento di Proof of Concept per ENI, RFI e Italferr.</p></div></div>
+    <div class="item"><p class="when">2023 – 2024</p><div><h3>Sales Activation Specialist, Philip Morris Italia</h3><p>Distribuzione e stock nell’area assegnata, formazione e attivazione dei punti vendita.</p></div></div>
+    <div class="item"><p class="when">2022 – 2023</p><div><h3>Marketing digitale</h3><p>Does Matter Agency: nuova brand identity, redesign del sito, canali social. Myriam Arte Sacra: avvio delle attività di marketing.</p></div></div>
+    <div class="item"><p class="when">2015 – 2018</p><div><h3>Vendita, telecomunicazioni</h3><p>Venditore, poi responsabile vendite e store manager; infine agente di commercio B2B a Milano.</p></div></div>
+    <h3 class="sec">Studi e certificazioni</h3>
+    <div class="item"><p class="when">2025 – 2026</p><div><h3>Master in Pharma, Healthcare &amp; Biotech Management</h3><p>24ORE Business School, Milano.</p></div></div>
+    <div class="item"><p class="when">2021 – 2023</p><div><h3>Laurea magistrale in Marketing &amp; Digital Communication</h3><p>LUMSA, Roma.</p></div></div>
+    <div class="item"><p class="when">Certificazioni</p><div><p>Microsoft Applied Skills: Build an agent in Microsoft Copilot Studio (10/2026). Percorsi Microsoft Learn su Copilot, Power Platform e Fabric. Scrum Basics, Scrum Inc.</p></div></div>
+    <p class="contact">Se ti va di parlarne, mi trovi qui:<br><a href="https://www.linkedin.com/in/valentinotufarelli">linkedin.com/in/valentinotufarelli</a><br><a href="https://github.com/tufawayz">github.com/tufawayz</a></p>
+  </div>
+</section>
+</main>
+
+<div id="sheet" role="dialog" aria-modal="true" aria-label="Dettaglio del progetto"><button class="x" type="button" data-close>Chiudi</button><div class="card" id="card"></div></div>
+<div id="player" role="dialog" aria-modal="true" aria-label="Modulo e-learning"><button class="x" type="button" data-close>Chiudi</button><div id="frame" style="width:100%;height:100%"></div></div>
+
+<script>
+(function(){
+  document.body.classList.remove('nojs');
+  var G={cor:'#FF5A4E',yel:'#FFC83D',blu:'#3D5AFE',whi:'#FFFFFF',ind:'#1B1B3A'},P={tea:'#2A9D8F',pea:'#FFC9B5',sun:'#FFD166',min:'#BFE5DA',lil:'#D9D0F5'};
+  var D=2200, N=6, world=document.getElementById('world'), scene=document.getElementById('scene');
+  var narrow=function(){return window.innerWidth<=760;};
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- contenuti delle schede ---------- */
+  var PW='',DATA={};
+
+  /* ---------- oggetti della scena ---------- */
+  var objs=[];
+  function add(el,x,y,z,kind){
+    var o=document.createElement('div'); o.className='obj'; o.appendChild(el); world.appendChild(o);
+    var rec={el:o,x:x,y:y,z:z,kind:kind||''}; objs.push(rec); return rec;
+  }
+  var count=0;
+  function shape(t,x,y,z,size,color,opt){
+    var i=count++, w=size.length?size[0]:size, h=size.length?size[1]:size, e=document.createElement('div');
+    e.className='in'; e.style.setProperty('--c',color); e.style.setProperty('--d',(5+(i*7)%9)+(t==='cube'?16:0)+(t==='ball'?0:8)+'s');
+    if(t==='semi') h=w/2;
+    e.style.width=w+'px'; e.style.height=h+'px'; e.style.left=(-w/2)+'px'; e.style.top=(-h/2)+'px';
+    if(t==='ball'){e.className+=' ball'+(opt?' '+opt:'');}
+    else if(t==='cube'){e.className+=' cube'; e.style.setProperty('--h',(w/2)+'px'); for(var k=0;k<6;k++) e.appendChild(document.createElement('i'));}
+    else if(t==='ring'||t==='ringstill'){e.className+=' flat ring'+(t==='ringstill'?' still':''); e.style.borderWidth=Math.round(w*.09)+'px'; e.style.setProperty('--rx',t==='ringstill'?'0deg':'65deg');}
+    else if(t==='discstill'){e.className+=' flat disc still';}
+    else if(t==='pill'||t==='donut'){e.className+=' '+t; e.style.setProperty('--rx','25deg');}
+    else {e.className+=' flat '+t; e.style.setProperty('--rx',(10+(i*13)%40)+'deg');}
+    add(e,x,y,z);
+  }
+  // ingresso
+  [['ball',-560,-230,250,150,G.cor],['ball',520,-270,600,190,G.yel],['ball',610,240,-60,100,G.blu],['cube',-450,250,420,120,G.blu],['cube',330,330,820,90,G.cor],
+   ['quarter',-700,30,700,220,G.yel],['semi',680,-30,350,170,G.whi],['ring',10,-360,900,240,G.cor],['stripes',-250,-330,520,130,G.whi],['ball',-120,340,1000,70,'#3DE0D0','glow'],['ball',180,-300,1150,60,'#7C5CFF','glow']
+  ].forEach(function(s){shape(s[0],s[1],s[2],s[3],s[4],s[5],s[6]);});
+  // sei mondi: forme e colori diversi per ogni stazione
+  var seed=20261121; function rnd(){seed=(seed*1664525+1013904223)%4294967296; return seed/4294967296;}
+  var WORLDS=[null,
+    {t:['ball','cube','ring','ball','stripes','ball'],c:['#7C5CFF','#3DE0D0','#FFFFFF','#3D5AFE'],o:'glow'},
+    {t:['ball','ring','cube','ball','quarter','ball'],c:['#3DE0D0','#FF5A4E','#FFFFFF','#7C5CFF'],o:'glow'},
+    {t:['ball','cube','quarter','semi','ring','stripes'],c:[G.cor,G.yel,G.blu,G.whi]},
+    {t:['ball','pill','donut','ball','pill'],c:[P.pea,P.sun,P.min,P.lil,P.tea],o:'clay'},
+    {t:['cube','ball','quarter','semi','ring','cube'],c:[G.ind,G.whi,G.cor,G.blu]},
+    {t:['disc','dots','ring','disc','stripes','dots'],c:['#FF4B2B','#2337C6','#2337C6','#FF4B2B']}
+  ];
+  for(var wi=1;wi<=N;wi++){
+    var W=WORLDS[wi];
+    for(var q=0;q<13;q++){
+      var z=wi*D+(rnd()*1650-720), near=z<wi*D, x,y;
+      if(near){x=(rnd()<.5?-1:1)*(650+rnd()*190); y=(rnd()<.5?-1:1)*(260+rnd()*170);}
+      else{var a=rnd()*Math.PI*2, R=430+rnd()*360; x=Math.cos(a)*R; y=Math.sin(a)*R*.55;}
+      var ty=W.t[Math.floor(rnd()*W.t.length)], col=W.c[Math.floor(rnd()*W.c.length)], sz=70+Math.floor(rnd()*110);
+      if(ty==='pill') sz=[sz*1.9,sz*.75];
+      shape(ty,Math.round(x),Math.round(y),Math.round(z),sz,col,ty==='ball'?W.o:null);
+    }
+  }
+  // grandi forme dietro le schede
+  shape('ringstill',305,0,1*D+520,640,'#7C5CFF'); shape('ringstill',-345,10,2*D+520,620,'#3DE0D0'); shape('ringstill',310,0,3*D+550,560,G.blu);
+  shape('discstill',-310,0,4*D+550,620,P.pea); shape('ringstill',-340,0,5*D+520,640,G.whi); shape('discstill',320,-10,6*D+520,560,'#FF4B2B');
+  // nome
+  var nm=document.createElement('div'); nm.className='in name'; nm.innerHTML='<span>Valentino</span><span>Tufarelli</span>'; add(nm,0,-30,0,'name');
+
+  /* ---------- lastre ---------- */
+  var ART1='<svg viewBox="0 0 270 360"><rect width="270" height="360" fill="#1B1B3A"/><path d="M0 0 L90 0 A90 90 0 0 1 0 90 Z" fill="#FFC83D"/><rect x="90" width="90" height="90" fill="#3D5AFE"/><circle cx="225" cy="45" r="45" fill="#FF5A4E"/><rect y="90" width="90" height="90" fill="#FF5A4E"/><path d="M90 180 A45 45 0 0 1 180 180 Z" fill="#fff"/><rect x="180" y="90" width="90" height="90" fill="#FFC83D"/><circle cx="225" cy="135" r="22" fill="#1B1B3A"/><circle cx="45" cy="225" r="45" fill="#3D5AFE"/><path d="M180 270 L90 270 A90 90 0 0 1 180 180 Z" fill="#FF5A4E"/><rect x="180" y="180" width="90" height="90" fill="#EDEFF5"/><rect y="270" width="90" height="90" fill="#FFC83D"/><rect x="90" y="285" width="90" height="14" fill="#fff"/><rect x="90" y="311" width="90" height="14" fill="#fff"/><rect x="90" y="337" width="90" height="14" fill="#fff"/><path d="M270 360 L180 360 A90 90 0 0 1 270 270 Z" fill="#3D5AFE"/></svg>';
+  var ART2='<svg viewBox="0 0 560 520"><path d="M150 40 C290 -30 520 30 540 210 C556 370 450 500 290 490 C140 480 20 400 30 250 C36 150 80 76 150 40 Z" fill="#FFC9B5"/><rect x="115" y="100" width="330" height="250" rx="26" fill="#fff"/><path d="M115 164 V126 a26 26 0 0 1 26 -26 H419 a26 26 0 0 1 26 26 V164 Z" fill="#2A9D8F"/><rect x="115" y="100" width="330" height="250" rx="26" fill="none" stroke="#1F3A5F" stroke-width="7"/><rect x="196" y="76" width="14" height="44" rx="7" fill="#1F3A5F"/><rect x="350" y="76" width="14" height="44" rx="7" fill="#1F3A5F"/><rect x="139" y="196" width="46" height="46" rx="10" fill="#FFC9B5"/><rect x="197" y="196" width="46" height="46" rx="10" fill="#FFD166"/><rect x="255" y="196" width="46" height="46" rx="10" fill="#BFE5DA"/><rect x="313" y="196" width="46" height="46" rx="10" fill="#D9D0F5"/><rect x="371" y="196" width="46" height="46" rx="10" fill="#E6F4EF"/><path d="M151 219 l8 9 l15 -17" fill="none" stroke="#1F3A5F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><rect x="139" y="268" width="190" height="13" rx="6.5" fill="#E6F4EF"/><rect x="139" y="296" width="130" height="13" rx="6.5" fill="#E6F4EF"/><rect x="372" y="330" width="96" height="106" rx="16" fill="#FFD166" stroke="#1F3A5F" stroke-width="7"/><path d="M468 356 q44 0 44 30 q0 30 -44 30" fill="none" stroke="#1F3A5F" stroke-width="7" stroke-linecap="round"/><ellipse cx="104" cy="352" rx="18" ry="50" fill="#2A9D8F"/><ellipse cx="74" cy="366" rx="16" ry="44" fill="#2A9D8F" transform="rotate(-32 74 366)"/><ellipse cx="134" cy="366" rx="16" ry="44" fill="#2A9D8F" transform="rotate(32 134 366)"/><rect x="62" y="392" width="84" height="74" rx="12" fill="#1F3A5F"/></svg>';
+  function slab(o){
+    var e=document.createElement('div'); e.className='in slab';
+    e.style.setProperty('--w',o.w+'px'); e.style.setProperty('--h',o.h+'px'); e.style.setProperty('--edge',o.edge);
+    var right=o.x>0; e.style.setProperty('--ry0',(right?-22:22)+'deg'); e.style.setProperty('--ry1',(right?-11:11)+'deg'); e.style.animationDelay=(-(o.z%7))+'s';
+    e.innerHTML='<button class="face '+o.cls+'" type="button" tabindex="-1" aria-label="'+o.label+'">'+o.html+'</button><div class="back"></div><div class="lr l"></div><div class="lr r"></div><div class="tb t"></div><div class="tb b"></div>';
+    e.querySelector('.face').addEventListener('click',o.go);
+    var r=add(e,o.x,o.y,o.z,'slab'); r.mx=o.mx; r.my=o.my;
+  }
+  function sheetGo(id){return function(){openSheet(id);};}
+  // 3-4. moduli
+  slab({w:560,h:350,edge:'#3D5AFE',cls:'f-mod m1',label:'Prova il modulo Copilot 101',html:'<span class="txt"><span class="nm">Copilot 101</span><span class="sb">AI Fundamentals training</span><span class="go">Prova il modulo</span></span>'+ART1,go:function(){openPlayer('../copilot/','Modulo Copilot 101');},x:310,y:0,z:3*D,mx:0,my:250});
+  slab({w:560,h:350,edge:'#2A9D8F',cls:'f-mod m2',label:'Prova il modulo La tua prima settimana',html:'<span class="txt"><span class="nm">La tua prima<br>settimana</span><span class="sb">Onboarding</span><span class="go">Prova il modulo</span></span>'+ART2,go:function(){openPlayer('../onboarding/','Modulo La tua prima settimana');},x:-310,y:0,z:4*D,mx:0,my:250});
+  /* ---------- cubi e ruota: il testo cambia girando la forma ---------- */
+  var AGENTS=[
+    {name:'Rimborsi spese',plat:'Microsoft 365 Copilot',f:[
+      ['Cosa fa','Rimborsi\nspese','Fa una pre-analisi delle richieste di rimborso: legge i documenti di spesa, li confronta con la policy e segnala cosa non torna o manca.'],
+      ['Come è fatto','Un solo\nagente','All’inizio erano più prompt separati. Li ho trasformati in un unico agente, con la policy come fonte.'],
+      ['Il test','Casi\nreali','L’ho provato su casi reali. Gli errori erano di lettura dei documenti, e li ho corretti uno a uno.'],
+      ['Chi decide','Una\npersona','L’agente propone un esito. La decisione finale resta a un operatore autorizzato.']]},
+    {name:'Proposte alberghiere',plat:'Agent Builder',f:[
+      ['Cosa fa','Proposte\nhotel','Mette a confronto le proposte degli hotel per un evento, che arrivano ognuna in un formato diverso.'],
+      ['Come è fatto','Prima il\nmetodo','Ho costruito prima il framework di valutazione, con criteri economici, qualitativi e operativi, e poi l’agente che lo applica.'],
+      ['Il test','4 casi\nreali','Testato su quattro casi reali. Stima del team: da una o due ore a pochi minuti per griglia.'],
+      ['Chi decide','Il team\neventi','L’agente ordina e confronta. La scelta dell’hotel resta alle persone.']]},
+    {name:'Ticket via email',plat:'Copilot',f:[
+      ['Cosa fa','Ticket\nvia email','Legge la mail di chi ha un problema sul portale e prepara la strada: risposta pronta, ticket o passaggio a una persona.'],
+      ['Come è fatto','Quattro\npassi','Lettura della mail, verifica nelle FAQ, ricerca nello storico dei ticket, bozza del ticket.'],
+      ['Il test','Da 3 a\n6 su 6','Sei casi di test. Al primo giro ne passavano tre. Gli errori avevano quasi tutti la stessa causa: una regola in più, e sei su sei.'],
+      ['Chi decide','L’ultimo\nclic','L’agente prepara la bozza. L’invio della risposta e l’apertura del ticket restano all’operatore.']]},
+    {name:'Account planning',plat:'Copilot Studio + Power Automate',f:[
+      ['Cosa fa','Account\nplanning','Un assistente conversazionale che accompagna nella pianificazione degli account.'],
+      ['Come è fatto','Dialogo\n+ flussi','Ho progettato il flusso della conversazione e costruito i flussi Power Automate che recuperano strategie e fattori critici di successo.'],
+      ['Lo stato','Prototipo','Prototipo funzionante della conversazione e del recupero dei dati.'],
+      ['L’attenzione','Dati\npersonali','I dati personali li inserisce solo chi li conosce. Restano separati da quelli che l’assistente recupera da solo.']]},
+    {name:'Percorso di prevenzione',plat:'Copilot',f:[
+      ['Cosa fa','Workshop\na fasi','Un agente usato in aula: guida un gruppo di lavoro lungo un percorso a fasi e produce un report per ogni fase.'],
+      ['Il problema','10 in\nsala','Con dieci persone collegate nello stesso momento, in sala l’agente andava in errore.'],
+      ['La correzione','Tre\nmosse','Ho analizzato l’errore e proposto tre correzioni: report di fase più leggero, un ripiego che scrive il risultato in chat, un report per sottofase.'],
+      ['Prima','Fonti in\nordine','Nello stesso progetto avevo già riordinato i file di conoscenza e verificato l’output riga per riga contro la fonte.']]},
+    {name:'In analisi',plat:'Tre casi d’uso',f:[
+      ['In analisi','Tre casi\nd’uso','Tre casi d’uso ancora in analisi. Per ognuno: interviste a chi fa il lavoro, mappa del processo, requisiti.'],
+      ['Primo caso','Documenti','Raccolta documentale per le consulenze.'],
+      ['Secondo caso','Dati\nevento','Raccolta dei dati per gli eventi formativi.'],
+      ['Terzo caso','Sedi','Verifica dell’idoneità delle sedi per i congressi.']]}
+  ];
+  var ELIS=[['Scouting','Startup\nAI','Ho cercato e valutato startup AI per aziende come ENI, RFI e Italferr.'],
+    ['Proof of Concept','4 PoC','Italferr con B4Tech e con HPA, ENI con Trailslight, RFI con KOMETE.'],
+    ['Coordinamento','Tre\nmondi','In affiancamento al PMO tenevo insieme azienda, startup e tecnici: attività, tempi, deliverable. Ho organizzato anche workshop e Startup Demo Day.'],
+    ['Strumenti','Report e\nbudget','Stati di avanzamento e report, un canale Teams per ogni PoC, budget aggiornato e monitorato.']];
+  var MKSETS=[
+    {name:'In negozio',tag:'2015 – 2017',f:[
+      ['L’inizio','Luglio\n2015','Ho iniziato a vendere in un negozio di telefonia, in Puglia. Venditore al banco, a contatto diretto con i clienti.'],
+      ['Il ritmo','5-6 al\ngiorno','In media chiudevo cinque o sei contratti al giorno.'],
+      ['Dieci mesi dopo','Un altro\nnegozio','A maggio 2016 la proprietà ha aperto un secondo punto vendita in un’altra città e l’ha affidato a me.'],
+      ['Da responsabile','Store\nmanager','Fino al 2017 ho gestito il negozio: vendita, clienti e trattative.']]},
+    {name:'Milano',tag:'2017 – 2018',f:[
+      ['Il salto','Milano','Nel 2017 mi sono spostato a Milano, come responsabile vendite in un corner TIM dentro un centro commerciale.'],
+      ['I numeri','KPI ogni\ngiorno','Vendita, gestione dei clienti e coordinamento operativo del punto vendita, con i KPI sotto controllo.'],
+      ['B2B','Clienti da\ntrovare','Poi agente di commercio per TIM ed Eni Gas e Luce. Lì nessuno ti porta i clienti: li trovi tu.'],
+      ['La trattativa','Fino al\ncontratto','Lead generation, primo contatto e negoziazione dei contratti con clienti business.']]},
+    {name:'Philip Morris',tag:'2023 – 2024',f:[
+      ['Il ruolo','Genova','Sales Activation Specialist per Philip Morris Italia, su un’area assegnata.'],
+      ['Sul territorio','Stock e\nvetrine','Distribuzione e stock nell’area, visibilità e visual merchandising nei punti vendita.'],
+      ['Attivazione','Formare i\nnegozianti','Formazione e attivazione dei punti vendita, supporto alla generazione di lead e alla digitalizzazione dei negozi.'],
+      ['Il metodo','Tutto nel\nCRM','Un piano di visite da rispettare e ogni attività registrata a sistema, su Salesforce.']]},
+    {name:'Marketing digitale',tag:'2022 – 2023',f:[
+      ['In agenzia','Nuova\nidentità','In Does Matter Agency ho lavorato alla nuova brand identity dell’agenzia.'],
+      ['Sito e social','Rifare\nil sito','Ho seguito il redesign del sito e l’ottimizzazione dei canali social, con il piano dei contenuti.'],
+      ['Formazione','Insegnare\nai colleghi','Formazione interna su comunicazione digitale e automazione dei social.'],
+      ['Da zero','Il primo\npiano','In un tirocinio ho avviato le attività di marketing di un’azienda: analisi di mercato, content strategy, calendario editoriale.']]},
+    {name:'Strategie di marca',tag:'Università',f:[
+      ['Ferrarelle','Un’acqua,\ndue mercati','Come far crescere un marchio che ha un vantaggio unico: analisi, due proposte per consumatori e ristorazione, piano di comunicazione e budget.'],
+      ['Pirelli 50','Lusso\nin mare','Strategia digitale per il lancio di un maxi gommone: personas, posizionamento, media e KPI per ogni obiettivo.'],
+      ['Utravel','Viaggi\nunder 30','Piano editoriale e campagna social di dodici mesi, con calendario, budget e gruppi di annunci.'],
+      ['Sphaera','AI e\ncalcio','Analisi di mercato di una startup che applica l’AI al calcio dilettantistico. Sono lavori di gruppo, non commissionati dalle aziende.']]}
+  ];
+  var PROJ=[['Giu – Lug','Mappa di un percorso di prevenzione','Ho mappato il percorso di prevenzione pediatrica di una Regione e consegnato un report completo. Poi ho supportato le giornate di lavoro con i key account manager.'],
+    ['Luglio','AI for Marketers','Ho partecipato all’incontro in presenza della community marketing italiana dedicato all’AI.'],
+    ['Set – Nov','Farsi trovare dall’AI','Un assessment sulla discoverability: ho analizzato il panorama italiano e l’uso dell’AI per cercare informazioni sulla salute, e preparato aggiornamenti e follow-up con Marketing e Omnichannel.'],
+    ['Da settembre','Automazione AI per eventi','Ho intervistato chi fa il lavoro, analizzato i processi e raccolto i requisiti di sei casi d’uso. Ho gestito il tracker delle iniziative AI.'],
+    ['Ago – Ott','Portale proposte formative','Funzioni AI per il portale: ho scritto i requisiti con due colleghi e coordinato il fornitore fino all’approvazione delle prime due fasi.'],
+    ['Novembre','Test di rilascio','Ho seguito i test in ambiente di validazione prima del rilascio di nuove librerie sul portale.'],
+    ['Set – Ott','Rollout internazionale','Supporto lato Digital al kick-off di una nuova wave di una soluzione AI internazionale e all’avvio del rollout in Italia.'],
+    ['Da giugno','Team AI trasversale','Rollout di strumenti AI, un caso d’uso con un assistente AI per un team, l’analisi di WhatsApp come canale di engagement, il censimento degli agenti attivi in Italia, il pilota di un tool e la valutazione dei processi da automatizzare.']];
+  var STAGE={};
+  function faceHTML(f,k,tag,serif){var L=Math.max.apply(null,f[1].split('\n').map(function(x){return x.length;})),px=Math.max(34,Math.min(serif?66:60,Math.floor(284/(L*(serif?.5:.7)))));return '<span class="lb">'+f[0]+'</span><span class="no">'+(k+1)+'</span><span class="bg" style="font-size:'+px+'px">'+f[1].replace(/\n/g,'<br>')+'</span><span class="tg">'+(tag||'')+'</span>';}
+  function mkStage(id,o){
+    var e=document.createElement('div'),spin=document.createElement('div'),n=o.n,step=360/n,a=0,idx=0,items=o.items,live=document.getElementById(id+'-live'),cnt=document.getElementById(id+'-n');
+    e.className='in '+(o.ring?'ring':'cube4')+(o.cls?' '+o.cls:''); spin.className='spin'; e.appendChild(spin);
+    if(o.ring){e.style.setProperty('--r',o.r+'px');
+      items.forEach(function(it,i){var p=document.createElement('div');p.className='pn';p.style.setProperty('--i',i);
+        p.innerHTML='<div class="ft" style="background:'+o.cols[i%o.cols.length][0]+';color:'+o.cols[i%o.cols.length][1]+'"><span class="when">'+it[0]+'</span><span class="ti">'+it[1]+'</span><span class="no">'+(i+1)+'/'+n+'</span></div><div class="bk"></div>';
+        p.setAttribute('data-i',i);spin.appendChild(p);});
+    } else {e.style.setProperty('--s',o.s+'px');e.style.setProperty('--cap',o.cap);
+      for(var k=0;k<4;k++){var f=document.createElement('div');f.className='fc';f.style.background=o.cols[k][0];f.style.color=o.cols[k][1];spin.appendChild(f);}
+      ['t','b'].forEach(function(c){var d=document.createElement('div');d.className='cap '+c;spin.appendChild(d);});}
+    function paint(){ if(o.ring)return; [].forEach.call(spin.querySelectorAll('.fc'),function(f,k){f.innerHTML=faceHTML(items[k],k,o.tag?o.tag():'',o.cls==='riso');}); }
+    function show(swap){
+      idx=((Math.round(-a/step)%n)+n)%n; spin.style.setProperty('--ang',a+'deg');
+      var it=items[idx]; live.querySelector('h3').textContent=o.ring?it[0]+', '+it[1]:it[0]; live.querySelector('p').textContent=it[2]; cnt.textContent=(idx+1)+' / '+n;
+      if(swap){live.classList.remove('swap');void live.offsetWidth;live.classList.add('swap');}
+    }
+    function go(d){a-=d*step;show(true);}
+    var st={go:go,hinted:false,set:function(list){items=list;a=Math.round(a/360)*360-360;paint();show(true);},
+      hint:function(){if(st.hinted||reduce)return;st.hinted=true;var b=a;a=b-step*.28;spin.style.setProperty('--ang',a+'deg');setTimeout(function(){a=b;spin.style.setProperty('--ang',a+'deg');},520);}};
+    // trascinamento e clic
+    var down=null;
+    spin.addEventListener('pointerdown',function(ev){down={x:ev.clientX,a:a,moved:false,t:ev.target};e.classList.add('dragging');try{spin.setPointerCapture(ev.pointerId);}catch(_){}});
+    spin.addEventListener('pointermove',function(ev){if(!down)return;var dx=ev.clientX-down.x;if(Math.abs(dx)>6)down.moved=true;if(down.moved){a=down.a+dx*.45;spin.style.setProperty('--ang',a+'deg');}});
+    function up(ev){if(!down)return;e.classList.remove('dragging');var d=down;down=null;
+      if(d.moved){a=Math.round(a/step)*step;show(true);}
+      else if(o.ring){var p=d.t.closest?d.t.closest('.pn'):null;if(p){var i=+p.getAttribute('data-i'),cur=((Math.round(-a/step)%n)+n)%n,df=i-cur;if(df>n/2)df-=n;if(df<-n/2)df+=n;if(df===0)go(1);else{a-=df*step;show(true);}}}
+      else go(1);}
+    spin.addEventListener('pointerup',up);spin.addEventListener('pointercancel',up);
+    [].forEach.call(document.querySelectorAll('[data-next="'+id+'"]'),function(b){b.addEventListener('click',function(){go(1);});});
+    [].forEach.call(document.querySelectorAll('[data-prev="'+id+'"]'),function(b){b.addEventListener('click',function(){go(-1);});});
+    var r=add(e,o.x,o.y,o.z,'slab'); r.mx=0; r.my=o.my;
+    STAGE[o.station]=st; paint(); show(false); return st;
+  }
+  var curAg=0;
+  var agSt=mkStage('ag',{station:1,n:4,s:340,x:335,y:15,my:405,z:1*D,cap:'#12143D',items:AGENTS[0].f,tag:function(){return AGENTS[curAg].plat;},
+    cols:[['#7C5CFF','#FFFFFF'],['#3DE0D0','#0B0F2E'],['#FFFFFF','#1B1B3A'],['#FF5A4E','#1B1B3A']]});
+  var pick=document.getElementById('ag-pick');
+  AGENTS.forEach(function(ag,i){var b=document.createElement('button');b.type='button';b.textContent=ag.name;b.setAttribute('aria-pressed',i===0?'true':'false');
+    b.addEventListener('click',function(){curAg=i;[].forEach.call(pick.children,function(c,k){c.setAttribute('aria-pressed',k===i?'true':'false');});agSt.set(ag.f);});pick.appendChild(b);});
+  mkStage('pr',{station:2,ring:true,n:8,r:330,x:-310,y:10,my:385,z:2*D,items:PROJ,
+    cols:[['#3DE0D0','#0B0F2E'],['#FFFFFF','#1B1B3A'],['#7C5CFF','#FFFFFF'],['#FF5A4E','#1B1B3A'],['#FFC83D','#1B1B3A'],['#FFFFFF','#1B1B3A'],['#3D5AFE','#FFFFFF'],['#3DE0D0','#0B0F2E']]});
+  mkStage('el',{station:5,n:4,s:340,x:-335,y:15,my:390,z:5*D,cap:'#1B1B3A',items:ELIS,tag:function(){return 'ELIS Innovation Hub';},
+    cols:[['#1B1B3A','#FFC83D'],['#FFFFFF','#1B1B3A'],['#FF5A4E','#1B1B3A'],['#3D5AFE','#FFFFFF']]});
+  var curMk=0;
+  var mkSt=mkStage('mk',{station:6,n:4,s:340,x:335,y:15,my:420,z:6*D,cap:'#1E1E1E',cls:'riso',items:MKSETS[0].f,tag:function(){return MKSETS[curMk].tag;},
+    cols:[['#2337C6','#F1EEE8'],['#FF4B2B','#1E1E1E'],['#FFFFFF','#2337C6'],['#1E1E1E','#F1EEE8']]});
+  var mpick=document.getElementById('mk-pick');
+  MKSETS.forEach(function(m,i){var b=document.createElement('button');b.type='button';b.textContent=m.name;b.setAttribute('aria-pressed',i===0?'true':'false');
+    b.addEventListener('click',function(){curMk=i;[].forEach.call(mpick.children,function(c,k){c.setAttribute('aria-pressed',k===i?'true':'false');});mkSt.set(m.f);});mpick.appendChild(b);});
+
+  function place(){
+    var n=narrow();
+    objs.forEach(function(o){
+      var x=o.x,y=o.y;
+      if(o.kind==='slab'&&n){x=o.mx;y=o.my;}
+      if(o.kind==='name'){o.el.firstChild.style.fontSize=n?'96px':'150px';}
+      o.el.style.transform='translate3d('+x+'px,'+y+'px,'+(-o.z)+'px)';
+    });
+  }
+  place(); window.addEventListener('resize',place);
+
+  /* ---------- movimento ---------- */
+  var STOPS=[[0,[14,14,36]],[.55,[14,14,36]],[1,[11,15,46]],[1.55,[11,15,46]],[2,[22,12,54]],[2.5,[22,12,54]],[3,[27,27,58]],[3.5,[27,27,58]],[4,[230,244,239]],[4.5,[230,244,239]],[5,[255,200,61]],[5.5,[255,200,61]],[6,[241,238,232]],[9,[241,238,232]]];
+  function bg(p){
+    for(var i=0;i<STOPS.length-1;i++){var a=STOPS[i],b=STOPS[i+1]; if(p<=b[0]){var t=Math.max(0,Math.min(1,(p-a[0])/(b[0]-a[0])));
+      return 'rgb('+a[1].map(function(v,k){return Math.round(v+(b[1][k]-v)*t);}).join(',')+')';}}
+    return 'rgb(241,238,232)';
+  }
+  var panels=[].slice.call(document.querySelectorAll('.panel')), dots=[].slice.call(document.querySelectorAll('.dots button'));
+  var p=0,tp=0,mx=0,my=0,tmx=0,tmy=0,cur=-1;
+  function target(){tp=Math.max(0,Math.min(N+.25,window.scrollY/window.innerHeight));}
+  window.addEventListener('scroll',target,{passive:true}); target(); p=tp;
+  window.addEventListener('pointermove',function(e){ if(e.pointerType==='touch')return; tmx=(e.clientX/window.innerWidth-.5)*9; tmy=-(e.clientY/window.innerHeight-.5)*7; },{passive:true});
+  dots.forEach(function(b){b.addEventListener('click',function(){
+    var i=+b.getAttribute('data-i'); var top=i<=N?i*window.innerHeight:document.getElementById('chi-sono').offsetTop;
+    window.scrollTo({top:top,behavior:reduce?'auto':'smooth'});
+  });});
+  function frame(){
+    p+=(tp-p)*(reduce?1:.09); mx+=(tmx-mx)*.06; my+=(tmy-my)*.06;
+    var k=Math.max(.55,Math.min(1,window.innerWidth/1150)), cam=p*D;
+    world.style.transform='scale('+k+') rotateX('+(reduce?0:my)+'deg) rotateY('+(reduce?0:mx)+'deg) translateZ('+cam+'px)';
+    scene.style.background=bg(p);
+    for(var i=0;i<objs.length;i++){
+      var o=objs[i], dz=cam-o.z, op=1;
+      if(dz>850) op=0; else if(dz>450) op=1-(dz-450)/400; else if(dz<-2150) op=0; else if(dz<-1300) op=1-(-1300-dz)/850;
+      if(o.op!==op){o.op=op; o.el.style.opacity=op; o.el.style.visibility=op<=.01?'hidden':'visible';}
+    }
+    for(var j=0;j<panels.length;j++){
+      var d=p-j, a=Math.max(0,1-Math.abs(d)/.42); a=a*a*(3-2*a);
+      panels[j].style.opacity=a; panels[j].style.transform='translateY('+(-d*50)+'px)';
+      panels[j].classList.toggle('on',a>.6);
+    }
+    var c=window.scrollY>=document.getElementById('chi-sono').offsetTop-window.innerHeight*.5?N+1:Math.round(Math.min(N,p));
+    if(c!==cur){cur=c; dots.forEach(function(b,i){b.setAttribute('aria-current',i===c?'true':'false');}); if(STAGE[c])STAGE[c].hint();}
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* ---------- schede e lettore ---------- */
+  var sheet=document.getElementById('sheet'), card=document.getElementById('card'), player=document.getElementById('player'), holder=document.getElementById('frame'), last=null;
+  function el(tag,cls,html){var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e;}
+  function openSheet(id){
+    var d=DATA[id]; if(!d) return; last=document.activeElement;
+    card.innerHTML=''; card.style.setProperty('--ac',d.ac);
+    card.appendChild(el('p','k',d.k)); card.appendChild(el('h2','',d.t));
+    if(d.facts){var dl=el('dl','facts'); d.facts.forEach(function(f){var w=el('div'); w.appendChild(el('dt','',f[0])); w.appendChild(el('dd','',f[1])); dl.appendChild(w);}); card.appendChild(dl);}
+    d.p.forEach(function(t){card.appendChild(el('p',t===PW?'note':'',t));});
+    if(d.list){var ul=el('ul','others'); d.list.forEach(function(t){ul.appendChild(el('li','',t));}); card.appendChild(ul);}
+    if(d.flow){var ol=el('ol','flow'); d.flow.forEach(function(t){ol.appendChild(el('li','',t));}); card.appendChild(ol);}
+    if(d.n){var g=el('div','gal'); for(var i=1;i<=d.n;i++){var im=el('img'); im.src='img/'+id+'-'+i+'.jpg'; im.alt='Slide '+i+' del project work'; im.loading='lazy'; im.width=1280; im.height=720; g.appendChild(im);} card.appendChild(g);}
+    sheet.classList.add('open'); sheet.scrollTop=0; document.body.style.overflow='hidden'; sheet.querySelector('.x').focus();
+  }
+  function openPlayer(src,title){
+    last=document.activeElement; holder.innerHTML=''; var f=el('iframe'); f.src=src; f.title=title; f.setAttribute('allowfullscreen',''); holder.appendChild(f);
+    player.classList.add('open'); document.body.style.overflow='hidden'; player.querySelector('.x').focus();
+  }
+  function closeAll(){sheet.classList.remove('open'); player.classList.remove('open'); holder.innerHTML=''; document.body.style.overflow=''; if(last&&last.focus) last.focus();}
+  document.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',closeAll);});
+  sheet.addEventListener('click',function(e){if(e.target===sheet) closeAll();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape') closeAll();});
+  document.querySelectorAll('[data-sheet]').forEach(function(b){b.addEventListener('click',function(){openSheet(b.getAttribute('data-sheet'));});});
+  document.querySelectorAll('[data-play]').forEach(function(b){b.addEventListener('click',function(){openPlayer(b.getAttribute('data-play'),b.getAttribute('data-title'));});});
+  /* ---------- chiedimi qualcosa ---------- */
+  var QA=[
+    ['Da quanto lavori con l’AI?','Uso l’AI generativa da oltre quattro anni, anche contribuendo all’addestramento di modelli linguistici. Dal 2024 ho valutato startup AI per grandi aziende, e nel 2026 ho costruito agenti in Pfizer Italia.'],
+    ['Di quale progetto vai più fiero?','Dell’assistente che smista le email. Al primo test azzeccava 3 casi su 6, e gli errori avevano quasi tutti la stessa causa. Ho aggiunto una regola e sono passati tutti e sei. Mi piace quando un problema si lascia trovare.'],
+    ['Come capisci se un agente funziona?','Lo metto davanti ai casi veri e confronto quello che restituisce con la fonte, riga per riga: elenco delle differenze, tabella di confronto, sintesi. Se non regge lì, non è pronto.'],
+    ['Cosa non fai fare all’AI?','Decidere al posto delle persone, e fare i conti. I miei agenti segnalano, confrontano, preparano una risposta. I calcoli li lascio a regole esplicite, e i dati personali li inserisce solo chi li conosce.'],
+    ['Sai anche programmare?','Lavoro soprattutto con strumenti low-code: Copilot Studio, Agent Builder, Power Automate. Quando c’è da elaborare documenti in serie scrivo pipeline in Python o Node. Non sviluppo modelli da zero: li faccio lavorare bene dentro un processo.'],
+    ['Perché dal marketing all’AI?','Il marketing mi ha insegnato a partire dalle persone. L’AI mi ha dato il modo di costruire quello che a quelle persone serve. In mezzo c’è stata l’innovazione: a forza di valutare le tecnologie degli altri mi è venuta voglia di costruirle.']
+  ];
+  var qs=document.getElementById('qs'),aq=document.getElementById('aq'),aa=document.getElementById('aa'),typing=null,qb=[];
+  function say(i){
+    if(typing)cancelAnimationFrame(typing);
+    qb.forEach(function(b,k){b.setAttribute('aria-pressed',k===i?'true':'false');});
+    aq.textContent=QA[i][0];var txt=QA[i][1];
+    if(reduce){aa.textContent=txt;return;}
+    aa.textContent='';var t0=performance.now();(function step(now){var n=Math.min(txt.length,Math.floor((now-t0)/13));aa.textContent=txt.slice(0,n);typing=n<txt.length?requestAnimationFrame(step):null;})(t0);
+  }
+  QA.forEach(function(q,i){var li=document.createElement('li'),b=document.createElement('button');b.type='button';b.textContent=q[0];b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){say(i);});li.appendChild(b);qs.appendChild(li);qb.push(b);});
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){o.disconnect();setTimeout(function(){say(0);},500);}});},{threshold:.5}).observe(qs);} else say(0);
+  [].forEach.call(document.querySelectorAll('.figs dt'),function(dt){
+    var to=+dt.getAttribute('data-n'),suf=dt.getAttribute('data-suf')||'';
+    if(reduce||!('IntersectionObserver' in window))return;
+    dt.textContent='0'+suf;
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(!e.isIntersecting)return;o.disconnect();var v=0,id=setInterval(function(){v++;dt.textContent=v+suf;if(v>=to)clearInterval(id);},180);});},{threshold:.6}).observe(dt);
+  });
+})();
+</script>
+</body>
+</html>
